@@ -1,0 +1,16 @@
+<section class='w-100 m-0'>
+    <div class="call-container">
+        <!-- Message -->
+        <h1>
+            {{ 'call-action.phrase-L1' | translate }}<br />
+            {{ 'call-action.phrase-L2' | translate }}
+        </h1>
+        <!-- Call to action -->
+        <div class="footer-button-wrapper" [routerLink]="['/contact']">
+            <button class="footer-button">
+                <p> {{ 'call-action.button' | translate }}</p>
+                <i class="bi bi-arrow-right-short"></i>
+            </button>
+        </div>
+    </div>
+</section>

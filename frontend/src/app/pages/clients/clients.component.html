@@ -1,0 +1,25 @@
+<div class='w-100 m-0 page-container'>
+    <h1>{{ 'clients.our-clients' | translate }}</h1>
+    <p>
+        {{ 'clients.sub-title' | translate }}
+    </p>
+    <span class="separator"></span>
+    <!-- Client logos -->
+    <div class="client-card-container container-fluid">
+        <div class="row row-cols-2 row-cols-md-3 custom-gutter" *ngIf="clients$ | async as clients;">
+            <div class="col" *ngFor="let client of clients | slice:0:9; let i = index">
+                <div class="image-wrapper">
+                    <img [src]="client.company_logo.url" alt="client.company_name">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- All clients button -->
+    <div class="footer-button-wrapper">
+        <button class="footer-button" [routerLink]="['/clients/all']">
+            {{ 'clients.all-clients' | translate }}
+            <i class="bi bi-arrow-right-short"></i>
+        </button>
+    </div>
+    <span class="separator"></span>
+</div>

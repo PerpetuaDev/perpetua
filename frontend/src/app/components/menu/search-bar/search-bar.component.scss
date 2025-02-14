@@ -1,0 +1,122 @@
+.search-bar-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+
+    .search-bar-wrapper {
+        display: flex;
+        flex-direction: row;
+        justify-content: start;
+        align-items: center;
+
+        .search-icon-wrapper {
+            height: 24px;
+            margin-bottom: 3px;
+            display: flex;
+            align-items: start;
+            cursor: pointer;
+
+            svg {
+                stroke: #a8a8a8;
+            }
+        }
+
+        .input-wrapper {
+            display: flex;
+            flex-direction: column;
+            width: 525px;
+            margin-left: 6px;
+
+            label {
+                display: none;
+            }
+
+            input {
+                width: 100%;
+                height: 24px;
+                background-color: transparent;
+                border: none;
+                outline: none;
+                color: #ffffff;
+                font-family: 'Larsseit' !important;
+                font-size: 1.125rem;
+
+                input::placeholder {
+                    color: #a8a8a8;
+                    opacity: 1;
+                }
+            }
+        }
+    }
+
+    .search-result-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        width: 525px;
+        height: 230px;
+        margin-top: 38.02px;
+        margin-left: 24px;
+        background-color: transparent;
+
+        .search-result-item {
+            height: 24px;
+            color: #a8a8a8;
+            font-family: 'Larsseit' !important;
+            font-size: 1.125rem;
+            margin-bottom: 18px;
+            cursor: pointer;
+        }
+
+        .search-result-item:hover {
+            color: #ffffff;
+        }
+
+        .search-result-all {
+            height: 24px;
+            list-style: none;
+            display: flex;
+            flex-direction: row;
+            justify-content: start;
+            align-items: center;
+            font-family: 'Larsseit' !important;
+            font-size: 1.125rem;
+            color: #a8a8a8;
+            margin-top: 23.5px;
+            cursor: pointer;
+            transition: color 0.1s ease;
+
+            &:hover {
+                color: #ffffff;
+
+                .bi-arrow-right-short {
+                    transform: translateX(3px);
+                }
+            }
+
+            p {
+                margin: 0;
+            }
+
+            .bi-arrow-right-short {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                transition: transform 0.1s ease;
+            }
+        }
+    }
+}
+
+.search-bar-container .input-wrapper .b-bottom {
+    width: 0;
+    height: 1px;
+    background-color: #a8a8a8;
+    border-radius: 20px;
+    margin-top: 2px;
+    transition: width 0.1s ease;
+}
+
+.search-bar-container .input-wrapper .b-bottom.visible {
+    width: 100% !important;
+}

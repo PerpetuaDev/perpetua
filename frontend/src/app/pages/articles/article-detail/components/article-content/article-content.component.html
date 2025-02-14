@@ -1,0 +1,42 @@
+<section class='w-100 m-0'>
+    <div class="image-wrapper">
+        <img *ngIf="article?.thumbnail_image; else fallbackImage" [src]="article?.thumbnail_image?.url"
+            alt="article?.title || 'No Title Available'" />
+        <ng-template #fallbackImage>
+            <img src="../../../assets/images/img_n.a.png" alt="No Available" />
+        </ng-template>
+    </div>
+    <div class="content-container">
+        <!-- Left section -->
+        <div class="content-left">
+            <div class="related-articles-container">
+                <p class="title">{{ 'articles.related-articles' | translate }}</p>
+                <div *ngFor="let article of moreArticles$ | async | slice: 0:4" class="related-article"
+                    (click)="navigateToArticle(article.documentId)"
+                    (keydown)="handleKeydown($event, article.documentId)">
+                    <p class="related-article-title">{{ article.title }}
+                        <i class="bi bi-arrow-up-short"></i>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- Right section -->
+        <div class="content-right">
+            <p class="article-title">{{article?.title}}</p>
+            <p class="article-sub-title">{{article?.sub_heading}}</p>
+            <div class="article-date-wrapper">
+                <p>{{ article?.createdAt | date: 'MMMM d' }}</p>
+                <app-share-article-button [articleDocumentId]="article?.documentId || ''"
+                    [articleTitle]="article?.title || 'No Title Available'"></app-share-article-button>
+            </div>
+            <div class="article-content">
+                <div class="first-letter">{{ firstLetter }}</div>
+                <div class="rest-of-content" [innerHTML]="restOfContent"></div>
+            </div>
+        </div>
+    </div>
+    <div class="share-button-wrapper">
+        <app-share-article-button [articleDocumentId]="article?.documentId || ''"
+            [articleTitle]="article?.title || 'No Title Available'" [position]="'footer'"></app-share-article-button>
+    </div>
+</section>

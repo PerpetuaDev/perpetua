@@ -1,0 +1,63 @@
+<div class='w-100 m-0' id="pageTop">
+    <!-- Title -->
+    <h1>
+        {{ 'articles.title-bf' | translate }}
+        <span class="ampersand" aria-label="Ampersand"> &amp; </span>
+        {{ 'articles.title-af' | translate }}
+    </h1>
+    <!-- Sorting buttons -->
+    <div class="sort-button-container">
+        <button class="sort-button" (click)="sortProjects('article')"
+            [ngClass]="{'selected': (selectedFilter$ | async) === 'article'}">
+            {{ 'articles.nav.articles' | translate }}
+            <i class="bi" [ngClass]="{
+                    'bi-chevron-down': (selectedFilter$ | async) !== 'article',
+                    'bi-x': (selectedFilter$ | async) === 'article'
+                }"></i>
+        </button>
+        <button class="sort-button" (click)="sortProjects('news')"
+            [ngClass]="{'selected': (selectedFilter$ | async) === 'news'}">
+            {{ 'articles.nav.news' | translate }}
+            <i class="bi" [ngClass]="{
+                    'bi-chevron-down': (selectedFilter$ | async) !== 'news',
+                    'bi-x': (selectedFilter$ | async) === 'news'
+                }"></i>
+        </button>
+        <button class="sort-button" (click)="sortProjects('blog')"
+            [ngClass]="{'selected': (selectedFilter$ | async) === 'blog'}">
+            {{ 'articles.nav.work' | translate }}
+            <i class="bi" [ngClass]="{
+                    'bi-chevron-down': (selectedFilter$ | async) !== 'blog',
+                    'bi-x': (selectedFilter$ | async) === 'blog'
+                }"></i>
+        </button>
+        <button class="sort-button" (click)="sortProjects('all')"
+            [ngClass]="{'selected': (selectedFilter$ | async) === 'all'}">
+            {{ 'articles.nav.clear' | translate }}
+            <i class="bi bi-arrow-down-short"></i>
+        </button>
+    </div>
+    <span class="separator"></span>
+    <!-- Article cards -->
+    <ng-container *ngIf="isLoading$ | async; else articleCards">
+        <app-article-detail-skeleton></app-article-detail-skeleton>
+    </ng-container>
+
+    <ng-template #articleCards>
+        <ng-container *ngIf="articles$ | async as articles">
+            <div *ngIf="articles.length > 0">
+                <app-article-card-plus-info [visibleArticles]="visibleArticles"></app-article-card-plus-info>
+            </div>
+        </ng-container>
+    </ng-template>
+
+    <!-- Footer -->
+    <div class="footer-button-wrapper">
+        <button id="loadMoreButton" *ngIf="loadMoreButtonVisible" class="footer-button" (click)="loadMoreArticles()">
+            {{ 'button.load-more' | translate }}
+            <i class="bi bi-arrow-down-short"></i>
+        </button>
+        <app-back-to-top-button></app-back-to-top-button>
+    </div>
+    <span class="separator separator-bottom"></span>
+</div>

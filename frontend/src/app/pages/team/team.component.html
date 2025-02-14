@@ -1,0 +1,78 @@
+<div class='w-100 m-0' id="pageTop">
+    <!-- Title -->
+    <h1>{{ 'team.our-team' | translate }}</h1>
+
+    <!-- Sorting buttons -->
+    <div class="sort-button-container">
+        <button class="sort-button" (click)="sortMembers('office')"
+            [ngClass]="{'selected': (selectedFilter$ | async) === 'office'}">
+            {{ 'team.nav.by-office' | translate }}
+            <i class="bi" [ngClass]="{
+                'bi-chevron-down': (selectedFilter$ | async) !== 'office',
+                'bi-x': (selectedFilter$ | async) === 'office'
+            }"></i>
+        </button>
+        <button class="sort-button" (click)="sortMembers('role')"
+            [ngClass]="{'selected': (selectedFilter$ | async) === 'role'}">
+            {{ 'team.nav.by-role' | translate }}
+            <i class="bi" [ngClass]="{
+                'bi-chevron-down': (selectedFilter$ | async) !== 'role',
+                'bi-x': (selectedFilter$ | async) === 'role'
+            }"></i>
+        </button>
+        <button class="sort-button" (click)="sortMembers('all')"
+            [ngClass]="{'selected': (selectedFilter$ | async) === 'all'}">
+            {{ 'articles.nav.clear' | translate }}
+            <i class="bi bi-arrow-down-short"></i>
+        </button>
+    </div>
+    <span class="separator"></span>
+
+    <!-- Member cards by office/role -->
+    <ng-container *ngIf="membersByCategory && (selectedFilter$ | async) === 'office'">
+        <div class="staff-container">
+            <div class="sorted-cards-wrapper" *ngFor="let group of membersByCategory">
+                <p class="sorting-title" [innerHTML]="group.category"></p>
+                <div class="row row-cols-1 row-cols-md-3 custom-gutter">
+                    <div class="col" *ngFor="let member of group.members">
+                        <app-member-card [member]="member" filter="office"></app-member-card>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="membersByCategory && (selectedFilter$ | async) === 'role'">
+        <div class="staff-container">
+            <div class="sorted-cards-wrapper" *ngFor="let group of membersByCategory">
+                <p class="sorting-title" [innerHTML]="group.category"></p>
+                <div class="row row-cols-1 row-cols-md-3 custom-gutter">
+                    <div class="col" *ngFor="let member of group.members">
+                        <app-member-card [member]="member" filter="role"></app-member-card>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+
+    <!-- All Members -->
+    <ng-container *ngIf="membersByCategory && (selectedFilter$ | async) === 'all'">
+        <div class="staff-container">
+            <div class="row row-cols-1 row-cols-md-3 custom-gutter">
+                <div class="col" *ngFor="let member of visibleMembers">
+                    <app-member-card [member]="member" filter="all"></app-member-card>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+
+    <!-- Footer -->
+    <div class="footer-button-wrapper">
+        <button id="loadMoreButton" *ngIf="loadMoreButtonVisible" class="footer-button" (click)="loadMoreMembers()">
+            {{ 'button.load-more' | translate }}
+            <i class="bi bi-arrow-down-short"></i>
+        </button>
+        <app-back-to-top-button></app-back-to-top-button>
+    </div>
+    <span class="separator separator-bottom"></span>
+</div>

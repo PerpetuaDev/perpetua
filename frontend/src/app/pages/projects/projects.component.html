@@ -1,0 +1,83 @@
+<div class='w-100 m-0' id="pageTop">
+    <!-- Title -->
+    <h1>
+        {{ 'projects.title' | translate }}
+    </h1>
+    <!-- Sorting buttons -->
+    <div class="sort-button-container">
+        <button class="sort-button" (click)="sortProjects('industry')"
+            [ngClass]="{'selected': (selectedFilter$ | async) === 'industry'}">
+            {{ 'project.nav.by-industry' | translate }}
+            <i class="bi" [ngClass]="{
+                    'bi-chevron-down': (selectedFilter$ | async) !== 'industry',
+                    'bi-x': (selectedFilter$ | async) === 'industry'
+                }"></i>
+        </button>
+        <button class="sort-button" (click)="sortProjects('software')"
+            [ngClass]="{'selected': (selectedFilter$ | async) === 'software'}">
+            {{ 'project.nav.software' | translate }}
+            <i class="bi" [ngClass]="{
+                    'bi-chevron-down': (selectedFilter$ | async) !== 'software',
+                    'bi-x': (selectedFilter$ | async) === 'software'
+                }"></i>
+        </button>
+        <button class="sort-button" (click)="sortProjects('website')"
+            [ngClass]="{'selected': (selectedFilter$ | async) === 'website'}">
+            {{ 'project.nav.website' | translate }}
+            <i class="bi" [ngClass]="{
+                    'bi-chevron-down': (selectedFilter$ | async) !== 'website',
+                    'bi-x': (selectedFilter$ | async) === 'website'
+                }"></i>
+        </button>
+        <button class="sort-button" (click)="sortProjects('app')"
+            [ngClass]="{'selected': (selectedFilter$ | async) === 'app'}">
+            {{ 'project.nav.apps' | translate }}
+            <i class="bi" [ngClass]="{
+                    'bi-chevron-down': (selectedFilter$ | async) !== 'app',
+                    'bi-x': (selectedFilter$ | async) === 'app'
+                }"></i>
+        </button>
+        <button class="sort-button" (click)="sortProjects('all')"
+            [ngClass]="{'selected': (selectedFilter$ | async) === 'all'}">
+            {{ 'project.nav.all-work' | translate }}
+            <i class="bi" [ngClass]="{
+                'bi-chevron-down': (selectedFilter$ | async) !== 'all',
+                'bi-x': (selectedFilter$ | async) === 'all'
+            }"></i>
+        </button>
+    </div>
+    <span class="separator"></span>
+    <!-- Project cards -->
+    <ng-container *ngIf="isLoading$ | async">
+        <app-article-and-project-card-skeleton></app-article-and-project-card-skeleton>
+    </ng-container>
+
+    <ng-container *ngIf="!(isLoading$ | async)">
+        <ng-container *ngIf="selectedFilter$ | async as selectedFilter">
+            <div *ngIf="selectedFilter === 'industry' && (industries$ | async) as projectsByIndustry">
+                <div class="row row-cols-1 row-cols-md-3 custom-gutter">
+                    <div class="col" *ngFor="let industryKey of getIndustryKeys(projectsByIndustry)">
+                        <app-project-card [projects]="[projectsByIndustry[industryKey][0]]"
+                            [showTitleAsIndustry]="true"></app-project-card>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="selectedFilter !== 'industry'">
+                <app-project-card *ngIf="visibleProjects.length > 0" [projects]="visibleProjects"></app-project-card>
+            </div>
+        </ng-container>
+    </ng-container>
+
+    <!-- Footer -->
+    <div class="footer-button-wrapper">
+        <button id="loadMoreButton" *ngIf="loadMoreButtonVisible" class="footer-button" (click)="loadMoreProjects()">
+            {{ 'button.load-more' | translate }}
+            <i class="bi bi-arrow-down-short"></i>
+        </button>
+        <app-back-to-top-button></app-back-to-top-button>
+    </div>
+    <span class="separator"></span>
+
+    <!-- Call to action -->
+    <app-call-action></app-call-action>
+</div>

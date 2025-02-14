@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "default": "perpetua-live",
+    "production": "perpetua-live"
+  },
+  "targets": {},
+  "etags": {}
+}

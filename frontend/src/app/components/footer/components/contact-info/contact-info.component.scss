@@ -1,0 +1,103 @@
+.select-trigger {
+    display: flex;
+    justify-content: center;
+    border: none;
+    padding: 0;
+    margin: 0;
+    gap: 7px;
+    background-color: transparent;
+
+    .country-name,
+    .bi-chevron-down {
+        height: 46px;
+        margin: 0;
+        color: #a7a7a7;
+        font-family: 'Larsseit' !important;
+        font-size: 1.5rem;
+        transition: transform 0.1s ease;
+        opacity: 1;
+    }
+
+    &:hover .bi-chevron-down {
+        transform: translateY(2px);
+    }
+
+    .bi-chevron-down.invisible {
+        opacity: 0;
+    }
+}
+
+.example-menu {
+    display: inline-flex;
+    flex-direction: column;
+    width: 160px;
+    height: auto;
+    margin-top: 13px;
+    background-color: #0e0e01;
+    padding: 0;
+    transform: translateY(-15px);
+    transition: transform 0.1s ease, opacity 0.1s ease;
+}
+
+.example-menu-item {
+    color: #a7a7a7;
+    font-family: 'Larsseit' !important;
+    font-size: 1.5rem;
+    background-color: transparent;
+    cursor: pointer;
+    border: none;
+    user-select: none;
+    padding: 0;
+    margin-bottom: 15.5px;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    flex: 1;
+    transition: color 0.1s ease;
+
+    &:hover {
+        color: #ffffff;
+    }
+}
+
+.example-menu-icon {
+    color: #a7a7a7;
+    font-family: 'Larsseit' !important;
+    font-size: 1.5rem;
+    background-color: transparent;
+    cursor: pointer;
+    padding: 0;
+    margin: 8px 0 0 -2px;
+    transition: color 0.1s ease;
+
+    &:hover {
+        color: #ffffff;
+    }
+}
+
+.example-menu-item:active {
+    background-color: transparent;
+}
+
+.example-standalone-item {
+    background-color: transparent;
+}
+
+.example-standalone-item:hover {
+    background-color: transparent;
+}
+
+.example-standalone-item[aria-expanded='true'] {
+    background-color: transparent;
+}
+
+.info-wrapper {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-family: 'Sohne-500' !important;
+    font-size: 2.25rem;
+    font-weight: 500;
+    gap: 121.5px;
+    margin: 43px 0 56px;
+}

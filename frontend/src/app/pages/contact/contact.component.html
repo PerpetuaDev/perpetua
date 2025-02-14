@@ -1,0 +1,131 @@
+<div class='w-100 m-0'>
+    <section class="header-section">
+        <!-- Header -->
+        <div class="header-container">
+            <h1 class="title">{{ 'contact.title' | translate }}</h1>
+            <div>
+                <span class="header-bf">{{ 'contact.header-bf' | translate }}&nbsp;</span>
+                <span *ngIf="currentLanguage === 'en'" class="ampersand" aria-label="Ampersand">&amp;</span>
+                <span class="header-af">&nbsp;{{ 'contact.header-af' | translate }}</span>
+            </div>
+        </div>
+        <div class="image-wrapper">
+            <img [src]="officeImage" alt="office">
+        </div>
+        <!-- Contact info -->
+        <menu id="contactInformation">
+            <li *ngFor="let office of (offices$ | async); let i = index" class="location-button"
+                [ngClass]="{'selected': selectedLocation === office.office_location}"
+                (click)="onLocationClick(office.office_location)"
+                (keydown)="onLocationKeydown($event, office.office_location)">
+                {{ office.office_location }}
+                <i class="bi bi-arrow-up-short menu-icon"></i>
+            </li>
+        </menu>
+        <div class="contact-info-container" *ngIf="selectedContactInfo">
+            <div class="contact-info-wrapper">
+                <p class="subject">{{ 'contact.enquiry.business' | translate }}</p>
+                <p class="name">{{ selectedContactInfo.new_business[0]?.name }}</p>
+                <p class="email" (click)="sendEmail(selectedContactInfo.new_business[0]?.email)"
+                    (keydown)="sendEmailKeyDown($event, selectedContactInfo.new_business[0]?.email)">
+                    {{ selectedContactInfo.new_business[0]?.email }}
+                </p>
+            </div>
+            <div class="contact-info-wrapper">
+                <p class="subject">{{ 'contact.enquiry.job' | translate }}</p>
+                <p class="name">{{ selectedContactInfo.job_opportunities[0]?.name }}</p>
+                <p class="email" (click)="sendEmail(selectedContactInfo.job_opportunities[0]?.email)"
+                    (keydown)="sendEmailKeyDown($event, selectedContactInfo.job_opportunities[0]?.email)">
+                    {{ selectedContactInfo.job_opportunities[0]?.email }}
+                </p>
+            </div>
+            <div class="contact-info-wrapper">
+                <p class="subject">{{ 'contact.enquiry.general' | translate }}</p>
+                <p class="email" (click)="sendEmail(selectedContactInfo.general_enquiries[0]?.email)"
+                    (keydown)="sendEmailKeyDown($event, selectedContactInfo.general_enquiries[0]?.email)">
+                    {{ selectedContactInfo.general_enquiries[0]?.email }}
+                </p>
+            </div>
+        </div>
+    </section>
+    <!-- Form -->
+    <section id="contactMessage" class="form-section">
+        <h1>{{ 'contact.nav.message' | translate }}</h1>
+        <form [formGroup]="contactForm" class="form-container" (ngSubmit)="sendMessage()" aria-labelledby="form-title">
+            <div class="form-wrapper">
+                <div class="input-wrapper">
+                    <label id="full-name-label" for="full-name">Full Name*</label>
+                    <input id="full-name" type="text" formControlName="full_name"
+                        placeholder="{{ 'contact.form.name' | translate }}*" aria-required="true"
+                        aria-labelledby="full-name-label"
+                        [ngClass]="{ 'input-error': contactForm.get('full_name')?.invalid && contactForm.get('full_name')?.touched }">
+                    <div *ngIf="contactForm.get('full_name')?.invalid && contactForm.get('full_name')?.touched"
+                        class="error-message">
+                        {{ 'contact.form.input-error.name' | translate }}
+                    </div>
+                </div>
+                <div class="input-wrapper">
+                    <label id="company-label" for="company">Company</label>
+                    <input id="company" type="text" formControlName="company"
+                        placeholder="{{ 'contact.form.company' | translate }}" aria-labelledby="company-label">
+                </div>
+            </div>
+            <div class="form-wrapper">
+                <div class="input-wrapper">
+                    <label id="email-label" for="email">Email*</label>
+                    <input id="email" type="email" formControlName="email"
+                        placeholder="{{ 'contact.form.email' | translate }}*" aria-required="true"
+                        aria-labelledby="email-label"
+                        [ngClass]="{ 'input-error': contactForm.get('email')?.invalid && contactForm.get('email')?.touched }">
+                    <div *ngIf="contactForm.get('email')?.invalid && contactForm.get('email')?.touched"
+                        class="error-message">
+                        {{ 'contact.form.input-error.email' | translate }}
+                    </div>
+                </div>
+                <div class="input-wrapper phone-wrapper">
+                    <div class="image-wrapper">
+                        <img [src]="selectedFlagUrl" alt="'Flag of ' + selectedCountryName" />
+                    </div>
+                    <label id="country-code-label" for="country-code">Country Code</label>
+                    <input id="country-code" class="country-code" type="text" formControlName="country_code"
+                        placeholder="+" (input)="onCountryCodeInput($event)" aria-labelledby="country-code-label">
+                    <label id="phone-label" for="phone">Phone</label>
+                    <input id="phone" type="tel" formControlName="phone"
+                        placeholder="{{ 'contact.form.phone' | translate }}" aria-labelledby="phone-label">
+                </div>
+            </div>
+            <div class="form-wrapper">
+                <div class="input-wrapper message-wrapper">
+                    <label id="message-label" for="message">Message</label>
+                    <textarea #messageTextarea id="message" formControlName="message"
+                        placeholder="{{ 'contact.form.message' | translate }}*" required
+                        (input)="autoResize(messageTextarea)" aria-labelledby="message-label" class="first-line"
+                        [ngClass]="{ 'input-error': contactForm.get('message')?.invalid && contactForm.get('message')?.touched }">
+                    </textarea>
+                    <div *ngIf="contactForm.get('message')?.invalid && contactForm.get('message')?.touched"
+                        class="error-message">
+                        {{ 'contact.form.input-error.message' | translate }}
+                    </div>
+                </div>
+            </div>
+            <div class="submit-button-wrapper">
+                <button type="submit" class="submit-button" [disabled]="contactForm.invalid">
+                    {{ formSubmitted ? 'contact.form.sending' : 'contact.form.send' | translate }}
+                    <i class="bi bi-arrow-right-short"></i>
+                </button>
+            </div>
+
+            <div class="success-msg">{{ 'contact.form.sent-success' | translate }}</div>
+            <div class="error-msg">{{ 'contact.form.sent-error' | translate }}</div>
+        </form>
+    </section>
+    <!-- Location -->
+    <section id="contactLocations" class="location-section">
+        <h1>{{ 'contact.nav.locations' | translate }}</h1>
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+            <div *ngFor="let office of (offices$ | async)" class="col">
+                <app-location-card [office]="office"></app-location-card>
+            </div>
+        </div>
+    </section>
+</div>

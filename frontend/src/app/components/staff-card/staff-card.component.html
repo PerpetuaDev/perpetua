@@ -1,0 +1,18 @@
+<div class="staff-card-container container-fluid">
+    <div class="row row-cols-1 row-cols-md-3 custom-gutter" *ngIf="shuffledMembers.length > 0;">
+        <div class="col" *ngFor="let shuffledMemberArray of shuffledMembers; let i = index;">
+            <swiper-container class="card-container" #swiperRef slides-per-view="1" effect="fade" speed="2000"
+                loop="true">
+                <swiper-slide *ngFor="let member of shuffledMemberArray">
+                    <div class="image-wrapper" (mouseenter)="onMouseEnter(i)" (mouseleave)="onMouseLeave(i)">
+                        <img [src]="getMemberImageUrl(member)" alt="staff portrait" lazy="true">
+                    </div>
+                </swiper-slide>
+            </swiper-container>
+        </div>
+    </div>
+</div>
+
+<ng-template #noSlides>
+    <p>No slides available.</p>
+</ng-template>

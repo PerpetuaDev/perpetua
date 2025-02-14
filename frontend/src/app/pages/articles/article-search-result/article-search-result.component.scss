@@ -1,0 +1,166 @@
+h1 {
+    margin: 90px 0 100px 105px;
+}
+
+section {
+    width: 100%;
+
+    ul {
+        padding: 0;
+        margin: 0 0 100px 0;
+
+        li {
+            list-style: none;
+            display: flex;
+            justify-content: flex-start;
+            align-items: start;
+            column-gap: 15px;
+            padding: 15px 15px 15px 105px;
+            border-bottom: 2px solid #8a8a8a;
+
+            .image-wrapper {
+                position: relative;
+                width: 100%;
+                max-width: 600px;
+                aspect-ratio: 16 / 9;
+                background: #f0f0f0;
+                overflow: hidden;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+            }
+
+            .right-wrapper {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                font-family: 'Larsseit' !important;
+                color: #0e0e01;
+
+                .info-wrapper {
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+
+                    p {
+                        padding: 0;
+                        margin: 0;
+                    }
+
+                    .title {
+                        font-family: 'Larsseit-500' !important;
+                        font-size: 2rem;
+                        margin-bottom: 10px;
+                    }
+
+                    .category {
+                        font-size: 1.5rem;
+                        margin-bottom: 20px;
+                    }
+
+                    .content {
+                        width: 100%;
+                        font-size: 1.25rem;
+                        height: 50px;
+                        display: -webkit-box;
+                        -webkit-line-clamp: 3;
+                        line-clamp: 3;
+                        -webkit-box-orient: vertical;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        word-break: break-word;
+                    }
+
+                    .read-more-button-wrapper {
+                        width: 220px;
+                        display: flex;
+                        justify-content: flex-start;
+                        align-items: center;
+                        padding: 0;
+                        margin-top: 50px;
+
+                        .read-more-button {
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            padding: 0;
+                            color: #0e0e01;
+                            border: none;
+                            background-color: transparent;
+                            font-family: 'Sohne-500' !important;
+                            font-size: 1.5rem;
+
+                            i {
+                                font-size: 1.75rem;
+                                // margin-left: 5px;
+                                padding-top: 5px;
+                                transform: rotate(-45deg);
+                                transition: color 0.1s ease;
+                            }
+
+                            &:hover {
+                                color: #a8a8a8;
+                            }
+
+                            &:hover .bi-arrow-left-short {
+                                // transform: translateX(-2px);
+                                color: #a8a8a8;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+.footer-button-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-top: 38px;
+
+    .footer-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #0e0e01;
+        margin-left: 120px;
+        margin-right: 15px;
+        border: none;
+        background-color: transparent;
+        font-family: 'Sohne-500' !important;
+        font-size: 1.75rem;
+
+        i {
+            font-size: 2rem;
+            margin-left: 5px;
+            padding-top: 5px;
+            transition: transform 0.1s ease;
+        }
+
+        &:hover {
+            color: #a8a8a8;
+        }
+
+        &:hover .bi-arrow-left-short {
+            transform: translateX(-2px);
+            color: #a8a8a8;
+        }
+    }
+}
+
+.separator {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: #0e0e01;
+    margin: 0;
+}

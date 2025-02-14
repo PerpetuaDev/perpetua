@@ -1,0 +1,15 @@
+<div class="client-card-container container-fluid">
+    <div class="row row-cols-2 row-cols-md-3 custom-gutter">
+        <!-- Loop through clients to display client cards -->
+        <div class="col" *ngFor="let client of clients; let i = index">
+            <div class="image-wrapper" (click)="selectClient(i)" (keydown)="onKeyDown($event, i)">
+                <img [src]="client.company_logo.url" alt="{{ client.company_logo.url }}">
+            </div>
+        </div>
+
+        <div class="col" *ngFor="let _ of emptySpaces()">
+            <div class="empty-space">
+            </div>
+        </div>
+    </div>
+</div>

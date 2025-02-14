@@ -1,0 +1,32 @@
+<div class="search-bar-container" [ngClass]="{'search-articles': data === 'articles'}"
+    [ngStyle]="{'margin-left': data === 'articles' ? '113.1px' : '125.5px'}">
+    <!-- Search box -->
+    <div class="search-bar-wrapper">
+        <div class="search-icon-wrapper" (click)="onSearchInput()" (keydown)="onSearchIconKeyDown($event)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                stroke="#a8a8a8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="13" r="7" stroke-width="1.5"></circle>
+                <line x1="1" y1="23" x2="6" y2="18.5" stroke="#a8a8a8" stroke-width="1.5"></line>
+            </svg>
+        </div>
+        <div class="input-wrapper">
+            <label for="searchInput">Search</label>
+            <input #searchInput id="searchInput" type="text" [placeholder]="placeholder" [formControl]="searchControl"
+                (focus)="onSearchInput()" (input)="onSearchInput()" />
+            <span class="b-bottom"></span>
+        </div>
+    </div>
+
+    <!-- Search result display -->
+    <div class="search-result-container" *ngIf="searchResults.length > 0">
+        <div *ngFor="let result of searchResults" class="search-result-item" [routerLink]="result.path"
+            (click)="onSearchResultClick()" (keydown)="onKeyDownSearchResultClick($event)"
+            [innerHTML]="result.highlightedTitle">
+            {{ result.title }}
+        </div>
+        <div *ngIf="searchResults.length > 0" class="search-result-all" (click)="onClickAll(data)"
+            (keydown)="onKeyDown($event, data)">
+            <p>Browse all results</p><i class="bi bi-arrow-right-short"></i>
+        </div>
+    </div>
+</div>

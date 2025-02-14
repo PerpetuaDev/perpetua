@@ -1,0 +1,20 @@
+<div *ngIf="member" class="staff-card-container">
+    <div class="image-wrapper">
+        <img [src]="member.portrait_image.url" alt="member.first_name + member.last_name">
+    </div>
+    <div class="name-role-wrapper">
+        <ng-container *ngIf="!member.middle_name">
+            <p class="name">{{ member.first_name }}&nbsp;{{ member.last_name }}</p>
+        </ng-container>
+        <ng-container *ngIf="member.middle_name">
+            <p class="name">{{ member.first_name }}&nbsp;{{ member.middle_name }}&nbsp;{{ member.last_name }}</p>
+        </ng-container>
+        <span class="role" *ngIf="filter === 'all'">{{ member.role }}&nbsp;&middot;&nbsp;</span>
+        <span class="role" *ngIf="filter === 'office'">{{ member.role }}</span>
+        <span class="role" *ngIf="filter === 'all' || filter === 'role'">{{ member.location }}</span>
+    </div>
+</div>
+
+<ng-template #noSlides>
+    <p>No slides available.</p>
+</ng-template>

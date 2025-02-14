@@ -1,0 +1,48 @@
+<section class='w-100 m-0'>
+    <!-- Title -->
+    <h1>
+        {{ 'home.section-title.news' | translate }}
+    </h1>
+    <!-- Sorting buttons -->
+    <div class="sort-button-container">
+        <button class="sort-button" (click)="sortArticles('news')"
+            [ngClass]="{'selected': (selectedFilter$ | async) === 'news'}">
+            {{ 'articles.nav.news' | translate }}
+            <i class="bi" [ngClass]="{
+                'bi-chevron-down': (selectedFilter$ | async) !== 'news',
+                'bi-x': (selectedFilter$ | async) === 'news'
+            }"></i>
+        </button>
+        <button class="sort-button" (click)="sortArticles('article')"
+            [ngClass]="{'selected': (selectedFilter$ | async) === 'article'}">
+            {{ 'articles.nav.articles' | translate }}
+            <i class="bi" [ngClass]="{
+                'bi-chevron-down': (selectedFilter$ | async) !== 'article',
+                'bi-x': (selectedFilter$ | async) === 'article'
+            }"></i>
+        </button>
+        <button class="sort-button" [routerLink]="['/articles']">
+            {{ 'articles.nav.all' | translate }}
+            <i class="bi bi-arrow-right-short"></i>
+        </button>
+    </div>
+    <span class="separator"></span>
+    <!-- Article cards -->
+    <ng-container *ngIf="isLoading$ | async; else articleCards">
+        <app-article-and-project-card-skeleton></app-article-and-project-card-skeleton>
+    </ng-container>
+
+    <ng-template #articleCards>
+        <ng-container *ngIf="(articles$ | async) as articles">
+            <app-article-card [articles]="articles | slice:0:6"></app-article-card>
+        </ng-container>
+    </ng-template>
+    <!-- Footer -->
+    <div class="footer-button-wrapper" [routerLink]="['/articles']">
+        <button class="footer-button">
+            {{ 'articles.nav.all' | translate }}
+            <i class="bi bi-arrow-right-short"></i>
+        </button>
+    </div>
+    <span class="separator"></span>
+</section>

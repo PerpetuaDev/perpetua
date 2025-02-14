@@ -1,0 +1,63 @@
+.not-found-container {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+
+    .background-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        z-index: -1;
+        display: flex;
+        justify-content: end;
+        align-items: start;
+
+        .logo {
+            object-fit: cover;
+        }
+    }
+
+    .message {
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: start;
+        margin: 98px 0 0 105px;
+
+
+        h1 {
+            font-size: 10rem;
+            font-family: 'Larsseit-500';
+            margin: 0;
+            color: #0E0E01;
+        }
+
+        p {
+            font-size: 2.25rem;
+            font-family: 'Sohne-500', sans-serif;
+            color: #000000;
+            margin: 25.97px 0 0 0;
+        }
+
+        .home-link {
+            color: #000000;
+            font-family: 'Larsseit', sans-serif;
+            font-size: 1.5rem;
+            margin: 25.97px 0 0 0;
+            height: 24px;
+            text-decoration: none;
+            border-bottom: 1px solid #000000;
+
+            &:hover {
+                color: #808080;
+            }
+
+            i {
+                margin-left: -4.5px;
+                margin-right: -3px;
+            }
+        }
+    }
+}

@@ -1,0 +1,24 @@
+<div class="bottom-lang-option">
+    <form #languageForm action=''>
+        <fieldset class="language-container">
+            <div class="lang-options">
+                <div class="lang-option" *ngFor="let lang of filteredLanguages">
+                    <input [id]="lang.key" name="language" type="radio" [value]="lang.key" class="hidden-radio"
+                        (click)="toggleOption()" (keydown)="onToggleOptionKeyDown($event)"
+                        title="Select {{ lang.label }} language" />
+                    <label [for]="lang.key" class="radio-label" (click)="langOption(lang.label, lang.code)"
+                        (keydown)="onLangOptionKeyDown($event, lang.label, lang.code)">
+                        {{ lang.label }}
+                    </label>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+    <div class="lang-display-wrapper">
+        <i #chevronIcon class="bi bi-chevron-up" (click)="toggleOption()" (keydown)="onToggleOptionKeyDown($event)"></i>
+        <div #currentLangWrapper class="current-lang-wrapper" (click)="toggleOption()"
+            (keydown)="onToggleOptionKeyDown($event)">
+            <span class="current-lang">{{ selectedLanguage }}</span>
+        </div>
+    </div>
+</div>

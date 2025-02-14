@@ -1,0 +1,59 @@
+<section class='w-100 m-0'>
+    <div class="section-large">
+        <div class="image-wrapper">
+            <img *ngIf="project?.thumbnail_image; else fallbackImage" [src]="project?.thumbnail_image?.url"
+                alt="project?.project_title || 'No Title Available'" />
+            <ng-template #fallbackImage>
+                <img src="../../../assets/images/img_n.a.png" alt="No Available" />
+            </ng-template>
+        </div>
+        <div class="comment-wrapper">
+            <p>{{project?.project_comment1}}</p>
+            <i class="bi bi-chevron-down"></i>
+        </div>
+        <div class="image-wrapper">
+            <img [src]="project?.project_images?.[0]?.url" alt="project?.project_title || 'No Title Available'" />
+        </div>
+    </div>
+    <div class="section-small">
+        <div class="comment-wrapper sub-comment-wrapper">
+            <p>{{project?.project_comment2}}</p>
+            <i class="bi bi-chevron-down"></i>
+        </div>
+        <div class="image-wrapper grid">
+            <div class="row row-cols-md-2">
+                <div class="col">
+                    <img [src]="project?.project_images?.[1]?.url"
+                        alt="project?.project_title || 'No Title Available'" />
+                </div>
+                <div class="col">
+                    <img [src]="project?.project_images?.[2]?.url"
+                        alt="project?.project_title || 'No Title Available'" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <img [src]="project?.project_images?.[3]?.url"
+                        alt="project?.project_title || 'No Title Available'" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section-large">
+        <div class="comment-wrapper right-comment-wrapper">
+            <p>{{project?.project_comment3}}</p>
+        </div>
+        <div class="image-wrapper">
+            <img [src]="project?.project_images?.[4]?.url" alt="project?.project_title || 'No Title Available'" />
+        </div>
+    </div>
+    <div class="section-small">
+        <div class="comment-wrapper sub-comment-wrapper">
+            <p>{{project?.project_comment4}}</p>
+            <i class="bi bi-chevron-down"></i>
+        </div>
+        <div class="image-wrapper">
+            <img [src]="project?.project_images?.[5]?.url" alt="project?.project_title || 'No Title Available'" />
+        </div>
+    </div>
+</section>

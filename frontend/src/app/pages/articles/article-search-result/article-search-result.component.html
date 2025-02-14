@@ -1,0 +1,46 @@
+<div class='w-100 m-0' id="pageTop">
+    <!-- Title -->
+    <h1>
+        Search result
+    </h1>
+    <!-- All results -->
+    <section>
+        <ul>
+            <li *ngFor="let article of visibleArticles">
+                <div class="image-wrapper">
+                    <img [src]="article.thumbnail_image.url" alt="">
+                </div>
+                <div class="right-wrapper">
+                    <div class="info-wrapper">
+                        <div>
+                            <p class="title">{{ article.title }}</p>
+                            <p class="category">
+                                {{ capitalizeFirstLetter(article.type) }}&nbsp;&middot;&nbsp;{{ article.createdAt |
+                                date:'dd MMM, yyyy' }}
+                            </p>
+                        </div>
+                        <p class="content">{{ article.content }}</p>
+                        <div class="read-more-button-wrapper">
+                            <button class="read-more-button" [routerLink]="['/articles', article.documentId]">
+                                Read more
+                                <i class="bi bi-arrow-right-short"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </section>
+    <!-- Footer -->
+    <div class="footer-button-wrapper">
+        <button id="loadMoreButton" *ngIf="loadMoreButtonVisible" class="footer-button" (click)="loadMoreArticles()">
+            {{ 'button.load-more' | translate }}
+            <i class="bi bi-arrow-down-short"></i>
+        </button>
+        <app-back-to-top-button></app-back-to-top-button>
+    </div>
+    <span class="separator"></span>
+
+    <!-- Call to action -->
+    <app-call-action></app-call-action>
+</div>

@@ -1,0 +1,90 @@
+<div class="logo-wrapper" routerLink="/" (click)="onLogoClick()" (keydown)="onKeyDown($event)">
+    <style>
+        .logo-wrapper {
+            position: relative;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .svg-path-white {
+            fill: #ffffff;
+            transition: opacity 0.1s ease-in-out;
+            opacity: 1;
+        }
+
+        .svg-path-gradient-blurred {
+            fill: url(#gradientFill);
+            transition: opacity 0.1s ease-in-out;
+            opacity: 0;
+            filter: blur(20px);
+        }
+
+        .svg-path-gradient-sharp {
+            fill: url(#gradientFill);
+            transition: opacity 0.1s ease-in-out;
+            opacity: 0;
+        }
+
+        .logo-wrapper:hover .svg-path-white {
+            opacity: 0;
+        }
+
+        .logo-wrapper:hover .svg-path-gradient-blurred {
+            opacity: 1;
+        }
+
+        .logo-wrapper:hover .svg-path-gradient-sharp {
+            opacity: 1;
+        }
+    </style>
+
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 273.49 329.67" width="28" height="28">
+        <!-- Define the Gradient -->
+        <defs>
+            <linearGradient id="gradientFill" gradientUnits="userSpaceOnUse" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#00FFB9" />
+                <stop offset="30%" stop-color="#0BB9D2" />
+                <stop offset="60%" stop-color="#0BB3CD" />
+                <stop offset="70%" stop-color="#0BA4C0" />
+                <stop offset="80%" stop-color="#0C8AAB" />
+                <stop offset="90%" stop-color="#0D678D" />
+                <stop offset="100%" stop-color="#0E5A82" />
+            </linearGradient>
+        </defs>
+
+        <!-- Apply the Gradient to Paths -->
+        <g id="Layer_1-2" data-name="Layer_1">
+            <g>
+                <g>
+                    <!-- White Path -->
+                    <path class="svg-path-white"
+                        d="M0,172.61v.04h125.14v-.04H0ZM260.07,172.61h-121.15v.04h121.15v-.04Z" />
+                    <path class="svg-path-white"
+                        d="M273.49,244.07v-87.02h-125.13v-71.45C148.36,36.27,120.79,0,74,0S0,36.27,0,85.6v87.01h125.14v71.46c0,49.33,27.57,85.6,74.36,85.6s73.99-36.27,73.99-85.6ZM13.43,157.05v-70.36c0-40.63,19.95-71.46,60.57-71.46s60.57,30.83,60.57,71.46v70.36H13.43ZM138.92,242.98v-70.37h121.15v70.37c0,40.63-19.95,71.45-60.57,71.45s-60.58-30.82-60.58-71.45Z" />
+
+                    <!-- Blurred Gradient Path -->
+                    <path class="svg-path-gradient-blurred"
+                        d="M0,172.61v.04h125.14v-.04H0ZM260.07,172.61h-121.15v.04h121.15v-.04Z" />
+                    <path class="svg-path-gradient-blurred"
+                        d="M273.49,244.07v-87.02h-125.13v-71.45C148.36,36.27,120.79,0,74,0S0,36.27,0,85.6v87.01h125.14v71.46c0,49.33,27.57,85.6,74.36,85.6s73.99-36.27,73.99-85.6ZM13.43,157.05v-70.36c0-40.63,19.95-71.46,60.57-71.46s60.57,30.83,60.57,71.46v70.36H13.43ZM138.92,242.98v-70.37h121.15v70.37c0,40.63-19.95,71.45-60.57,71.45s-60.58-30.82-60.58-71.45Z" />
+
+                    <!-- Sharp Gradient Path -->
+                    <path class="svg-path-gradient-sharp"
+                        d="M0,172.61v.04h125.14v-.04H0ZM260.07,172.61h-121.15v.04h121.15v-.04Z" />
+                    <path class="svg-path-gradient-sharp"
+                        d="M273.49,244.07v-87.02h-125.13v-71.45C148.36,36.27,120.79,0,74,0S0,36.27,0,85.6v87.01h125.14v71.46c0,49.33,27.57,85.6,74.36,85.6s73.99-36.27,73.99-85.6ZM13.43,157.05v-70.36c0-40.63,19.95-71.46,60.57-71.46s60.57,30.83,60.57,71.46v70.36H13.43ZM138.92,242.98v-70.37h121.15v70.37c0,40.63-19.95,71.45-60.57,71.45s-60.58-30.82-60.58-71.45Z" />
+                </g>
+                <path class="svg-path-white"
+                    d="M13.43,157.02v.03h121.14v-.03H13.43ZM273.49,157.02h-125.13v.03h125.13v-.03Z" />
+                <path class="svg-path-gradient-blurred"
+                    d="M13.43,157.02v.03h121.14v-.03H13.43ZM273.49,157.02h-125.13v.03h125.13v-.03Z" />
+                <path class="svg-path-gradient-sharp"
+                    d="M13.43,157.02v.03h121.14v-.03H13.43ZM273.49,157.02h-125.13v.03h125.13v-.03Z" />
+            </g>
+        </g>
+    </svg>
+</div>

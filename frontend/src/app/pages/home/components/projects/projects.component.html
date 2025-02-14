@@ -1,0 +1,59 @@
+<section class='w-100 m-0'>
+    <!-- Title -->
+    <h1>
+        {{ 'home.section-title.projects-L1' | translate }}<br>
+        {{ 'home.section-title.projects-L2-bf' | translate }}
+        <span *ngIf="currentLanguage === 'en'" class="ampersand" aria-label="Ampersand">&amp;</span>
+        {{ 'home.section-title.projects-L2-af' | translate }}
+    </h1>
+    <!-- Sorting buttons -->
+    <div class="sort-button-container">
+        <button class="sort-button" (click)="sortProjects('software')"
+            [ngClass]="{'selected': (selectedFilter$ | async) === 'software'}">
+            {{ 'project.nav.software' | translate }}
+            <i class="bi" [ngClass]="{
+                'bi-chevron-down': (selectedFilter$ | async) !== 'software',
+                'bi-x': (selectedFilter$ | async) === 'software'
+            }"></i>
+        </button>
+        <button class="sort-button" (click)="sortProjects('website')"
+            [ngClass]="{'selected': (selectedFilter$ | async) === 'website'}">
+            {{ 'project.nav.website' | translate }}
+            <i class="bi" [ngClass]="{
+                'bi-chevron-down': (selectedFilter$ | async) !== 'website',
+                'bi-x': (selectedFilter$ | async) === 'website'
+            }"></i>
+        </button>
+        <button class="sort-button" (click)="sortProjects('app')"
+            [ngClass]="{'selected': (selectedFilter$ | async) === 'app'}">
+            {{ 'project.nav.apps' | translate }}
+            <i class="bi" [ngClass]="{
+                'bi-chevron-down': (selectedFilter$ | async) !== 'app',
+                'bi-x': (selectedFilter$ | async) === 'app'
+            }"></i>
+        </button>
+        <button class="sort-button" [routerLink]="['/projects']" (click)="sortProjects('all')">
+            {{ 'project.nav.all' | translate }}
+            <i class="bi bi-arrow-right-short"></i>
+        </button>
+    </div>
+    <span class="separator"></span>
+    <!-- Project cards -->
+    <ng-container *ngIf="isLoading$ | async; else projectCards">
+        <app-article-and-project-card-skeleton></app-article-and-project-card-skeleton>
+    </ng-container>
+
+    <ng-template #projectCards>
+        <app-project-card *ngIf="filteredProjects$ | async as filteredProjects"
+            [projects]="filteredProjects | slice:0:6" [isLoading]="false"></app-project-card>
+    </ng-template>
+
+    <!-- Footer -->
+    <div class="footer-button-wrapper">
+        <button class="footer-button" [routerLink]="['/projects']" (click)="sortProjects('all')">
+            {{ 'project.nav.all' | translate }}
+            <i class="bi bi-arrow-right-short"></i>
+        </button>
+    </div>
+    <span class="separator"></span>
+</section>

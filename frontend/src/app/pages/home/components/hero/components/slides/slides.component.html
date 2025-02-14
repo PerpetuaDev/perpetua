@@ -1,0 +1,35 @@
+<!-- Loading Skeleton -->
+<div *ngIf="isLoading" class="slide-container">
+    <app-slides-skeleton></app-slides-skeleton>
+</div>
+<!-- Image Carousel -->
+<div *ngIf="!isLoading && slides.length > 0" class="carousel-container">
+    <div class="images-container">
+        <div *ngFor="let slide of slides; let i = index" class="carousel-item"
+            [ngClass]="{ 'active': i === currentIndex, 'previous': i === previousIndex }"
+            [ngStyle]="getTransformStyle(i)">
+            <img [src]="slide.project_image.thumbnail_image.url || '../../../assets/images/img_n.a.png'"
+                alt="Slide {{ i + 1 }}" class="d-block w-100">
+        </div>
+    </div>
+    <!-- Header -->
+    <div *ngIf="!isLoading && slides.length > 0" id="carouselText" class="carousel slide carousel-fade header-container"
+        data-bs-interval="false">
+        <div class="carousel-inner">
+            <div class="carousel-item text-wrapper" *ngFor="let slide of slides; let i = index"
+                [ngClass]="{'active': i === currentIndex}">
+                <p class="counter">{{ i + 1 }}</p>
+                <p class="title">{{ slide.company_name }}</p>
+            </div>
+        </div>
+        <!-- Controls -->
+        <button class="carousel-control-prev" type="button" (click)="controlCarousel('prev')">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" (click)="controlCarousel('next')">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</div>

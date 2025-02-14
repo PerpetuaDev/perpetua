@@ -1,0 +1,110 @@
+.lang-option-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+
+    .lang-display-wrapper {
+        width: auto;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        position: relative;
+
+        .bi-chevron-left {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: -3.5px;
+            color: #ffffff;
+            font-size: 1rem;
+            transition: margin-left 0.4s ease;
+            z-index: 20;
+
+            &.visible {
+                transform: translateX(-175px);
+            }
+        }
+    }
+
+    form {
+        position: absolute;
+        top: 0;
+        right: -96px;
+        display: flex;
+        justify-content: center;
+        transition: right 0.1s ease, opacity 0.1s ease;
+        width: max-content;
+        white-space: nowrap;
+
+        &.visible {
+            right: 77.83px;
+            opacity: 1 !important;
+        }
+
+        .language-container {
+            border: none;
+            padding: 0;
+
+            .lang-options {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+
+                .lang-option {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    .hidden-radio {
+                        display: none;
+                    }
+
+                    .radio-label {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        height: 24px;
+                        margin-left: 35px;
+                        color: #ffffff;
+                        font-family: 'Larsseit', sans-serif;
+                        font-size: 1.125rem;
+                        transition: color 0.1s ease;
+                        cursor: pointer;
+
+                        &:hover {
+                            color: #a8a8a8;
+                        }
+
+                    }
+
+                    &:last-child {
+                        .radio-label {
+                            margin-right: 16.04px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .current-lang-wrapper {
+        padding-right: 15px;
+        padding-left: 12.96px;
+        background-color: #0e0e01;
+        cursor: pointer;
+        z-index: 20;
+        transition: padding-left 0.1s ease;
+
+        .current-lang {
+            height: 24px;
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            font-family: 'Larsseit', sans-serif;
+            font-size: 1.125rem;
+            color: #ffffff;
+        }
+    }
+}

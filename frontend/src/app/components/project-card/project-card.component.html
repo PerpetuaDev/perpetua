@@ -1,0 +1,37 @@
+<div *ngIf="!showTitleAsIndustry" class="project-card-container container-fluid">
+    <div class="row row-cols-2 row-cols-md-3 custom-gutter">
+        <div class="col" *ngFor="let project of projects" (click)="navigateToProject(project.documentId)"
+            (keydown)="onKeyDown($event, project.documentId)" (mouseenter)="onMouseEnterTitle($event)"
+            (mouseleave)="onMouseLeaveTitle($event)">
+            <!-- Image -->
+            <div class="image-wrapper">
+                <img [src]="project.thumbnail_image.url" alt="project.project_title" loading="lazy"
+                    (load)="onImageLoad()" />
+            </div>
+            <!-- Title -->
+            <div class="title-wrapper">
+                <p *ngIf="!showTitleAsIndustry" class="title">{{ project.project_title | titlecase }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showTitleAsIndustry" class="industry-card-container container-fluid">
+    <div class="row row-cols-2 row-cols-md-3 custom-gutter">
+        <div class="col" *ngFor="let project of projects" (mouseenter)="onMouseEnterTitle($event)"
+            (mouseleave)="onMouseLeaveTitle($event)">
+            <a class="card-container" [routerLink]="['/projects/industries', project.industry]" tabindex="0"
+                [attr.aria-label]="'View projects for ' + project.industry">
+                <!-- Image -->
+                <div class="image-wrapper">
+                    <img [src]="project.thumbnail_image.url" alt="{{ project.project_title }}" loading="lazy"
+                        (load)="onImageLoad()" />
+                </div>
+                <!-- Title -->
+                <div class="title-wrapper">
+                    <p *ngIf="showTitleAsIndustry" class="title">{{ project.industry | titlecase }}</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+<ng-container *ngIf="clients.length > 0">
+    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5">
+        <!-- Loop through clients, displaying first 14 client logos -->
+        <div *ngFor="let client of clients | slice: 0:14" class="col d-flex align-items-center justify-content-center">
+            <div class="client-logo-container">
+                <img [src]="client.company_logo.url" alt="{{ client.company_name }}">
+            </div>
+        </div>
+
+        <!-- Add empty spaces if there are fewer than 9 clients -->
+        <div *ngFor="let _ of emptySpaces()" class="col d-flex align-items-center justify-content-center">
+            <div class="empty-space">
+            </div>
+        </div>
+
+        <!-- Button to view all clients -->
+        <button class="d-flex align-items-center justify-content-center client-button-cell" routerLink="/clients">
+            <p class="contact-button">{{ 'clients.all-clients' | translate }}</p>
+            <i class="bi bi-arrow-up-short client-icon"></i>
+        </button>
+    </div>
+</ng-container>

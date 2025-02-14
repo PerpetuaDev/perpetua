@@ -1,0 +1,11 @@
+.slide-container {
+    width: 100%;
+    height: calc(100vh - 46px);
+}
+
+@media screen and (max-width: 768px) {
+    .slide-container {
+        width: 100%;
+        height: 280px;
+    }
+}

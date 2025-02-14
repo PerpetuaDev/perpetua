@@ -1,0 +1,142 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the theme object.
+$frontend-theme: mat.define-theme((color: (theme-type: light,
+        primary: mat.$azure-palette,
+        tertiary: mat.$blue-palette,
+      ),
+      density: (scale: 0,
+      )));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+:root {
+  @include mat.all-component-themes($frontend-theme);
+}
+
+// Comment out the line below if you want to use the pre-defined typography utility classes.
+// For more information: https://material.angular.io/guide/typography#using-typography-styles-in-your-application.
+// @include mat.typography-hierarchy($frontend-theme);
+
+// Comment out the line below if you want to use the deprecated `color` inputs.
+// @include mat.color-variants-backwards-compatibility($frontend-theme);
+/* You can add global styles to this file, and also import other style files */
+
+@import 'swiper/swiper-bundle.css';
+
+@font-face {
+  font-family: 'Larsseit-200';
+  src: url('../src/assets/fonts/larsseit/Larsseit-Thin.otf') format('opentype');
+  font-weight: 100; // Thin
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Larsseit-300';
+  src: url('../src/assets/fonts/larsseit/Larsseit-Light.otf') format('opentype');
+  font-weight: 300; // Light
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Larsseit';
+  src: url('../src/assets/fonts/larsseit/Larsseit.woff2') format('opentype');
+  font-weight: 400; // Regular
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Larsseit-500';
+  src: url('../src/assets/fonts/larsseit/Larsseit-Medium.woff') format('opentype');
+  font-weight: 500; // Medium
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Larsseit-600';
+  src: url('../src/assets/fonts/larsseit/Larsseit-Bold.otf') format('opentype');
+  font-weight: 600; // Bold
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Larsseit-700';
+  src: url(assets/fonts/larsseit/Larsseit-ExtraBold.otf) format('opentype');
+  font-weight: 700; // Extra Bold
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Sohne-200';
+  src: url(assets/fonts/sohne/Sohne-Thin.otf) format('opentype');
+  font-weight: 100; // Thin
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Sohne-300';
+  src: url(assets/fonts/sohne/Sohne-Light.otf) format('opentype');
+  font-weight: 300; // Light
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Sohne';
+  src: url(assets/fonts/sohne/Sohne.otf) format('opentype');
+  font-weight: 400; // Regular
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Sohne-500';
+  src: url(assets/fonts/sohne/Sohne-Medium.otf) format('opentype');
+  font-weight: 500; // Medium
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Sohne-600';
+  src: url(assets/fonts/sohne/Sohne-Bold.otf) format('opentype');
+  font-weight: 600; // Bold
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Sohne-700';
+  src: url(assets/fonts/sohne/Sohne-ExtraBold.otf) format('opentype');
+  font-weight: 800; // Extra Bold
+  font-style: normal;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  height: 100%;
+  font-size: 1rem;
+}
+
+body {
+  font-family: 'Larsseit', 'Sohne', Arial, sans-serif !important;
+  color: #0e0e01;
+  margin: 0;
+}
+
+h1 {
+  font-family: 'Sohne-500' !important;
+  font-size: 2.25rem;
+  color: #000000;
+  margin: 0;
+}

@@ -1,0 +1,40 @@
+<ng-container *ngIf="office">
+    <div class="image_wrapper">
+        <img [src]="office.office_image[0].url" alt="office.office_location">
+    </div>
+    <div class="office_info_container">
+        <div class="office_info_left">
+            <div class="location-wrapper">
+                <p class="location" [routerLink]="['/about', office.documentId]">{{ office.office_location }}</p>
+                <i class="bi bi-arrow-up-short location-icon"></i>
+            </div>
+            <p *ngIf="office.currentTime" class="time">
+                {{ office.currentTime.split(':')[0] }}
+                <span class="colon">:</span>
+                {{ office.currentTime.split(':')[1].slice(0, 2) }}
+                <span>{{ office.currentTime.split(' ')[1].toLowerCase() }}</span>
+            </p>
+            <p class="email" (click)="sendEmail()" (keydown)="sendEmailKeyDown($event)">
+                {{ office.email }}
+            </p>
+            <p class="phone">{{ office.phone }}</p>
+        </div>
+        <div class="office_info_right">
+            @if (office.country !== 'Japan') {
+            <p>{{ office.address_1 }}</p>
+            <p>{{ office.address_2 }}</p>
+            <p>{{ office.city_or_state }}, {{ office.post_code}}</p>
+            <p>{{ office.country }}</p>
+            } @else {
+            <p>{{ office.address_1 }}, {{ office.address_2}}</p>
+            <p>{{ office.ward }}, {{ office.city_or_state}}</p>
+            <p>{{ office.prefecture }}, {{ office.post_code}}</p>
+            <p>{{ office.country }}</p>
+            }
+            <div class="direction-button-wrapper">
+                <button (click)="openGoogleMaps(office.office_location)">Get directions</button>
+                <i class="bi bi-arrow-right-short"></i>
+            </div>
+        </div>
+    </div>
+</ng-container>

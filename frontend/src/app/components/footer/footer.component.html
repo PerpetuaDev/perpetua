@@ -1,0 +1,22 @@
+<section class='w-100 m-0'>
+    <!-- Contacts(email/phone) -->
+    <app-contact-info></app-contact-info>
+    <!-- Page list -->
+    <app-page-list></app-page-list>
+    <!-- Bottom parts -->
+    <div class="bottom-container">
+        <!-- Logo -->
+        <div class="logo-wrapper">
+            <img src="../../../assets/images/footer-logo.png" alt="perpetua-software-footer-logo" />
+        </div>
+        <!-- Copyright -->
+        <p>Copyright <span class="smaller-symbol">&#169;</span> PerpetuaSoftware. All rights reserved.</p>
+        <!-- Term/privacy -->
+        <div class="link-bottom-wrapper">
+            <span class="link-bottom" routerLink="/terms">{{ 'footer.terms' | translate }}</span>
+            <span class="link-bottom" routerLink="/privacy">{{ 'footer.privacy' | translate }}</span>
+        </div>
+        <!-- Language option -->
+        <app-language-footer></app-language-footer>
+    </div>
+</section>

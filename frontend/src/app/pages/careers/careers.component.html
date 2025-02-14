@@ -1,0 +1,32 @@
+<div class='w-100 m-0'>
+    <section class="header-container">
+        <div class="header-left-container">
+            <h1 class="title">{{ career?.job_title }}</h1>
+            <span>{{ career?.job_type }}&nbsp;&#8213;&nbsp;{{ career?.job_location }}</span>
+            <div>
+                <p>{{ career?.location_type }}</p>
+                <div class="job-description" [innerHTML]="jobDescriptionHtml"></div>
+            </div>
+        </div>
+        <div class="header-right-container">
+            <h2>Apply for this position</h2>
+            <p>To apply, please submit your CV and cover letter via email to <a
+                    href="mailto:team@perpetua.co">career&#64;perpetua.co</a>.</p>
+            <br />
+            <p>Please include your full name and location in the subject of the email.</p>
+        </div>
+    </section>
+    <section class="offer-container">
+        <h1>What we offer</h1>
+        <div *ngFor="let offer of offers; let i = index" class="offer-wrapper"
+            [ngClass]="{ visible: i === activeOfferIndex }" (click)="toggleDetail(i)" (keydown.enter)="toggleDetail(i)">
+            <div class="title-wrapper">
+                <h2>{{ offer.title }}</h2>
+                <i class="bi bi-chevron-down example-menu-icon"></i>
+            </div>
+            <p class="offer-description">{{ offer.description }}</p>
+        </div>
+    </section>
+
+    <app-footer></app-footer>
+</div>

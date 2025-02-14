@@ -1,0 +1,170 @@
+.header-section {
+    width: 100%;
+    height: 622.5px;
+    padding: 157px 0 203px 199.66px;
+    margin-bottom: -20px;
+    background-color: #0e0e01;
+    display: flex;
+    flex-direction: column;
+    gap: 43px;
+
+    .header-text {
+        max-width: 1163px;
+        font-family: 'Sohne' !important;
+        font-size: 2.25rem;
+        color: #ffffff;
+        margin: 0;
+    }
+}
+
+.location-section {
+    padding: 75px 65px 0;
+
+    .col {
+        margin-top: 20px;
+    }
+
+    menu {
+        display: flex;
+        width: 100%;
+        padding: 0;
+        margin: 35px 0 76px;
+        color: #000000;
+        font-size: 1.5rem;
+
+        .location-button {
+            list-style: none;
+            margin-right: 65px;
+            cursor: pointer;
+        }
+
+        .menu-icon {
+            transform: rotate(45deg);
+            display: inline-block;
+            margin: -5px;
+        }
+
+        .location-button:hover {
+            color: #a8a8a8;
+
+            .menu-icon {
+                color: #a8a8a8;
+            }
+        }
+    }
+}
+
+.contact-button-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    border-bottom: 2px solid #0e0e01;
+    padding-right: 15px;
+
+    .contact-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #0e0e01;
+        padding: 0;
+        margin: 0 9px 1.7px 120px;
+        border: none;
+        background-color: transparent;
+        font-family: 'Sohne-500' !important;
+        font-size: 1.75rem;
+    }
+
+    .contact-icon {
+        font-size: 2rem;
+        margin-left: 0.5px;
+        padding-top: 5px;
+        transition: transform 0.1s ease;
+    }
+
+    &:hover {
+        button {
+            color: #a8a8a8;
+        }
+
+        .contact-icon {
+            transform: translateX(2px);
+            color: #a8a8a8;
+        }
+    }
+}
+
+.sub-title {
+    margin: 77px 0 100px 65px;
+}
+
+.team-section {
+    .footer-button-wrapper {
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        margin-top: 144.3px;
+
+        .footer-button {
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            color: #0e0e01;
+            padding: 0;
+            margin: 0 9px 1.7px 120px;
+            border: none;
+            background-color: transparent;
+            font-family: 'Sohne-500' !important;
+            font-size: 1.75rem;
+
+            i {
+                font-size: 2rem;
+                margin-left: 0.5px;
+                padding-top: 5px;
+                transition: transform 0.1s ease;
+                position: relative;
+            }
+
+            &:hover {
+                color: #a8a8a8;
+            }
+
+            &:hover .bi-arrow-right-short {
+                transform: translateX(2px);
+                color: #a8a8a8;
+            }
+        }
+    }
+
+    .separator {
+        display: block;
+        width: 100%;
+        height: 2px;
+        background-color: #0e0e01;
+        margin: 0;
+    }
+}
+
+.careers-section {
+    width: 100%;
+    margin-bottom: 55.68px;
+    border-bottom: 2px solid #989898;
+
+    .sub-title-container {
+        padding: 77px 15px 0 65px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+
+        .sub-title {
+            margin: 0 150px 0 0;
+        }
+
+        p {
+            max-width: 1000px;
+            font-family: 'Sohne' !important;
+            font-size: 1.5rem;
+            margin: 2.32px 0 81.68px;
+        }
+    }
+}

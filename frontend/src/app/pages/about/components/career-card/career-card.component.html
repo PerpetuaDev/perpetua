@@ -1,0 +1,81 @@
+<!-- If there's an array of careers, iterate through them -->
+<ng-container *ngIf="careers && careers.length > 0; else singleCareerTemplate">
+    <div *ngFor="let career of careers" class="card-container">
+        <div class="office_info_container">
+            <!-- Position info -->
+            <div class="container_left">
+                <div class="job-title-wrapper" [routerLink]="['/careers', career.documentId]">
+                    <p class="job-title">{{ career.job_title }}</p>
+                    <i class="bi bi-arrow-up-short location-icon"></i>
+                </div>
+                <p class="job-location">{{ career.job_location }}</p>
+                <p>{{ career.location_type }}</p>
+                <p>{{ career.job_type }}</p>
+            </div>
+
+            <!-- Location info -->
+            <div class="container_right"
+                *ngIf="career.job_location !== 'Any location' && career.office_address && career.office_address.length > 0">
+                <p class="branch-name">{{ career.branch_name }}</p>
+                <ng-container *ngIf="career.office_address[0]?.country !== 'Japan'; else japanFormat">
+                    <p>{{ career.office_address[0].address_1 }}</p>
+                    <p>{{ career.office_address[0].address_2 }}</p>
+                    <p>{{ career.office_address[0].city }}, {{ career.office_address[0].post_code }}</p>
+                </ng-container>
+                <ng-template #japanFormat>
+                    <p>{{ career.office_address[0].address_1 }}, {{ career.office_address[0].address_2 }}</p>
+                    <p>{{ career.office_address[0].ward }}, {{ career.office_address[0].city }}</p>
+                    <p>{{ career.office_address[0].prefecture }}, {{ career.office_address[0].post_code }}</p>
+                </ng-template>
+            </div>
+        </div>
+        <!-- Button -->
+        <div class="footer-button-wrapper">
+            <button class="footer-button" [routerLink]="['/careers', career.documentId]">
+                {{ 'career.learn-more' | translate }}
+                <i class="bi bi-arrow-right-short"></i>
+            </button>
+        </div>
+    </div>
+</ng-container>
+
+<!-- Template for a single career -->
+<ng-template #singleCareerTemplate>
+    <div *ngIf="career" class="card-container" [routerLink]="['/careers', career.documentId]">
+        <div class="office_info_container">
+            <!-- Position info -->
+            <div class="container_left">
+                <div class="job-title-wrapper">
+                    <p class="job-title">{{ career.job_title }}</p>
+                    <i class="bi bi-arrow-up-short location-icon"></i>
+                </div>
+                <p class="job-location">{{ career.job_location }}</p>
+                <p>{{ career.location_type }}</p>
+                <p>{{ career.job_type }}</p>
+            </div>
+
+            <!-- Location info -->
+            <div class="container_right"
+                *ngIf="career.job_location !== 'Any location' && career.office_address && career.office_address.length > 0">
+                <p class="branch-name">{{ career.branch_name }}</p>
+                <ng-container *ngIf="career.office_address[0]?.country !== 'Japan'; else japanFormat">
+                    <p>{{ career.office_address[0].address_1 }}</p>
+                    <p>{{ career.office_address[0].address_2 }}</p>
+                    <p>{{ career.office_address[0].city }}, {{ career.office_address[0].post_code }}</p>
+                </ng-container>
+                <ng-template #japanFormat>
+                    <p>{{ career.office_address[0].address_1 }}, {{ career.office_address[0].address_2 }}</p>
+                    <p>{{ career.office_address[0].ward }}, {{ career.office_address[0].city }}</p>
+                    <p>{{ career.office_address[0].prefecture }}, {{ career.office_address[0].post_code }}</p>
+                </ng-template>
+            </div>
+        </div>
+        <!-- Button -->
+        <div class="footer-button-wrapper" [routerLink]="['/careers', career.documentId]">
+            <button class="footer-button">
+                {{ 'career.learn-more' | translate }}
+                <i class="bi bi-arrow-right-short"></i>
+            </button>
+        </div>
+    </div>
+</ng-template>

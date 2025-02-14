@@ -1,0 +1,131 @@
+<div class='w-100 m-0' id="pageTop">
+    <section>
+        <div class="header-wrapper">
+            <!-- Title -->
+            <h1>{{ 'menu.services' | translate }}</h1>
+            <p class="sub-header">
+                {{ 'service.sub-title-L1' | translate }}<br />
+                {{ 'service.sub-title-L2-bf' | translate }}
+                <span *ngIf="currentLanguage === 'en'" class="ampersand" aria-label="Ampersand">&amp;</span>
+                {{ 'service.sub-title-L2-af' | translate }}
+            </p>
+            <!-- Image -->
+            <div class="image-cover">
+                <img src="../../../assets/images/img_n.a.png" alt="Service Top" class="service-top-image" />
+            </div>
+        </div>
+    </section>
+    <!-- Our capabilities -->
+    <section class="capabilities-container">
+        <h1>{{ 'service.capabilities.title' | translate }}</h1>
+        <app-service-card></app-service-card>
+    </section>
+    <!-- Our process -->
+    <section class="process-container">
+        <div class="header-wrapper">
+            <h1>{{ 'service.process.title' | translate }}</h1>
+            <p class="sub-header">
+                {{ 'service.process.sub-title-L1' | translate }}<br />
+                {{ 'service.process.sub-title-L2' | translate }}
+            </p>
+        </div>
+        <app-service-process></app-service-process>
+        <div class="footer-button-wrapper">
+            <app-start-project-button></app-start-project-button>
+        </div>
+    </section>
+    <!-- Our technologies -->
+    <section class="technologies-container">
+        <div class="header-wrapper">
+            <h1>{{ 'service.technologies.title' | translate }}</h1>
+            <p class="sub-header">
+                {{ 'service.technologies.sub-title-L1' | translate }}<br />
+                {{ 'service.technologies.sub-title-L2' | translate }}
+            </p>
+        </div>
+        <div class="logo-container">
+            <div class="row row-cols-5">
+                <div class="col">
+                    <img src="../../../assets/images/strapi-logo.svg" alt="strapi-logo">
+                </div>
+                <div class="col">
+                    <img src="../../../assets/images/firebase-logo.svg" alt="firebase-logo">
+                </div>
+                <div class="col">
+                    <img src="../../../assets/images/strapi-logo.svg" alt="strapi-logo">
+                </div>
+                <div class="col">
+                    <img src="../../../assets/images/firebase-logo.svg" alt="firebase-logo">
+                </div>
+                <div class="col">
+                    <img src="../../../assets/images/strapi-logo.svg" alt="strapi-logo">
+                </div>
+                <div class="col">
+                    <img src="../../../assets/images/strapi-logo.svg" alt="strapi-logo">
+                </div>
+                <div class="col">
+                    <img src="../../../assets/images/firebase-logo.svg" alt="firebase-logo">
+                </div>
+                <div class="col">
+                    <img src="../../../assets/images/strapi-logo.svg" alt="strapi-logo">
+                </div>
+                <div class="col">
+                    <img src="../../../assets/images/firebase-logo.svg" alt="firebase-logo">
+                </div>
+                <div class="col">
+                    <img src="../../../assets/images/strapi-logo.svg" alt="strapi-logo">
+                </div>
+                <div class="col">
+                    <img src="../../../assets/images/strapi-logo.svg" alt="strapi-logo">
+                </div>
+                <div class="col">
+                    <img src="../../../assets/images/firebase-logo.svg" alt="firebase-logo">
+                </div>
+                <div class="col">
+                    <img src="../../../assets/images/strapi-logo.svg" alt="strapi-logo">
+                </div>
+                <div class="col">
+                    <img src="../../../assets/images/firebase-logo.svg" alt="firebase-logo">
+                </div>
+                <div class="col">
+                    <img src="../../../assets/images/strapi-logo.svg" alt="strapi-logo">
+                </div>
+                <div class="col">
+                    <img src="../../../assets/images/strapi-logo.svg" alt="strapi-logo">
+                </div>
+                <div class="col">
+                    <img src="../../../assets/images/firebase-logo.svg" alt="firebase-logo">
+                </div>
+                <div class="col">
+                    <img src="../../../assets/images/strapi-logo.svg" alt="strapi-logo">
+                </div>
+                <div class="col">
+                    <img src="../../../assets/images/firebase-logo.svg" alt="firebase-logo">
+                </div>
+                <div class="col">
+                    <img src="../../../assets/images/strapi-logo.svg" alt="strapi-logo">
+                </div>
+                <div class="col">
+                    <img src="../../../assets/images/strapi-logo.svg" alt="strapi-logo">
+                </div>
+                <div class="col">
+                    <img src="../../../assets/images/firebase-logo.svg" alt="firebase-logo">
+                </div>
+                <div class="col">
+                    <img src="../../../assets/images/strapi-logo.svg" alt="strapi-logo">
+                </div>
+                <div class="col">
+                    <img src="../../../assets/images/firebase-logo.svg" alt="firebase-logo">
+                </div>
+                <div class="col">
+                    <img src="../../../assets/images/strapi-logo.svg" alt="strapi-logo">
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="footer-button-wrapper">
+        <app-back-to-top-button></app-back-to-top-button>
+    </div>
+    <!-- Call to action -->
+    <app-call-action></app-call-action>
+</div>

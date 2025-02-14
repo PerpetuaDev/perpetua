@@ -1,0 +1,97 @@
+<div class='w-100 m-0' id="pageTop">
+    <!-- Header -->
+    <section class="header-container">
+        <div class="title-wrapper">
+            <p class="header-title">{{ currentService?.title }}</p>
+            <div class="contact-link-wrapper">
+                <p class="link">Enquire about a custom software project</p>
+                <i class="bi bi-arrow-up-short"></i>
+            </div>
+        </div>
+        <div class="image-cover">
+            <!-- <img src="" alt=""> -->
+        </div>
+        <div class="service-explanation-wrapper">
+            <p class="title">What is {{ getFormattedTitle(currentService?.title) }} development?</p>
+            <p class="explanation">{{ currentService?.explanation }}</p>
+        </div>
+    </section>
+
+    <!-- Benefits -->
+    <section *ngIf="currentService" class="capabilities-container">
+        <p class="header-title">The Benefits</p>
+        <div class="row row-cols-1 row-cols-md-2">
+            <div *ngFor="let benefit of currentService.benefits" class="col benefit-detail-container">
+                <div class="icon-cover">
+                    <img src="../../../../assets/images/connection.svg" alt="connection icon">
+                </div>
+                <div class="description-cover">
+                    <p class="process-title">{{ benefit.title }}</p>
+                    <p class="process-description">{{ benefit.description }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-button-wrapper">
+            <app-start-project-button></app-start-project-button>
+        </div>
+    </section>
+
+    <!-- Our technologies -->
+    <section class="technologies-container">
+        <div class="header-wrapper">
+            <h1>{{ 'service.technologies.title' | translate }}</h1>
+            <p class="sub-header">
+                {{ 'service.technologies.sub-title-L1' | translate }}<br />
+                {{ 'service.technologies.sub-title-L2' | translate }}
+            </p>
+        </div>
+        <div class="logo-container">
+            <div class="row row-cols-5">
+                <div class="col">
+                    <img src="../../../assets/images/strapi-logo.svg" alt="strapi-logo">
+                </div>
+                <div class="col">
+                    <img src="../../../assets/images/firebase-logo.svg" alt="firebase-logo">
+                </div>
+                <div class="col">
+                    <img src="../../../assets/images/strapi-logo.svg" alt="strapi-logo">
+                </div>
+                <div class="col">
+                    <img src="../../../assets/images/firebase-logo.svg" alt="firebase-logo">
+                </div>
+                <div class="col">
+                    <img src="../../../assets/images/strapi-logo.svg" alt="strapi-logo">
+                </div>
+                <div class="col">
+                    <img src="../../../assets/images/strapi-logo.svg" alt="strapi-logo">
+                </div>
+                <div class="col">
+                    <img src="../../../assets/images/firebase-logo.svg" alt="firebase-logo">
+                </div>
+                <div class="col">
+                    <img src="../../../assets/images/strapi-logo.svg" alt="strapi-logo">
+                </div>
+                <div class="col">
+                    <img src="../../../assets/images/firebase-logo.svg" alt="firebase-logo">
+                </div>
+                <div class="col">
+                    <img src="../../../assets/images/strapi-logo.svg" alt="strapi-logo">
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Selected custom software projects -->
+    <section class="selected-projects-container">
+        <h1>Selected custom software projects</h1>
+        <div class="projects-wrapper">
+
+        </div>
+    </section>
+    <div class="footer-button-wrapper">
+        <app-back-to-top-button></app-back-to-top-button>
+    </div>
+
+    <!-- Call to action -->
+    <app-call-action></app-call-action>
+</div>

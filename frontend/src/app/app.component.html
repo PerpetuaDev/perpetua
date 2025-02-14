@@ -1,0 +1,25 @@
+<main class="main">
+  <div class='header-container'>
+    <div class='header-left'>
+      <!-- Logo -->
+      <div class='logo-wrapper'>
+        <app-logo></app-logo>
+      </div>
+      <!-- Header menu bar -->
+      <div class="desktop">
+        <app-menu></app-menu>
+      </div>
+    </div>
+    <!-- Language options -->
+    <div class='desktop'>
+      <app-languages position="top"></app-languages>
+    </div>
+    <!-- Side nab bar -->
+    <div class="mobile">
+      <app-mobile-menu></app-mobile-menu>
+    </div>
+  </div>
+  <div class='section-container'>
+    <router-outlet></router-outlet>
+  </div>
+</main>

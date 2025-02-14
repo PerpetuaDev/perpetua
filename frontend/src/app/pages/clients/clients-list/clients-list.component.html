@@ -1,0 +1,11 @@
+<div class='w-100 m-0'>
+    <div class=" list-container">
+        <h1>{{ 'clients.client-list' | translate }}</h1>
+        <!-- Client list -->
+        <ul *ngIf="clients$ | async as clients;">
+            <li *ngFor="let client of clients">{{client.company_name}}</li>
+        </ul>
+    </div>
+    <app-call-action></app-call-action>
+    <app-footer></app-footer>
+</div>

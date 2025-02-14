@@ -1,0 +1,32 @@
+.footer-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #0e0e01;
+    padding: 0;
+    margin: 0 6px 1.7px 120px;
+    border: none;
+    background-color: transparent;
+    font-family: 'Sohne-500' !important;
+    font-size: 1.75rem;
+}
+
+i {
+    font-size: 2rem;
+    margin-left: 0px;
+    padding-top: 5px;
+    transform: rotate(45deg);
+}
+
+.bi-arrow-right-short {
+    transition: transform 0.1s ease;
+
+}
+
+.footer-button:hover {
+    color: #a8a8a8;
+}
+
+.footer-button:hover .bi-arrow-right-short {
+    color: #a8a8a8;
+}

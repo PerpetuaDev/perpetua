@@ -1,0 +1,50 @@
+<div *ngIf="project" class="project-detail">
+    <section class='w-100 m-0'>
+        <div class="header-section">
+            <h1>{{project.project_title}}</h1>
+            <p class="description">{{project.project_description}}</p>
+            <div class="button-wrapper">
+                <a class="button" [href]="project.project_link" target="_blank" rel="noopener noreferrer">
+                    {{ 'button.live-project' | translate }}
+                    <i class="bi bi-arrow-right-short"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+    <!-- Body components -->
+    <app-project-content [project]="project"></app-project-content>
+    <!-- Testimonial -->
+    <section class="w-100 m-0 testimonial-section">
+        <span class="quotation-start">&#x201F;</span>
+        <div class="testimonial-container">
+            <p class="testimonial" [innerHTML]="parsedTestimonial"></p>
+            <div class="name-wrapper">
+                <span class="bar"></span>
+                <p>
+                    {{project.project_client.representative}},
+                    <strong>{{project.project_client.company_name}}</strong>
+                </p>
+            </div>
+        </div>
+    </section>
+    <div class="live-button-wrapper">
+        <a class="live-button" [href]="project.project_link" target="_blank" rel="noopener noreferrer">
+            {{ 'button.live-project' | translate }}
+            <i class="bi bi-arrow-right-short"></i>
+        </a>
+    </div>
+    <!-- Other projects -->
+    <app-more-projects [currentProjectDocumentId]="project.documentId"></app-more-projects>
+    <!-- Others -->
+    <div class="footer-button-wrapper">
+        <button class="footer-button" (click)="goBack()">
+            <i class="bi bi-arrow-left-short"></i>
+            {{ 'button.back-to-projects' | translate }}
+        </button>
+        <app-back-to-top-button></app-back-to-top-button>
+    </div>
+</div>
+
+<div *ngIf="!project">
+    <app-project-detail-skeleton></app-project-detail-skeleton>
+</div>

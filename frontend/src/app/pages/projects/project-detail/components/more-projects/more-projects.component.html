@@ -1,0 +1,12 @@
+<section class='w-100 m-0' *ngIf="moreProjects$ | async as moreProjects; else loading">
+    <h1>{{ 'project.more-projects' | translate }}</h1>
+    <div *ngIf="moreProjects.length > 0; else noProjects">
+        <app-project-card [projects]="moreProjects"></app-project-card>
+    </div>
+</section>
+<ng-template #loading>
+    <p>Loading projects...</p>
+</ng-template>
+<ng-template #noProjects>
+    <!-- <p>No projects available.</p> -->
+</ng-template>

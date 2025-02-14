@@ -1,0 +1,23 @@
+<div class="process-container">
+    <div *ngFor="let step of serviceProcessData" class="process-step-cover">
+        <!-- Image -->
+        <div class="process-image-cover">
+            <!-- <img src="" alt=""> -->
+        </div>
+        <!-- Description -->
+        <div class="process-description-cover">
+            <div class="icon-cover">
+                <img src="../../../../../assets/images/connection.svg" alt="connection icon">
+            </div>
+
+            <div class="description-cover">
+                <p class="process-title">{{ step.title }}</p>
+                <span class="separator"></span>
+                <p class="process-description">{{ step.description }}</p>
+            </div>
+            <div class="more-button-cover">
+                <i class="bi bi-chevron-down"></i>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,33 @@
+<section class='w-100 m-0'>
+    <div class="testimonial-container" *ngIf="clients.length > 0;">
+        <!-- Testimonial -->
+        <div class="left-container" *ngIf="selectedClientIndex !== null">
+            <span class="quotation">&#x201F;</span>
+            <div class="testimonial" [innerHTML]="parsedTestimonial"></div>
+            <div class="name-wrapper">
+                <span class="bar"></span>
+                <p>
+                    {{clients[selectedClientIndex].representative}},
+                    <strong>{{clients[selectedClientIndex].company_name}}</strong>
+                </p>
+            </div>
+        </div>
+        <div class="right-container">
+            <!-- Title -->
+            <h1>
+                {{ 'home.section-title.clients-L1' | translate }}<br>
+                {{ 'home.section-title.clients-L2' | translate }}
+            </h1>
+            <!-- Client logos -->
+            <app-client-card [clients]="clients" (clientSelected)="onClientSelected($event)"></app-client-card>
+        </div>
+    </div>
+    <!-- Footer -->
+    <div class="footer-button-wrapper" [routerLink]="['/clients']">
+        <button class="footer-button">
+            {{ 'clients.all-clients' | translate }}
+            <i class="bi bi-arrow-right-short"></i>
+        </button>
+    </div>
+    <span class="separator"></span>
+</section>

@@ -1,0 +1,103 @@
+<div class="link-container">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-5">
+        <!-- Projects Section -->
+        <div class="col">
+            <p class="section-title">{{ 'menu.projects' | translate }}</p>
+            <ul>
+                <li [routerLink]="['/projects']" (click)="handleClick('all', 'projects', $event)"
+                    (keydown)="handleKeydown($event, 'all', 'projects')">
+                    {{ 'project.nav.all-projects' | translate }}
+                </li>
+                <li [routerLink]="['/projects']" (click)="handleClick('software', 'projects', $event)"
+                    (keydown)="handleKeydown($event, 'software', 'projects')">
+                    {{ 'project.nav.type' | translate }}
+                </li>
+                <li [routerLink]="['/projects']" (click)="handleClick('industry', 'projects', $event)"
+                    (keydown)="handleKeydown($event, 'industry', 'projects')">
+                    {{ 'project.nav.industry' | translate }}
+                </li>
+            </ul>
+            <ul>
+                <li *ngFor="let project of filteredProjects$ | async" class="submenu-item, separator"
+                    [routerLink]="'/projects/' + project.documentId">
+                    {{ project.project_title }}
+                </li>
+            </ul>
+        </div>
+        <!-- Services Section -->
+        <div class="col">
+            <p class="section-title">{{ 'menu.services' | translate }}</p>
+            <ul>
+                <li [routerLink]="['/services', 'custom-software']">
+                    {{ 'footer.services.software' | translate }}
+                </li>
+                <li [routerLink]="['/services', 'websites']">
+                    {{ 'footer.services.websites' | translate }}
+                </li>
+                <li [routerLink]="['/services', 'mobile-apps']">
+                    {{ 'footer.services.mobile' | translate }}
+                </li>
+                <li [routerLink]="['/services', 'ai-solutions']">
+                    {{ 'footer.services.ai' | translate }}
+                </li>
+                <li [routerLink]="['/services', 'hosting']">
+                    {{ 'footer.services.hosting' | translate }}
+                </li>
+                <li [routerLink]="['/services', 'data-analytics']">
+                    {{ 'footer.services.data' | translate }}
+                </li>
+            </ul>
+        </div>
+        <!-- About Section -->
+        <div class="col">
+            <p class="section-title">{{ 'menu.about' | translate }}</p>
+            <ul>
+                <li [routerLink]="['/team']">
+                    {{ 'about.nav.team-footer' | translate }}
+                </li>
+                <li [routerLink]="['/about/history/preparing']">
+                    {{ 'about.nav.history' | translate }}
+                </li>
+                <li [routerLink]="['/clients']">
+                    {{ 'about.nav.clients-footer' | translate }}
+                </li>
+                <li [routerLink]="['/clients/testimonials/preparing']">
+                    {{ 'about.nav.testimonials' | translate }}
+                </li>
+            </ul>
+        </div>
+        <!-- Blog Section -->
+        <div class="col">
+            <p class="section-title">{{ 'menu.blog' | translate }}</p>
+            <ul>
+                <li [routerLink]="['/articles']" (click)="handleClick('allArticle', 'articles', $event)"
+                    (keydown)="handleKeydown($event, 'allArticle', 'articles')">
+                    {{ 'articles.nav.all-content' | translate }}
+                </li>
+                <li [routerLink]="['/articles']" (click)="handleClick('news', 'articles', $event)"
+                    (keydown)="handleKeydown($event, 'news', 'articles')">
+                    {{ 'articles.nav.news-posts' | translate }}
+                </li>
+                <li [routerLink]="['/articles']" (click)="handleClick('article', 'articles', $event)"
+                    (keydown)="handleKeydown($event, 'article', 'articles')">
+                    {{ 'articles.nav.articles' | translate }}
+                </li>
+            </ul>
+        </div>
+        <!-- Contact Section -->
+        <div class="col">
+            <p class="section-title">{{ 'menu.contact' | translate }}</p>
+            <ul>
+                <li [routerLink]="['/contact']" fragment="contactInformation">
+                    {{ 'contact.nav.message' | translate }}
+                </li>
+                <li [routerLink]="['/contact']" fragment="contactLocations">
+                    {{ 'contact.nav.locations' | translate }}
+                </li>
+                <li [routerLink]="['/about']" fragment="aboutCareers">
+                    {{ 'contact.nav.career' | translate }}
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

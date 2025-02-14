@@ -1,0 +1,19 @@
+<section class='w-100 m-0'>
+    <!-- Title -->
+    <h1>
+        {{ 'home.section-title.services-L1' | translate }}<br>
+        {{ 'home.section-title.services-L2-bf' | translate }}
+        <span *ngIf="currentLanguage === 'en'" class="ampersand" aria-label="Ampersand">&amp;</span>
+        {{ 'home.section-title.services-L2-af' | translate }}
+    </h1>
+    <!-- Service cards -->
+    <app-service-card></app-service-card>
+    <!-- Footer -->
+    <div class="footer-button-wrapper" [routerLink]="['/services']">
+        <button class="footer-button">
+            {{ 'service.learn-more' | translate }}
+            <i class="bi bi-arrow-right-short"></i>
+        </button>
+    </div>
+    <span class="separator"></span>
+</section>

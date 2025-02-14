@@ -1,0 +1,95 @@
+<div class='w-100 m-0'>
+    <section id="aboutLocations" class="location-section">
+        <h1>{{office?.office_location}}</h1>
+        <div class="links-and-time">
+            <menu>
+                <ng-container *ngFor="let office of (offices$ | async)">
+                    <li *ngIf="office.documentId !== documentId" class="location-button"
+                        [routerLink]="['/about', office.documentId]">
+                        {{ office.office_location }}
+                        <i class="bi bi-arrow-up-short menu-icon"></i>
+                    </li>
+                </ng-container>
+            </menu>
+            <ng-container *ngIf="office?.currentTime as currentTime">
+                <p class="time">
+                    {{ currentTime.split(':')[0] }}
+                    <span class="colon">&nbsp;:&nbsp;</span>
+                    {{ currentTime.split(':')[1].slice(0, 2) }}
+                    <span>&nbsp;{{ currentTime.split(' ')[1].toLowerCase() }}</span>
+                </p>
+            </ng-container>
+        </div>
+        <div class="image-wrapper">
+            <!-- <img [src]="office.office_image[0].url" alt="office?.city"> -->
+        </div>
+    </section>
+    <!-- Contacts -->
+    <section class="contact-section">
+        <div class="contact-container">
+            <h1>{{ 'about.office.contact' | translate }}</h1>
+            <div>
+                <div class="address">
+                    <p>{{office?.address_1}}</p>
+                    <p>{{office?.address_2}}</p>
+                </div>
+                <div class="personal-info-wrapper">
+                    <p class="subject">New Business</p>
+                    <div>
+                        <p class="personal-name">Liam Finlayson</p>
+                        <p class="email" (click)="sendEmail()" (keydown)="sendEmailKeyDown($event)">
+                            liam&commat;perpetua.studio
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="direction-button-wrapper">
+                    <button (click)="openGoogleMaps()">Get directions</button>
+                    <i class="bi bi-arrow-right-short"></i>
+                    <p></p>
+                </div>
+                <div class="personal-info-wrapper">
+                    <p class="subject">Job Opportunities</p>
+                    <div>
+                        <p class="personal-name">Eve Webb</p>
+                        <p class="email" (click)="sendEmail()" (keydown)="sendEmailKeyDown($event)">
+                            careers&commat;perpetua.studio
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <p class="email" (click)="sendEmail()" (keydown)="sendEmailKeyDown($event)">
+                    {{ office?.email }}
+                </p>
+                <p class="phone">{{ office?.phone }}</p>
+            </div>
+        </div>
+    </section>
+    <!-- Work -->
+    <section class="work-section">
+        <h1>{{ 'about.office.selected-work' | translate }}</h1>
+        <ng-container *ngIf="isLoading$ | async; else projectCards">
+            <app-article-and-project-card-skeleton></app-article-and-project-card-skeleton>
+        </ng-container>
+
+        <ng-template #projectCards>
+            <app-project-card *ngIf="projects$ | async as projects" [projects]="projects | slice:0:6"
+                [isLoading]="false"></app-project-card>
+        </ng-template>
+    </section>
+    <!-- Careers -->
+    <section id="aboutCareers" class="careers-section">
+        <div class="sub-title-container">
+            <h1 class="sub-title">{{ 'contact.nav.career' | translate }}</h1>
+            <p>{{ 'about.careers.header' | translate }}</p>
+        </div>
+        <ng-container *ngFor="let career of careers">
+            <ng-container
+                *ngIf="career.job_location === 'Any location' || career.job_location === office?.office_location">
+                <app-career-card [career]="career"></app-career-card>
+            </ng-container>
+        </ng-container>
+    </section>
+</div>

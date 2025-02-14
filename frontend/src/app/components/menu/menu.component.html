@@ -1,0 +1,205 @@
+<!-- Menu bar -->
+<menu class="menu-container">
+    <div class="menu-wrapper">
+        <button class="menu-item" id="projects" routerLink="/projects" (click)="onMenuHide('projects', $event)"
+            (mouseenter)="onMenuHover('projects', $event)">{{
+            'menu.projects' | translate }}</button>
+        <i class="chevron bi bi-chevron-down"></i>
+    </div>
+    <div class="menu-wrapper">
+        <button class="menu-item" id="services" routerLink="/services" (click)="onMenuHide('services', $event)"
+            (mouseenter)="onMenuHover('services', $event)">{{ 'menu.services' | translate }}</button>
+        <i class="chevron bi bi-chevron-down"></i>
+    </div>
+    <div class="menu-wrapper">
+        <button class="menu-item" id="about" routerLink="/about" (click)="onMenuHide('about', $event)"
+            (mouseenter)="onMenuHover('about', $event)">{{ 'menu.about' | translate }}</button>
+        <i class="chevron bi bi-chevron-down"></i>
+    </div>
+    <div class="menu-wrapper">
+        <button class="menu-item" id="blog" routerLink="/articles" (click)="onMenuHide('blog', $event)"
+            (mouseenter)="onMenuHover('blog', $event)">{{ 'menu.blog' | translate }}</button>
+        <i class="chevron bi bi-chevron-down"></i>
+    </div>
+    <div class="menu-wrapper">
+        <button class="menu-item" id="contact" routerLink="/contact" (click)="onMenuHide('contact', $event)"
+            (mouseenter)="onMenuHover('contact', $event)">{{ 'menu.contact' | translate }}</button>
+        <i class="chevron bi bi-chevron-down"></i>
+    </div>
+</menu>
+<!-- Submenu -->
+<!-- Projects -->
+<div id="submenu-projects" class="submenu-container">
+    <div class="submenu-box">
+        <ul class="submenu-item-wrapper">
+            <li *ngFor="let project of filteredProjects$ | async" class="submenu-item"
+                [routerLink]="'/projects/' + project.documentId" (click)="onMenuHide('projects', $event)"
+                (keydown)="onKeyDownMenuHide($event, 'projects')">
+                {{ project.project_title }}
+            </li>
+        </ul>
+        <ul class="submenu-item-wrapper">
+            <li class="page-link" routerLink="/projects" (click)="handleClick('all', 'projects', $event)"
+                (keydown)="handleKeydown($event, 'all', 'projects')">
+                <p>{{ 'project.nav.all' | translate }}</p><i class="bi bi-arrow-right-short"></i>
+            </li>
+            <li class="page-link" routerLink="/projects" (click)="handleClick('software', 'projects', $event)"
+                (keydown)="handleKeydown($event, 'software', 'projects')">
+                <p>{{ 'project.nav.type' | translate }}</p><i class="bi bi-arrow-right-short"></i>
+            </li>
+            <li class="page-link" routerLink="/projects" (click)="handleClick('industry', 'projects', $event)"
+                (keydown)="handleKeydown($event, 'industry', 'projects')">
+                <p>{{ 'project.nav.industry' | translate }}</p><i class="bi bi-arrow-right-short"></i>
+            </li>
+        </ul>
+
+        <div class="submenu-item-wrapper">
+            <app-search-bar [placeholder]="searchProjects" data="projects" #projectsSearchBar
+                (resultSelected)="onSearchResultSelected()"></app-search-bar>
+        </div>
+    </div>
+</div>
+<!-- What we do -->
+<div id="submenu-services" class="submenu-container">
+    <div class="submenu-box">
+        <ul class="submenu-item-wrapper">
+            <li class="submenu-item" routerLink="/services" (click)="onMenuHide('services', $event)"
+                (keydown)="onKeyDownMenuHide($event, 'services')">
+                {{ 'service.nav.software' | translate }}
+            </li>
+            <li class="submenu-item" routerLink="/services" (click)="onMenuHide('services', $event)"
+                (keydown)="onKeyDownMenuHide($event, 'services')">
+                {{ 'service.nav.websites-bf' | translate }}
+                <span class="ampersand">&#38;</span>
+                {{ 'service.nav.websites-bf' | translate }}
+            </li>
+            <li class="submenu-item" routerLink="/services" (click)="onMenuHide('services', $event)"
+                (keydown)="onKeyDownMenuHide($event, 'services')">
+                {{ 'service.nav.native-bf' | translate }}
+                <span class="ampersand">&#38;</span>
+                {{ 'service.nav.native-af' | translate }}
+            </li>
+            <li class="submenu-item" routerLink="/services" (click)="onMenuHide('services', $event)"
+                (keydown)="onKeyDownMenuHide($event, 'services')">
+                {{ 'service.nav.ai' | translate }}
+            </li>
+            <li class="submenu-item" routerLink="/services" (click)="onMenuHide('services', $event)"
+                (keydown)="onKeyDownMenuHide($event, 'services')">
+                {{ 'service.nav.hosting-bf' | translate }}
+                <span class="ampersand">&#38;</span>
+                {{ 'service.nav.hosting-af' | translate }}
+            </li>
+            <li class="submenu-item" routerLink="/services" (click)="onMenuHide('services', $event)"
+                (keydown)="onKeyDownMenuHide($event, 'services')">
+                {{ 'service.nav.data-bf' | translate }}
+                <span class="ampersand">&#38;</span>
+                {{ 'service.nav.data-af' | translate }}
+            </li>
+        </ul>
+        <ul class="submenu-item-wrapper">
+            <li class="page-link" routerLink="/services" (click)="onMenuHide('services', $event)"
+                (keydown)="onKeyDownMenuHide($event, 'services')">
+                <p>{{ 'service.learn-more' | translate }}</p><i class="bi bi-arrow-right-short"></i>
+            </li>
+            <li class="page-link" routerLink="/services" (click)="onMenuHide('services', $event)"
+                (keydown)="onKeyDownMenuHide($event, 'services')">
+                <p>{{ 'service.nav.consultation' | translate }}</p><i class="bi bi-arrow-right-short"></i>
+            </li>
+        </ul>
+    </div>
+</div>
+<!-- About us -->
+<div id="submenu-about" class="submenu-container">
+    <div class="submenu-box">
+        <ul class="submenu-item-wrapper">
+            <li class="submenu-item" [routerLink]="['/about']" (click)="onMenuHide('about', $event)"
+                (keydown)="onKeyDownMenuHide($event, 'about')">
+                {{ 'about.nav.us' | translate }}
+            </li>
+            <li class="submenu-item" [routerLink]="['/team']" (click)="onMenuHide('about', $event)"
+                (keydown)="onKeyDownMenuHide($event, 'about')">
+                {{ 'about.nav.team' | translate }}
+            </li>
+            <li class="submenu-item" [routerLink]="['/clients']" fragment="aboutClients"
+                (click)="onMenuHide('about', $event)" (keydown)="onKeyDownMenuHide($event, 'about')">
+                {{ 'about.nav.clients' | translate }}
+            </li>
+            <li class="submenu-item" [routerLink]="['/clients/testimonials']" fragment="aboutClients"
+                (click)="onMenuHide('about', $event)" (keydown)="onKeyDownMenuHide($event, 'about')">
+                {{ 'about.nav.testimonials' | translate }}
+            </li>
+        </ul>
+        <ul class="submenu-item-wrapper">
+            <li class="page-link" [routerLink]="['/about']" fragment="aboutCareers"
+                (click)="onMenuHide('about', $event)" (keydown)="onKeyDownMenuHide($event, 'about')">
+                <p>{{ 'about.nav.career' | translate }}</p><i class="bi bi-arrow-right-short"></i>
+            </li>
+            <li class="page-link" [routerLink]="['/about']" fragment="aboutLocations"
+                (click)="onMenuHide('about', $event)" (keydown)="onKeyDownMenuHide($event, 'about')">
+                <p>{{ 'about.nav.locations' | translate }}</p><i class="bi bi-arrow-right-short"></i>
+            </li>
+        </ul>
+    </div>
+</div>
+<!-- Blog -->
+<div id="submenu-blog" class="submenu-container">
+    <div class="submenu-box">
+        <ul class="submenu-item-wrapper">
+            <li class="submenu-item" routerLink="/articles" (click)="handleClick('article', 'articles', $event)"
+                (keydown)="handleKeydown($event, 'article', 'articles')">
+                {{ 'articles.nav.articles' | translate }}
+            </li>
+            <li class="submenu-item" routerLink="/articles" (click)="handleClick('news', 'articles', $event)"
+                (keydown)="handleKeydown($event, 'news', 'articles')">
+                {{ 'articles.nav.news' | translate }}
+            </li>
+            <li class="submenu-item" routerLink="/articles" (click)="handleClick('blog', 'articles', $event)"
+                (keydown)="handleKeydown($event, 'blog', 'articles')">
+                {{ 'articles.nav.works' | translate }}
+            </li>
+        </ul>
+        <ul class="submenu-item-wrapper">
+            <li class="page-link" routerLink="/articles" (click)="onMenuHide('blog', $event)"
+                (keydown)="onKeyDownMenuHide($event, 'blog')">
+                <p>{{ 'articles.nav.all' | translate }}</p><i class="bi bi-arrow-right-short"></i>
+            </li>
+            <li class="page-link" routerLink="/articles" (click)="onMenuHide('blog', $event)"
+                (keydown)="onKeyDownMenuHide($event, 'blog')">
+                <p>{{ 'articles.nav.tag' | translate }}</p><i class="bi bi-arrow-right-short"></i>
+            </li>
+        </ul>
+        <div class="submenu-item-wrapper">
+            <app-search-bar [placeholder]="searchContent" data="articles" #articlesSearchBar
+                (resultSelected)="onSearchResultSelected()"></app-search-bar>
+        </div>
+    </div>
+</div>
+<!-- Contact -->
+<div id="submenu-contact" class="submenu-container">
+    <div class="submenu-box">
+        <ul class="submenu-item-wrapper">
+            <li class="submenu-item" routerLink="/contact" fragment="contactInformation"
+                (click)="onMenuHide('contact', $event)" (keydown)="onKeyDownMenuHide($event, 'contact')">
+                {{ 'contact.nav.us' | translate }}
+            </li>
+            <li class="submenu-item" routerLink="/about" fragment="aboutLocations"
+                (click)="onMenuHide('contact', $event)" (keydown)="onKeyDownMenuHide($event, 'contact')">
+                {{ 'contact.nav.locations' | translate }}
+            </li>
+            <li class="submenu-item" routerLink="/about" fragment="aboutCareers" (click)="onMenuHide('contact', $event)"
+                (keydown)="onKeyDownMenuHide($event, 'contact')">
+                {{ 'contact.nav.career' | translate }}
+            </li>
+        </ul>
+        <ul class="submenu-item-wrapper">
+            <li class="page-link" routerLink="/contact" fragment="contactMessage"
+                (click)="onMenuHide('contact', $event)" (keydown)="onKeyDownMenuHide($event, 'contact')">
+                <p>{{ 'contact.nav.message' | translate }}</p><i class="bi bi-arrow-right-short"></i>
+            </li>
+            <li class="page-link" routerLink="/contact" (click)="onMenuHide('contact', $event)"
+                (keydown)="onKeyDownMenuHide($event, 'contact')">
+                <p>{{ 'contact.nav.consultation' | translate }}</p><i class="bi bi-arrow-right-short"></i>
+            </li>
+        </ul>
+    </div>
+</div>
