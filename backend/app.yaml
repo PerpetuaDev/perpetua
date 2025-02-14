@@ -1,0 +1,19 @@
+runtime: nodejs18
+env: standard
+instance_class: F2
+
+env_variables:
+  HOST: '0.0.0.0'
+  NODE_ENV: 'production'
+  DATABASE_HOST: '/cloudsql/perpetua-449900:australia-southeast1:strapi'
+  DATABASE_NAME: 'postgres'
+  DATABASE_USER: 'postgres'
+  DATABASE_PASSWORD: 'b?9XJ&1"<-{THz%2'
+  INSTANCE_CONNECTION_NAME: 'perpetua-449900:australia-southeast1:strapi'
+  GCS_BUCKET_NAME: 'perpetua-strapi-bucket'
+  GCS_BASE_PATH: 'uploads'
+  GCS_SERVICE_ACCOUNT: ${GCS_SERVICE_ACCOUNT}
+  TMPDIR: /tmp
+
+beta_settings:
+  cloud_sql_instances: 'perpetua-449900:australia-southeast1:strapi'
