@@ -369,61 +369,342 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiAboutAbout extends Struct.SingleTypeSchema {
-  collectionName: 'abouts';
+export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
+  collectionName: 'articles';
   info: {
-    description: 'Write about yourself and the content you create';
-    displayName: 'About';
-    pluralName: 'abouts';
-    singularName: 'about';
+    displayName: 'Article';
+    pluralName: 'articles';
+    singularName: 'article';
   };
   options: {
-    draftAndPublish: false;
+    draftAndPublish: true;
   };
   attributes: {
-    blocks: Schema.Attribute.DynamicZone<
-      ['shared.media', 'shared.quote', 'shared.rich-text', 'shared.slider']
-    >;
+    author: Schema.Attribute.String;
+    content: Schema.Attribute.RichText;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<'oneToMany', 'api::about.about'> &
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::article.article'
+    > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
+    sub_heading: Schema.Attribute.Text;
+    thumbnail_image: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    >;
     title: Schema.Attribute.String;
+    type: Schema.Attribute.Enumeration<
+      ['news', 'blog', 'article', 'work', 'case_study', 'other']
+    >;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
   };
 }
 
-export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
-  collectionName: 'globals';
+export interface ApiCareerCareer extends Struct.CollectionTypeSchema {
+  collectionName: 'careers';
   info: {
-    description: 'Define global settings';
-    displayName: 'Global';
-    pluralName: 'globals';
-    singularName: 'global';
+    displayName: 'Career';
+    pluralName: 'careers';
+    singularName: 'career';
   };
   options: {
-    draftAndPublish: false;
+    draftAndPublish: true;
+  };
+  attributes: {
+    branch_name: Schema.Attribute.Enumeration<
+      ['Auckland', 'Christchurch', 'Sydney', 'Yokohama']
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    job_description: Schema.Attribute.RichText;
+    job_location: Schema.Attribute.Enumeration<
+      ['Auckland', 'Christchurch', 'Sydney', 'Yokohama', 'Any location']
+    >;
+    job_title: Schema.Attribute.String;
+    job_type: Schema.Attribute.Enumeration<
+      ['Full-time', 'Part-time', 'Casual/Temp', 'Internship']
+    >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::career.career'
+    > &
+      Schema.Attribute.Private;
+    location_type: Schema.Attribute.Enumeration<
+      ['Onsite', 'Remote', 'Hybrid', 'Hybrid/remote']
+    >;
+    office: Schema.Attribute.Relation<'manyToOne', 'api::office.office'>;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiClientClient extends Struct.CollectionTypeSchema {
+  collectionName: 'clients';
+  info: {
+    displayName: 'Client';
+    pluralName: 'clients';
+    singularName: 'client';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    address: Schema.Attribute.String;
+    company_logo: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    >;
+    company_name: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::client.client'
+    > &
+      Schema.Attribute.Private;
+    phone: Schema.Attribute.String;
+    projects: Schema.Attribute.Relation<'oneToMany', 'api::project.project'>;
+    publishedAt: Schema.Attribute.DateTime;
+    representative: Schema.Attribute.String;
+    testimonial: Schema.Attribute.RichText;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    website_URL: Schema.Attribute.String;
+  };
+}
+
+export interface ApiFlagFlag extends Struct.CollectionTypeSchema {
+  collectionName: 'flags';
+  info: {
+    displayName: 'Flag';
+    pluralName: 'flags';
+    singularName: 'flag';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    country: Schema.Attribute.String;
+    country_code: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    flag_image: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::flag.flag'> &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiMemberMember extends Struct.CollectionTypeSchema {
+  collectionName: 'members';
+  info: {
+    displayName: 'Member';
+    pluralName: 'members';
+    singularName: 'member';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    bio: Schema.Attribute.RichText;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    email: Schema.Attribute.Email;
+    first_name: Schema.Attribute.String;
+    last_name: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::member.member'
+    > &
+      Schema.Attribute.Private;
+    location: Schema.Attribute.Enumeration<
+      ['Auckland', 'Christchurch', 'Sydney', 'Yokohama']
+    >;
+    middle_name: Schema.Attribute.String;
+    phone: Schema.Attribute.String;
+    portrait_image: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    role: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiOfficeOffice extends Struct.CollectionTypeSchema {
+  collectionName: 'offices';
+  info: {
+    displayName: 'Office';
+    pluralName: 'offices';
+    singularName: 'office';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    address_1: Schema.Attribute.String;
+    address_2: Schema.Attribute.String;
+    careers: Schema.Attribute.Relation<'oneToMany', 'api::career.career'>;
+    city: Schema.Attribute.String;
+    city_or_state: Schema.Attribute.String;
+    country: Schema.Attribute.Enumeration<
+      ['New Zealand', 'Australia', 'Japan', 'Korea']
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    email: Schema.Attribute.Email;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::office.office'
+    > &
+      Schema.Attribute.Private;
+    office_image: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    >;
+    office_location: Schema.Attribute.Enumeration<
+      ['Auckland', 'Christchurch', 'Sydney', 'Yokohama']
+    >;
+    phone: Schema.Attribute.String;
+    post_code: Schema.Attribute.String;
+    prefecture: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    ward: Schema.Attribute.String;
+  };
+}
+
+export interface ApiProjectProject extends Struct.CollectionTypeSchema {
+  collectionName: 'projects';
+  info: {
+    displayName: 'Project';
+    pluralName: 'projects';
+    singularName: 'project';
+  };
+  options: {
+    draftAndPublish: true;
   };
   attributes: {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    defaultSeo: Schema.Attribute.Component<'shared.seo', false>;
-    favicon: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
+    industry: Schema.Attribute.Enumeration<
+      [
+        'Accounting',
+        'Administration & Office Support',
+        'Advertising, Arts & Media',
+        'Banking & Financial Services',
+        'Call Centre & Customer Service',
+        'Community Services & Development',
+        'Construction',
+        'Consulting & Strategy',
+        'Design & Architecture',
+        'Education & Training',
+        'Engineering',
+        'Farming, Animals & Conservation',
+        'Government & Defence',
+        'Healthcare & Medical',
+        'Hospitality & Tourism',
+        'Human Resources & Recruitment',
+        'Information & Communication Technology',
+        'Insurance & Superannuation',
+        'Legal',
+        'Manufacturing, Transport & Logistics',
+        'Marketing & Communications',
+        'Mining, Resources & Energy',
+        'Real Estate & Property',
+        'Retail & Consumer Products',
+        'Sales',
+        'Science & Technology',
+        'Sport & Recreation',
+        'Trades & Services',
+      ]
+    >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
-      'api::global.global'
+      'api::project.project'
     > &
       Schema.Attribute.Private;
+    project_client: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::client.client'
+    >;
+    project_comment1: Schema.Attribute.RichText;
+    project_comment2: Schema.Attribute.RichText;
+    project_comment3: Schema.Attribute.RichText;
+    project_comment4: Schema.Attribute.RichText;
+    project_date: Schema.Attribute.Date;
+    project_description: Schema.Attribute.Text;
+    project_images: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
+    project_link: Schema.Attribute.String;
+    project_title: Schema.Attribute.String;
+    project_type: Schema.Attribute.Enumeration<
+      ['software', 'web', 'app', 'ai', 'design', 'other']
+    >;
     publishedAt: Schema.Attribute.DateTime;
-    siteDescription: Schema.Attribute.Text & Schema.Attribute.Required;
-    siteName: Schema.Attribute.String & Schema.Attribute.Required;
+    slide: Schema.Attribute.Relation<'oneToOne', 'api::slide.slide'>;
+    thumbnail_image: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    >;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiSlideSlide extends Struct.CollectionTypeSchema {
+  collectionName: 'slides';
+  info: {
+    displayName: 'Slide';
+    pluralName: 'slides';
+    singularName: 'slide';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    company_name: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::slide.slide'> &
+      Schema.Attribute.Private;
+    project_image: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::project.project'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -939,8 +1220,14 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
-      'api::about.about': ApiAboutAbout;
-      'api::global.global': ApiGlobalGlobal;
+      'api::article.article': ApiArticleArticle;
+      'api::career.career': ApiCareerCareer;
+      'api::client.client': ApiClientClient;
+      'api::flag.flag': ApiFlagFlag;
+      'api::member.member': ApiMemberMember;
+      'api::office.office': ApiOfficeOffice;
+      'api::project.project': ApiProjectProject;
+      'api::slide.slide': ApiSlideSlide;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

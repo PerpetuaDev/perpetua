@@ -1,0 +1,63 @@
+{
+  "kind": "collectionType",
+  "collectionName": "careers",
+  "info": {
+    "singularName": "career",
+    "pluralName": "careers",
+    "displayName": "Career"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "job_title": {
+      "type": "string"
+    },
+    "job_type": {
+      "type": "enumeration",
+      "enum": [
+        "Full-time",
+        "Part-time",
+        "Casual/Temp",
+        "Internship"
+      ]
+    },
+    "job_description": {
+      "type": "richtext"
+    },
+    "job_location": {
+      "type": "enumeration",
+      "enum": [
+        "Auckland",
+        "Christchurch",
+        "Sydney",
+        "Yokohama",
+        "Any location"
+      ]
+    },
+    "location_type": {
+      "type": "enumeration",
+      "enum": [
+        "Onsite",
+        "Remote",
+        "Hybrid",
+        "Hybrid/remote"
+      ]
+    },
+    "branch_name": {
+      "type": "enumeration",
+      "enum": [
+        "Auckland",
+        "Christchurch",
+        "Sydney",
+        "Yokohama"
+      ]
+    },
+    "office": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::office.office",
+      "inversedBy": "careers"
+    }
+  }
+}

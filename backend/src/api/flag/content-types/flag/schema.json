@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "flags",
+  "info": {
+    "singularName": "flag",
+    "pluralName": "flags",
+    "displayName": "Flag"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "country": {
+      "type": "string"
+    },
+    "country_code": {
+      "type": "string"
+    },
+    "flag_image": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    }
+  }
+}

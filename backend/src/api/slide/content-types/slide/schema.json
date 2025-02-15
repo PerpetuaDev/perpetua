@@ -1,0 +1,23 @@
+{
+  "kind": "collectionType",
+  "collectionName": "slides",
+  "info": {
+    "singularName": "slide",
+    "pluralName": "slides",
+    "displayName": "Slide"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "company_name": {
+      "type": "string"
+    },
+    "project_image": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::project.project",
+      "inversedBy": "slide"
+    }
+  }
+}

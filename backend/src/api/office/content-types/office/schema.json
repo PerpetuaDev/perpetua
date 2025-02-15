@@ -1,0 +1,75 @@
+{
+  "kind": "collectionType",
+  "collectionName": "offices",
+  "info": {
+    "singularName": "office",
+    "pluralName": "offices",
+    "displayName": "Office"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "office_location": {
+      "type": "enumeration",
+      "enum": [
+        "Auckland",
+        "Christchurch",
+        "Sydney",
+        "Yokohama"
+      ]
+    },
+    "address_1": {
+      "type": "string"
+    },
+    "address_2": {
+      "type": "string"
+    },
+    "ward": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "prefecture": {
+      "type": "string"
+    },
+    "city_or_state": {
+      "type": "string"
+    },
+    "country": {
+      "type": "enumeration",
+      "enum": [
+        "New Zealand",
+        "Australia",
+        "Japan",
+        "Korea"
+      ]
+    },
+    "post_code": {
+      "type": "string"
+    },
+    "email": {
+      "type": "email"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "office_image": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    },
+    "careers": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::career.career",
+      "mappedBy": "office"
+    }
+  }
+}
