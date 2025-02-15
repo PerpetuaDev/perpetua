@@ -14,6 +14,15 @@ export interface IMessage {
     message: string
 }
 
+export interface IService {
+    id: number,
+    image: string,
+    title: string,
+    description: string,
+    width?: number,
+    height?: number,
+}
+
 export interface IFlag {
     id: number,
     documentId: string,
@@ -78,14 +87,6 @@ export interface IClient {
     company_logo: IImage,
 }
 
-export interface IService {
-    id: number,
-    image: string,
-    title: string,
-    description: string,
-    width?: number,
-    height?: number,
-}
 
 export interface ISlide {
     id: number,
@@ -97,21 +98,35 @@ export interface ISlide {
 export interface IProject {
     id: number,
     documentId: string,
+    project_client: IClient,
+    industry: string,
+    project_type: string,
     project_title: string,
+    project_date: Date,
+    project_link: string,
+    project_description: string,
     thumbnail_image: IImage,
     project_images: IImage[],
     project_comment1: string,
     project_comment2: string,
     project_comment3: string,
     project_comment4: string,
-    project_type: string,
-    project_description: string,
-    project_link: string,
-    project_date: Date,
-    project_client: IClient,
-    industry: string,
     createdAt: Date,
     updatedAt: Date,
+}
+
+export interface IArticle {
+    id: number;
+    documentId: string;
+    title: string;
+    sub_heading: string;
+    type: string;
+    author: string;
+    thumbnail_image: IImage;
+    content: any;
+    publishedAt: string;
+    createdAt: string;
+    updatedAt: string;
 }
 
 export interface IImage {
@@ -126,18 +141,4 @@ export interface IImage {
     formats?: any;
     createdAt: Date;
     updatedAt: Date;
-}
-
-export interface IArticle {
-    id: number;
-    documentId: string;
-    title: string;
-    sub_heading: string;
-    content: any;
-    publishedAt: string;
-    type: string;
-    author: string;
-    thumbnail_image: IImage;
-    createdAt: string;
-    updatedAt: string;
 }
