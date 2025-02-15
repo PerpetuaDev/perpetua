@@ -26,21 +26,22 @@ export class OfficeService {
     getAllOffices(): Observable<IOffice[]> {
         return this.strapiService.getAllOffices().pipe(
             map((response: APIResponseModel) => {
-                return response.data.map((office: IOffice) => ({
-                    ...office,
-                    office_image: office.office_image && office.office_image.length > 0
+                return response.data.map((office: IOffice) => {
+                    const officeImage = office.office_image
                         ? {
-                            ...office.office_image[0],
-                            url: office.office_image[0].url
+                            url: office.office_image.url
                         }
-                        : { url: "../../../assets/images/img_n.a.png" },
-                    currentTime: this.getCurrentTime(office.office_location)
-                })).sort((a: IOffice, b: IOffice) => a.office_location.localeCompare(b.office_location));
+                        : { url: "../../../assets/images/img_n.a.png" };
+
+                    return {
+                        ...office,
+                        office_image: officeImage,
+                        currentTime: this.getCurrentTime(office.office_location)
+                    };
+                }).sort((a: IOffice, b: IOffice) => a.office_location.localeCompare(b.office_location));
             })
         );
     }
-
-
 
     alignToNextMinute(): void {
         const now = new Date();

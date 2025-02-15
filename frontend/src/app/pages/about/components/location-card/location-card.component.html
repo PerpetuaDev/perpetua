@@ -1,6 +1,7 @@
 <ng-container *ngIf="office">
     <div class="image_wrapper">
-        <img [src]="office.office_image[0].url" alt="office.office_location">
+        <img [src]="office.office_image.url || '../../../assets/images/img_n.a.png'" alt="office.office_location" />
+
     </div>
     <div class="office_info_container">
         <div class="office_info_left">

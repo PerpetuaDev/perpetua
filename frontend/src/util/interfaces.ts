@@ -57,7 +57,7 @@ export interface IOffice {
     post_code: string,
     email: string,
     phone: string,
-    office_image: IImage[],
+    office_image: IImage,
     currentTime?: string,
 }
 

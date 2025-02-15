@@ -672,7 +672,7 @@ export interface ApiProjectProject extends Struct.CollectionTypeSchema {
     project_link: Schema.Attribute.String;
     project_title: Schema.Attribute.String;
     project_type: Schema.Attribute.Enumeration<
-      ['software', 'web', 'app', 'ai', 'design', 'other']
+      ['software', 'website', 'app', 'design', 'other']
     >;
     publishedAt: Schema.Attribute.DateTime;
     slide: Schema.Attribute.Relation<'oneToOne', 'api::slide.slide'>;

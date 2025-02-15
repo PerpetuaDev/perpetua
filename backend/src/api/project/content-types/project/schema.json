@@ -56,9 +56,8 @@
       "type": "enumeration",
       "enum": [
         "software",
-        "web",
+        "website",
         "app",
-        "ai",
         "design",
         "other"
       ]

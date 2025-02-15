@@ -38,15 +38,26 @@ export class ArticleService {
     fetchArticles(): void {
         this.loadingSubject.next(true);
         this.strapiService.getAllArticles().subscribe((result: APIResponseModel) => {
-            const articles = result.data.map((article: IArticle) => ({
-                ...article,
-                thumbnail_image: article.thumbnail_image
-                    ? {
-                        ...article.thumbnail_image,
-                        url: article.thumbnail_image.url
-                    } : { url: "../../../../../assets/images/img_n.a.png" }
-            }));
-            console.log("data: ", articles[0])
+            const articles = result.data.map((article: IArticle) => {
+                // Log the thumbnail_image URL before assignment
+                console.log("Data: ", article);
+
+                if (article.thumbnail_image) {
+                    console.log("Thumbnail Image URL before assignment: ", article.thumbnail_image.url);
+                } else {
+                    console.log("No thumbnail image for article with ID: ", article.documentId);
+                }
+
+                return {
+                    ...article,
+                    thumbnail_image: article.thumbnail_image
+                        ? {
+                            ...article.thumbnail_image,
+                            url: article.thumbnail_image.url
+                        }
+                        : { url: "../../../../../assets/images/img_n.a.png" }
+                };
+            });
             this.articlesSubject.next(articles);
             this.filteredArticlesSubject.next(articles);
             this.loadingSubject.next(false);
@@ -55,6 +66,7 @@ export class ArticleService {
             this.loadingSubject.next(false);
         });
     }
+
 
     sortArticles(type: string): void {
         const articles = this.articlesSubject.getValue();

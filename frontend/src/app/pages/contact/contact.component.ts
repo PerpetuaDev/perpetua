@@ -88,7 +88,7 @@ export class ContactComponent implements OnInit, OnDestroy {
     this.offices$.subscribe((offices: IOffice[]) => {
       const matchingOffice = offices.find(office => office.office_location === this.selectedLocation);
       if (matchingOffice) {
-        this.officeImage = matchingOffice.office_image[0].url;
+        this.officeImage = matchingOffice.office_image.url;
       } else {
         this.officeImage = '../../../assets/images/img_n.a.png';
       }
@@ -101,7 +101,7 @@ export class ContactComponent implements OnInit, OnDestroy {
         flag_image: {
           ...flag.flag_image,
           url: flag.flag_image && flag.flag_image.url
-            ? this.strapiUrl + flag.flag_image.url
+            ? flag.flag_image.url
             : "../../../assets/images/no-flag.png"
         }
       }));
@@ -171,7 +171,7 @@ export class ContactComponent implements OnInit, OnDestroy {
     this.offices$.subscribe((offices: IOffice[]) => {
       const matchingOffice = offices.find(office => office.office_location === this.selectedLocation);
       if (matchingOffice) {
-        this.officeImage = matchingOffice.office_image[0].url;
+        this.officeImage = matchingOffice.office_image.url;
       } else {
         this.officeImage = '../../../assets/images/img_n.a.png';
       }
