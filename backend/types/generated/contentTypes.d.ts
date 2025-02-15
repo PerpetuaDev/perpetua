@@ -603,6 +603,7 @@ export interface ApiOfficeOffice extends Struct.CollectionTypeSchema {
 export interface ApiProjectProject extends Struct.CollectionTypeSchema {
   collectionName: 'projects';
   info: {
+    description: '';
     displayName: 'Project';
     pluralName: 'projects';
     singularName: 'project';
@@ -622,14 +623,15 @@ export interface ApiProjectProject extends Struct.CollectionTypeSchema {
         'Banking & Financial Services',
         'Call Centre & Customer Service',
         'Community Services & Development',
-        'Construction',
+        'Construction & manufacturing',
         'Consulting & Strategy',
         'Design & Architecture',
         'Education & Training',
         'Engineering',
         'Farming, Animals & Conservation',
         'Government & Defence',
-        'Healthcare & Medical',
+        'Health & wellness',
+        'Medical',
         'Hospitality & Tourism',
         'Human Resources & Recruitment',
         'Information & Communication Technology',
@@ -641,7 +643,8 @@ export interface ApiProjectProject extends Struct.CollectionTypeSchema {
         'Real Estate & Property',
         'Retail & Consumer Products',
         'Sales',
-        'Science & Technology',
+        'Science',
+        'Technology',
         'Sport & Recreation',
         'Trades & Services',
       ]

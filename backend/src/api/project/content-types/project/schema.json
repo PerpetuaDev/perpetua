@@ -4,7 +4,8 @@
   "info": {
     "singularName": "project",
     "pluralName": "projects",
-    "displayName": "Project"
+    "displayName": "Project",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -25,14 +26,15 @@
         "Banking & Financial Services",
         "Call Centre & Customer Service",
         "Community Services & Development",
-        "Construction",
+        "Construction & manufacturing",
         "Consulting & Strategy",
         "Design & Architecture",
         "Education & Training",
         "Engineering",
         "Farming, Animals & Conservation",
         "Government & Defence",
-        "Healthcare & Medical",
+        "Health & wellness",
+        "Medical",
         "Hospitality & Tourism",
         "Human Resources & Recruitment",
         "Information & Communication Technology",
@@ -44,7 +46,8 @@
         "Real Estate & Property",
         "Retail & Consumer Products",
         "Sales",
-        "Science & Technology",
+        "Science",
+        "Technology",
         "Sport & Recreation",
         "Trades & Services"
       ]
@@ -73,24 +76,26 @@
       "type": "text"
     },
     "thumbnail_image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
     },
     "project_images": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
-      ],
-      "type": "media",
-      "multiple": true
+      ]
     },
     "project_comment1": {
       "type": "richtext"
