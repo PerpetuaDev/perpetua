@@ -44,7 +44,8 @@ export class StaffCardComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getMemberImageUrl(member: IMember): string {
-    return member.portrait_image?.url ? this.strapiUrl + member.portrait_image.url : "../../../assets/images/img_n.a.png";
+    console.log(member.portrait_image.url)
+    return member.portrait_image?.url ? member.portrait_image.url : "../../../assets/images/img_n.a.png";
   }
 
   generateShuffledMembers(): void {

@@ -33,15 +33,21 @@ export class MemberService {
         this.loadingSubject.next(true);
         this.strapiService.getAllMembers().subscribe((result: APIResponseModel) => {
             const members = result.data
-                .map((member: IMember) => ({
-                    ...member,
-                    portrait_image: member.portrait_image ? {
-                        ...member.portrait_image,
-                        url: this.strapiUrl + (member.portrait_image.url || "../../../../../assets/images/img_n.a.png")
-                    } : { url: "../../../../../assets/images/img_n.a.png" }
-                }))
-                .sort((a: any, b: any) => a.last_name.localeCompare(b.last_name));
+                .map((member: IMember) => {
+                    // Log each member's portrait image URL (before and after mapping)
+                    console.log('Portrait image before mapping:', member.portrait_image);
 
+                    return {
+                        ...member,
+                        portrait_image: member.portrait_image
+                            ? {
+                                ...member.portrait_image,
+                                url: member.portrait_image?.url
+                            }
+                            : { url: "../../../../../assets/images/img_n.a.png" }
+                    };
+                })
+                .sort((a: any, b: any) => a.last_name.localeCompare(b.last_name));
             this.membersSubject.next(members);
             this.filteredMembersSubject.next(members);
             this.loadingSubject.next(false);

@@ -40,13 +40,13 @@ export class ArticleService {
         this.strapiService.getAllArticles().subscribe((result: APIResponseModel) => {
             const articles = result.data.map((article: IArticle) => {
                 // Log the thumbnail_image URL before assignment
-                console.log("Data: ", article);
+                console.log("Data: ", article.thumbnail_image.url);
 
-                if (article.thumbnail_image) {
-                    console.log("Thumbnail Image URL before assignment: ", article.thumbnail_image.url);
-                } else {
-                    console.log("No thumbnail image for article with ID: ", article.documentId);
-                }
+                // if (article.thumbnail_image) {
+                //     console.log("Thumbnail Image URL before assignment: ", article.thumbnail_image.url);
+                // } else {
+                //     console.log("No thumbnail image for article with ID: ", article.documentId);
+                // }
 
                 return {
                     ...article,
@@ -64,7 +64,7 @@ export class ArticleService {
         }, error => {
             console.error('Error fetching articles:', error);
             this.loadingSubject.next(false);
-        });
+        }); http://localhost:1337/uploads/project8_87cd6031bf.jpg
     }
 
 
