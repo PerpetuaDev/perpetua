@@ -64,7 +64,7 @@ export class ArticleService {
         }, error => {
             console.error('Error fetching articles:', error);
             this.loadingSubject.next(false);
-        }); http://localhost:1337/uploads/project8_87cd6031bf.jpg
+        });
     }
 
 
