@@ -43,11 +43,10 @@ export class ProjectSearchResultComponent implements OnInit {
     this.metaService.updateTag({ name: 'description', content: 'Browse our projects searched by keywords to learn more about the amazing things we have done at Perpetua.' });
 
     this.searchService.keyword$.subscribe((keyword) => {
-      this.keyword = keyword;  // Update the local keyword whenever the global keyword changes
-      this.filterProjects();   // Call method to filter projects
+      this.keyword = keyword;
+      this.filterProjects();
     });
 
-    // Fetch all project data initially
     this.projectService.projects$.subscribe((projects) => {
       this.allProjectData = projects;
       this.filterProjects();
@@ -65,9 +64,9 @@ export class ProjectSearchResultComponent implements OnInit {
         project.project_title.toLowerCase().includes(this.keyword.toLowerCase())
       );
     } else {
-      this.visibleProjects = this.allProjectData.slice(0, this.projectsToLoad);
+      this.visibleProjects = this.allProjectData;
     }
-    this.loadMoreButtonVisible = this.visibleProjects.length < this.allProjectData.length;
+    this.loadMoreButtonVisible = false;
   }
 
   capitalizeFirstLetter(value: string): string {

@@ -43,11 +43,10 @@ export class ArticleSearchResultComponent implements OnInit {
     this.metaService.updateTag({ name: 'description', content: 'Browse our articles searched by keywords to learn more about the amazing things we have done at Perpetua.' });
 
     this.searchService.keyword$.subscribe((keyword) => {
-      this.keyword = keyword;  // Update the local keyword whenever the global keyword changes
-      this.filterArticles();   // Call method to filter articles
+      this.keyword = keyword;
+      this.filterArticles();
     });
 
-    // Fetch all article data initially
     this.ArticleService.articles$.subscribe((articles) => {
       this.allArticleData = articles;
       this.filterArticles();
@@ -60,9 +59,9 @@ export class ArticleSearchResultComponent implements OnInit {
         article.title.toLowerCase().includes(this.keyword.toLowerCase())
       );
     } else {
-      this.visibleArticles = this.allArticleData.slice(0, this.articlesToLoad);
+      this.visibleArticles = this.allArticleData;
     }
-    this.loadMoreButtonVisible = this.visibleArticles.length < this.allArticleData.length;
+    this.loadMoreButtonVisible = false;
   }
 
   capitalizeFirstLetter(value: string): string {

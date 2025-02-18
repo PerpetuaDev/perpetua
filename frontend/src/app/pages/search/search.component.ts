@@ -8,7 +8,6 @@ import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 // Components
-import { SearchBarComponent } from '../../components/menu/search-bar/search-bar.component';
 import { ProjectSearchResultComponent } from '../projects/project-search-result/project-search-result.component';
 import { ArticleSearchResultComponent } from '../articles/article-search-result/article-search-result.component';
 // Services
@@ -20,7 +19,7 @@ import { SearchService } from '../../shared/search.service';
 @Component({
   selector: 'app-search',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, SearchBarComponent, ProjectSearchResultComponent, ArticleSearchResultComponent],
+  imports: [CommonModule, ReactiveFormsModule, ProjectSearchResultComponent, ArticleSearchResultComponent],
   templateUrl: './search.component.html',
   styleUrl: './search.component.scss'
 })
@@ -29,7 +28,7 @@ export class SearchComponent implements OnInit {
   @Input() data: 'projects' | 'articles' = 'projects';
   @Output() resultSelected = new EventEmitter<void>();
   @ViewChild('searchInput') searchInput!: ElementRef;
-  selectedFilter: string = 'all';
+  selectedFilter: 'all' | 'project' | 'blog' = 'all';
   keyword: string = '';
   isBorderVisible: boolean = false;
   allArticleData: any[] = [];
@@ -44,7 +43,15 @@ export class SearchComponent implements OnInit {
   allProjectData: IProject[] = [];
   articles: IArticle[] = [];
   searchResultAll: string[] = [];
-  searchResults: { title: string, path: string, thumbnail_image: { url: string } }[] = [];
+  searchResults: {
+    title: string,
+    path: string,
+    thumbnail_image: {
+      url: string
+    },
+    type: string,
+    createdAt: string
+  }[] = [];
   sanitizer = inject(DomSanitizer);
 
   constructor(
@@ -64,7 +71,7 @@ export class SearchComponent implements OnInit {
 
     this.route.queryParams.subscribe((params) => {
       this.keyword = params['keyword'] || '';
-      this.searchControl.setValue(this.keyword);  // Sync the keyword from the query params
+      this.searchControl.setValue(this.keyword);
       const source = params['source'];
       if (source === 'projects') {
         this.selectedFilter = 'project';
@@ -73,17 +80,16 @@ export class SearchComponent implements OnInit {
       } else {
         this.selectedFilter = 'all';
       }
-      this.onSearchInput();  // Call the search input function after initialization
+      this.onSearchInput();
     });
 
     this.searchControl.valueChanges.subscribe((value) => {
-      this.searchService.updateKeyword(value);  // Update the keyword in the shared service
+      this.searchService.updateKeyword(value);
     });
 
-    // Listen to changes in searchControl and update the search results
     this.searchControl.valueChanges.subscribe(() => {
       this.keyword = this.searchControl.value || '';
-      this.onSearchInput();  // Reapply the search logic on every change
+      this.onSearchInput();
     });
 
     this.translate.onLangChange.subscribe((event) => {
@@ -92,18 +98,13 @@ export class SearchComponent implements OnInit {
     });
   }
 
-  capitalizeFirstLetter(value: string): string {
-    if (!value) return '';
-    return value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
-  }
-
-  sortResults(sort: string) {
+  sortResults(sort: string): void {
     if (this.selectedFilter === sort) {
       this.selectedFilter = 'all';
     } else {
-      this.selectedFilter = sort;
+      this.selectedFilter = sort as 'all' | 'project' | 'blog';
     }
-    this.onSearchInput(); // Trigger search when filter changes
+    this.onSearchInput();
   }
 
   onSearchIconKeyDown(event: KeyboardEvent): void {
@@ -117,53 +118,44 @@ export class SearchComponent implements OnInit {
     const keyword = this.searchControl.value?.toLowerCase() || '';
 
     if (!keyword) {
-      this.searchResults = [];  // Reset results if no keyword
+      this.searchResults = [];
       return;
     }
 
-    // Reset results arrays
     this.searchResults = [];
 
-    // Filter based on selected filter
-    if (this.selectedFilter === 'project') {
-      this.allProjectData = this.projects.filter((project) =>
-        project.project_title.toLowerCase().includes(keyword)
-      );
-      this.searchResults = this.allProjectData.map((project) => ({
-        title: project.project_title,
-        path: `/projects/${project.documentId}`,
-        thumbnail_image: { url: project.thumbnail_image.url },
-      }));
-    } else if (this.selectedFilter === 'blog') {
-      this.allArticleData = this.articles.filter((article) =>
-        article.title.toLowerCase().includes(keyword)
-      );
-      this.searchResults = this.allArticleData.map((article) => ({
-        title: article.title,
-        path: `/articles/${article.documentId}`,
-        thumbnail_image: { url: article.thumbnail_image.url },
-      }));
-    } else {
-      // If no filter is selected (showing both projects and articles)
-      this.allProjectData = this.projects.filter((project) =>
-        project.project_title.toLowerCase().includes(keyword)
-      );
-      this.allArticleData = this.articles.filter((article) =>
-        article.title.toLowerCase().includes(keyword)
-      );
-      this.searchResults = [
-        ...this.allProjectData.map((project) => ({
-          title: project.project_title,
-          path: `/projects/${project.documentId}`,
-          thumbnail_image: { url: project.thumbnail_image.url },
-        })),
-        ...this.allArticleData.map((article) => ({
-          title: article.title,
-          path: `/articles/${article.documentId}`,
-          thumbnail_image: { url: article.thumbnail_image.url },
-        }))
-      ];
-    }
+    this.projectService.projects$.subscribe((projects) => {
+      this.projects = projects;
+      this.allProjectData = projects.filter(project => project.project_title.toLowerCase().includes(keyword));
+
+      this.articleService.articles$.subscribe((articles) => {
+        this.articles = articles;
+        this.allArticleData = articles.filter(article => article.title.toLowerCase().includes(keyword));
+
+        // Combine both articles and projects
+        this.searchResults = [
+          ...this.allProjectData.map(project => ({
+            title: project.project_title,
+            path: `/projects/${project.documentId}`,
+            thumbnail_image: { url: project.thumbnail_image.url },
+            type: this.capitalizeFirstLetter(project.project_type),
+            createdAt: project.createdAt
+          })),
+          ...this.allArticleData.map(article => ({
+            title: article.title,
+            path: `/articles/${article.documentId}`,
+            thumbnail_image: { url: article.thumbnail_image.url },
+            type: this.capitalizeFirstLetter(article.type),
+            createdAt: article.createdAt
+          }))
+        ];
+
+        // Sort by createdAt (descending order)
+        this.searchResults.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+      });
+    });
+
+    console.log(this.searchResults)
   }
 
   removeBottomBorder(): void {
@@ -173,6 +165,11 @@ export class SearchComponent implements OnInit {
         this.renderer.removeClass(border, 'visible');
       }
     }
+  }
+
+  capitalizeFirstLetter(value: string): string {
+    if (!value) return '';
+    return value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
   }
 
   @HostListener('document:click', ['$event'])

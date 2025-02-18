@@ -39,34 +39,35 @@
                 [ngClass]="{'bi-chevron-down': selectedFilter !== 'blog', 'bi-x': selectedFilter === 'blog'}"></i>
         </button>
     </div>
+    <span class="separator"></span>
 
     <!-- Display search results -->
-    <ng-container>
-        <!-- all results -->
-        <section>
-            <ul>
-                <li *ngFor="let result of searchResults">
-                    <div class="image-wrapper">
-                        <img [src]="result.thumbnail_image.url" alt="">
-                    </div>
-                    <div class="right-wrapper">
-                        <div class="info-wrapper">
-                            <div>
-                                <p class="category">
-                                    {{ selectedFilter === 'project' ? 'Work' : 'News' }}
-                                    &nbsp;&middot;&nbsp;{{ result.title }}
-                                </p>
-                            </div>
+    <!-- all results -->
+    <section *ngIf="selectedFilter === 'all'">
+        <ul>
+            <li *ngFor="let result of searchResults">
+                <div class="image-wrapper">
+                    <img [src]="result.thumbnail_image.url" alt="">
+                </div>
+                <div class="right-wrapper">
+                    <div class="info-wrapper">
+                        <div>
+                            <p class="category">
+                                {{ ['Software', 'Website', 'App', 'Design'].includes(result.type) ? 'Work' : 'News' }}
+                                &nbsp;&middot;&nbsp;{{ result.type }}
+                            </p>
+                            <p class="title">{{ result.title }}</p>
                         </div>
                     </div>
-                </li>
-            </ul>
-        </section>
+                </div>
+            </li>
+        </ul>
+    </section>
 
-        <!-- If clicking the "project" sort button -->
-        <app-project-search-result *ngIf="selectedFilter === 'project'"></app-project-search-result>
 
-        <!-- If clicking the "article" sort button -->
-        <app-article-search-result *ngIf="selectedFilter === 'blog'"></app-article-search-result>
-    </ng-container>
+    <!-- If clicking the "project" sort button -->
+    <app-project-search-result *ngIf="selectedFilter === 'project'"></app-project-search-result>
+
+    <!-- If clicking the "article" sort button -->
+    <app-article-search-result *ngIf="selectedFilter === 'blog'"></app-article-search-result>
 </div>
