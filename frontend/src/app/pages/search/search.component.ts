@@ -11,11 +11,11 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { SearchBarComponent } from '../../components/menu/search-bar/search-bar.component';
 import { ProjectSearchResultComponent } from '../projects/project-search-result/project-search-result.component';
 import { ArticleSearchResultComponent } from '../articles/article-search-result/article-search-result.component';
-
 // Services
 import { IProject, IArticle } from '../../../util/interfaces';
 import { ProjectService } from '../../shared/project.service';
 import { ArticleService } from '../../shared/article.service';
+import { SearchService } from '../../shared/search.service';
 
 @Component({
   selector: 'app-search',
@@ -25,8 +25,13 @@ import { ArticleService } from '../../shared/article.service';
   styleUrl: './search.component.scss'
 })
 export class SearchComponent implements OnInit {
+  @Input() placeholder: string = '';
+  @Input() data: 'projects' | 'articles' = 'projects';
+  @Output() resultSelected = new EventEmitter<void>();
+  @ViewChild('searchInput') searchInput!: ElementRef;
   selectedFilter: string = 'all';
   keyword: string = '';
+  isBorderVisible: boolean = false;
   allArticleData: any[] = [];
   visibleArticles: IArticle[] = [];
   articlesToLoad: number = 12;
@@ -34,18 +39,12 @@ export class SearchComponent implements OnInit {
   ArticleService: ArticleService = inject(ArticleService);
   translate: TranslateService = inject(TranslateService);
   currentLanguage: string = 'en';
-
-  @Input() placeholder: string = '';
-  @Input() data: 'projects' | 'articles' = 'projects';
-  @Output() resultSelected = new EventEmitter<void>();
-  @ViewChild('searchInput') searchInput!: ElementRef;
   searchControl = new FormControl();
   projects: IProject[] = [];
   allProjectData: IProject[] = [];
   articles: IArticle[] = [];
-  // allArticleData: IArticle[] = [];
   searchResultAll: string[] = [];
-  searchResults: { title: string, path: string, highlightedTitle: SafeHtml }[] = [];
+  searchResults: { title: string, path: string, thumbnail_image: { url: string } }[] = [];
   sanitizer = inject(DomSanitizer);
 
   constructor(
@@ -56,47 +55,36 @@ export class SearchComponent implements OnInit {
     private router: Router,
     private projectService: ProjectService,
     private articleService: ArticleService,
-  ) {
-  }
+    private searchService: SearchService,
+  ) { }
 
   ngOnInit(): void {
-    // Meta info for SEO
     this.titleService.setTitle(`Search Result ${this.selectedFilter} - Perpetua`);
     this.metaService.updateTag({ name: 'description', content: 'Browse our articles searched by keywords to learn more about the amazing things we have done at Perpetua.' });
 
-
     this.route.queryParams.subscribe((params) => {
       this.keyword = params['keyword'] || '';
-
-      this.allArticleData = this.ArticleService.getSearchResults();
-
-      if (!this.allArticleData || this.allArticleData.length === 0) {
-        this.ArticleService.articles$.subscribe((articles) => {
-          this.allArticleData = articles.filter((article) =>
-            article.title.toLowerCase().includes(this.keyword.toLowerCase()),
-          );
-          this.visibleArticles = this.allArticleData.slice(0, this.articlesToLoad);
-          this.loadMoreButtonVisible = this.allArticleData.length > this.articlesToLoad;
-        });
+      this.searchControl.setValue(this.keyword);  // Sync the keyword from the query params
+      const source = params['source'];
+      if (source === 'projects') {
+        this.selectedFilter = 'project';
+      } else if (source === 'articles') {
+        this.selectedFilter = 'blog';
       } else {
-        this.visibleArticles = this.allArticleData.slice(0, this.articlesToLoad);
-        this.loadMoreButtonVisible = this.allArticleData.length > this.articlesToLoad;
+        this.selectedFilter = 'all';
       }
+      this.onSearchInput();  // Call the search input function after initialization
     });
 
-    if (this.data === 'projects') {
-      this.projectService.projects$.subscribe((projects: IProject[]) => {
-        this.projects = projects;
-      }, error => {
-        console.error('Error fetching projects from ProjectService:', error);
-      });
-    } else if (this.data === 'articles') {
-      this.articleService.articles$.subscribe((articles: IArticle[]) => {
-        this.articles = articles;
-      }, error => {
-        console.error('Error fetching articles:', error);
-      });
-    }
+    this.searchControl.valueChanges.subscribe((value) => {
+      this.searchService.updateKeyword(value);  // Update the keyword in the shared service
+    });
+
+    // Listen to changes in searchControl and update the search results
+    this.searchControl.valueChanges.subscribe(() => {
+      this.keyword = this.searchControl.value || '';
+      this.onSearchInput();  // Reapply the search logic on every change
+    });
 
     this.translate.onLangChange.subscribe((event) => {
       this.currentLanguage = event.lang;
@@ -110,27 +98,13 @@ export class SearchComponent implements OnInit {
   }
 
   sortResults(sort: string) {
-    this.selectedFilter = sort;
+    if (this.selectedFilter === sort) {
+      this.selectedFilter = 'all';
+    } else {
+      this.selectedFilter = sort;
+    }
+    this.onSearchInput(); // Trigger search when filter changes
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   onSearchIconKeyDown(event: KeyboardEvent): void {
     if (event.key === 'Enter' || event.key === ' ') {
@@ -139,52 +113,58 @@ export class SearchComponent implements OnInit {
     }
   }
 
-  onSearchInput(): void {
-    if (this.searchInput) {
-      this.searchInput.nativeElement.focus();
-    }
-
+  onSearchInput(isFocused: boolean = false): void {
     const keyword = this.searchControl.value?.toLowerCase() || '';
 
-    if (this.searchInput) {
-      const border = this.searchInput.nativeElement.nextElementSibling;
-      this.renderer.addClass(border, 'visible');
-    }
-
     if (!keyword) {
-      this.searchResults = [];
-      this.searchResultAll = [];
+      this.searchResults = [];  // Reset results if no keyword
       return;
     }
 
-    if (this.data === 'projects') {
-      this.allProjectData = this.projects
-        .filter((project: IProject) => project.project_title.toLowerCase().includes(keyword))
-      this.searchResults = this.allProjectData
-        .slice(0, 5)
-        .map((project: IProject) => ({
+    // Reset results arrays
+    this.searchResults = [];
+
+    // Filter based on selected filter
+    if (this.selectedFilter === 'project') {
+      this.allProjectData = this.projects.filter((project) =>
+        project.project_title.toLowerCase().includes(keyword)
+      );
+      this.searchResults = this.allProjectData.map((project) => ({
+        title: project.project_title,
+        path: `/projects/${project.documentId}`,
+        thumbnail_image: { url: project.thumbnail_image.url },
+      }));
+    } else if (this.selectedFilter === 'blog') {
+      this.allArticleData = this.articles.filter((article) =>
+        article.title.toLowerCase().includes(keyword)
+      );
+      this.searchResults = this.allArticleData.map((article) => ({
+        title: article.title,
+        path: `/articles/${article.documentId}`,
+        thumbnail_image: { url: article.thumbnail_image.url },
+      }));
+    } else {
+      // If no filter is selected (showing both projects and articles)
+      this.allProjectData = this.projects.filter((project) =>
+        project.project_title.toLowerCase().includes(keyword)
+      );
+      this.allArticleData = this.articles.filter((article) =>
+        article.title.toLowerCase().includes(keyword)
+      );
+      this.searchResults = [
+        ...this.allProjectData.map((project) => ({
           title: project.project_title,
           path: `/projects/${project.documentId}`,
-          highlightedTitle: this.getHighlightedText(project.project_title, keyword)
-        }));
-      this.searchResultAll = this.projects.filter((project: IProject) => project.project_title.toLowerCase().includes(keyword)).map((project: IProject) => (`/projects/${project.documentId}`));
-    } else if (this.data === 'articles') {
-      this.allArticleData = this.articles
-        .filter((article: IArticle) => article.title.toLowerCase().includes(keyword))
-      this.searchResults = this.allArticleData
-        .slice(0, 5)
-        .map((article: IArticle) => ({
+          thumbnail_image: { url: project.thumbnail_image.url },
+        })),
+        ...this.allArticleData.map((article) => ({
           title: article.title,
           path: `/articles/${article.documentId}`,
-          highlightedTitle: this.getHighlightedText(article.title, keyword)
-        }));
-      this.searchResultAll = this.articles.filter((article: IArticle) => article.title.toLowerCase().includes(keyword)).map((article: IArticle) => (`/articles/${article.documentId}`));
+          thumbnail_image: { url: article.thumbnail_image.url },
+        }))
+      ];
     }
   }
-
-
-
-
 
   removeBottomBorder(): void {
     if (this.searchInput) {
@@ -195,55 +175,12 @@ export class SearchComponent implements OnInit {
     }
   }
 
-  onSearchResultClick(): void {
-    this.resultSelected.emit();
-  }
-
-  onKeyDownSearchResultClick(event: KeyboardEvent): void {
-    event.preventDefault();
-    this.onSearchResultClick();
-  }
-
-  onClickAll(data: any): void {
-    this.resultSelected.emit();
-
-    if (data === 'projects') {
-      this.projectService.setSearchResults(this.allProjectData);
-      this.router.navigate(['/search'], {
-        queryParams: { keyword: this.searchControl.value },
-      });
-    } else if (data === 'articles') {
-      this.router.navigate(['/search'], {
-        queryParams: { keyword: this.searchControl.value },
-      });
-    }
-  }
-
-  onKeyDown(event: KeyboardEvent, data: any) {
-    event.preventDefault();
-    this.onClickAll(data);
-  }
-
-  getHighlightedText(text: string, keyword: string): SafeHtml {
-    if (!keyword) {
-      return text;
-    }
-
-    const regex = new RegExp(`(${keyword})`, 'gi');
-    const newText = text.replace(regex, `<span style="font-weight: 500; color: #ffffff;">$1</span>`);
-    return this.sanitizer.bypassSecurityTrustHtml(newText);
-  }
-
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: Event): void {
     const targetElement = event.target as HTMLElement;
 
-    if (!targetElement.closest('.search-bar-container')) {
-      const border = this.searchInput.nativeElement.nextElementSibling;
-      if (border) {
-        border.classList.remove('visible');
-      }
-      this.searchControl.setValue('');
+    if (!targetElement.closest('.search-bar-wrapper')) {
+      this.isBorderVisible = false;
       this.searchResults = [];
       this.searchInput.nativeElement.blur();
     }

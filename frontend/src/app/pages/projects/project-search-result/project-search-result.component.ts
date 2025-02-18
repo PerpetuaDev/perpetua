@@ -11,6 +11,7 @@ import { CallActionComponent } from '../../../components/call-action/call-action
 // Services
 import { ProjectService } from '../../../shared/project.service';
 import { IProject } from '../../../../util/interfaces';
+import { SearchService } from '../../../shared/search.service';
 
 @Component({
   selector: 'app-project-search-result',
@@ -25,42 +26,48 @@ export class ProjectSearchResultComponent implements OnInit {
   visibleProjects: IProject[] = [];
   projectsToLoad: number = 12;
   loadMoreButtonVisible: boolean = false;
-  projectService: ProjectService = inject(ProjectService);
   translate: TranslateService = inject(TranslateService);
   currentLanguage: string = 'en';
 
-  constructor(private route: ActivatedRoute, private titleService: Title, private metaService: Meta) {
-  }
+  constructor(
+    private route: ActivatedRoute,
+    private titleService: Title,
+    private metaService: Meta,
+    private searchService: SearchService,
+    private projectService: ProjectService
+  ) { }
 
   ngOnInit(): void {
     // Meta info for SEO
     this.titleService.setTitle('Search Result (Projects) - Perpetua');
     this.metaService.updateTag({ name: 'description', content: 'Browse our projects searched by keywords to learn more about the amazing things we have done at Perpetua.' });
 
+    this.searchService.keyword$.subscribe((keyword) => {
+      this.keyword = keyword;  // Update the local keyword whenever the global keyword changes
+      this.filterProjects();   // Call method to filter projects
+    });
 
-    this.route.queryParams.subscribe((params) => {
-      this.keyword = params['keyword'] || '';
-
-      this.allProjectData = this.projectService.getSearchResults();
-
-      if (!this.allProjectData || this.allProjectData.length === 0) {
-        this.projectService.projects$.subscribe((projects) => {
-          this.allProjectData = projects.filter((project) =>
-            project.project_title.toLowerCase().includes(this.keyword.toLowerCase()),
-          );
-          this.visibleProjects = this.allProjectData.slice(0, this.projectsToLoad);
-          this.loadMoreButtonVisible = this.allProjectData.length > this.projectsToLoad;
-        });
-      } else {
-        this.visibleProjects = this.allProjectData.slice(0, this.projectsToLoad);
-        this.loadMoreButtonVisible = this.allProjectData.length > this.projectsToLoad;
-      }
+    // Fetch all project data initially
+    this.projectService.projects$.subscribe((projects) => {
+      this.allProjectData = projects;
+      this.filterProjects();
     });
 
     this.translate.onLangChange.subscribe((event) => {
       this.currentLanguage = event.lang;
       this.titleService.setTitle(this.translate.instant('projects.title') + ' - Perpetua');
     });
+  }
+
+  filterProjects(): void {
+    if (this.keyword) {
+      this.visibleProjects = this.allProjectData.filter(project =>
+        project.project_title.toLowerCase().includes(this.keyword.toLowerCase())
+      );
+    } else {
+      this.visibleProjects = this.allProjectData.slice(0, this.projectsToLoad);
+    }
+    this.loadMoreButtonVisible = this.visibleProjects.length < this.allProjectData.length;
   }
 
   capitalizeFirstLetter(value: string): string {

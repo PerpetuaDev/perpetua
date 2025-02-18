@@ -7,18 +7,11 @@
             <div class="right-wrapper">
                 <div class="info-wrapper">
                     <div>
-                        <p class="title">{{ project.project_title }}</p>
                         <p class="category">
                             {{ capitalizeFirstLetter(project.industry) }}&nbsp;&middot;&nbsp;{{
                             capitalizeFirstLetter(project.project_type) }}
                         </p>
-                    </div>
-                    <p class="content">{{ project.project_description }}</p>
-                    <div class="see-more-button-wrapper">
-                        <button class="see-more-button" [routerLink]="['/projects', project.documentId]">
-                            See more
-                            <i class="bi bi-arrow-right-short"></i>
-                        </button>
+                        <p class="title">{{ project.project_title }}</p>
                     </div>
                 </div>
             </div>

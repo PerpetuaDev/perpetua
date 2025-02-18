@@ -1,28 +1,23 @@
-h1 {
-    margin: 90px 0 100px 105px;
-}
-
 section {
     width: 100%;
 
     ul {
         padding: 0;
-        margin: 0 0 100px 0;
+        margin: 0;
 
         li {
             list-style: none;
             display: flex;
             justify-content: flex-start;
             align-items: start;
-            column-gap: 15px;
-            padding: 15px 15px 15px 105px;
-            border-bottom: 2px solid #8a8a8a;
+            column-gap: 69px;
+            padding: 50px 0 50px 105px;
+            border-bottom: 2px solid #0e0e01;
 
             .image-wrapper {
                 position: relative;
-                width: 100%;
-                max-width: 600px;
-                aspect-ratio: 16 / 9;
+                width: 175px;
+                height: 126px;
                 background: #f0f0f0;
                 overflow: hidden;
 
@@ -76,15 +71,15 @@ section {
                         word-break: break-word;
                     }
 
-                    .see-more-button-wrapper {
+                    .read-more-button-wrapper {
                         width: 220px;
                         display: flex;
-                        justify-content: flex-startx;
+                        justify-content: flex-start;
                         align-items: center;
                         padding: 0;
                         margin-top: 50px;
 
-                        .see-more-button {
+                        .read-more-button {
                             display: flex;
                             justify-content: center;
                             align-items: center;
@@ -117,6 +112,7 @@ section {
             }
         }
     }
+
 }
 
 .footer-button-wrapper {

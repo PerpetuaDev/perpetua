@@ -7,18 +7,11 @@
             <div class="right-wrapper">
                 <div class="info-wrapper">
                     <div>
-                        <p class="title">{{ article.title }}</p>
                         <p class="category">
                             {{ capitalizeFirstLetter(article.type) }}&nbsp;&middot;&nbsp;{{ article.createdAt |
                             date:'dd MMM, yyyy' }}
                         </p>
-                    </div>
-                    <p class="content">{{ article.content }}</p>
-                    <div class="read-more-button-wrapper">
-                        <button class="read-more-button" [routerLink]="['/articles', article.documentId]">
-                            Read more
-                            <i class="bi bi-arrow-right-short"></i>
-                        </button>
+                        <p class="title">{{ article.title }}</p>
                     </div>
                 </div>
             </div>
