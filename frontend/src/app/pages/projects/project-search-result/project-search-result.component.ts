@@ -2,12 +2,8 @@
 import { Meta, Title } from '@angular/platform-browser';
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { RouterLink } from '@angular/router';
-// Components
-import { BackToTopButtonComponent } from '../../../components/buttons/back-to-top-button/back-to-top-button.component';
-import { CallActionComponent } from '../../../components/call-action/call-action.component';
+import { Router } from '@angular/router';
 // Services
 import { ProjectService } from '../../../shared/project.service';
 import { IProject } from '../../../../util/interfaces';
@@ -16,25 +12,24 @@ import { SearchService } from '../../../shared/search.service';
 @Component({
   selector: 'app-project-search-result',
   standalone: true,
-  imports: [CommonModule, TranslateModule, BackToTopButtonComponent, CallActionComponent, RouterLink],
+  imports: [CommonModule, TranslateModule],
   templateUrl: './project-search-result.component.html',
   styleUrl: './project-search-result.component.scss'
 })
 export class ProjectSearchResultComponent implements OnInit {
   keyword: string = '';
-  allProjectData: any[] = [];
+  allProjectData: IProject[] = [];
   visibleProjects: IProject[] = [];
-  projectsToLoad: number = 12;
   loadMoreButtonVisible: boolean = false;
   translate: TranslateService = inject(TranslateService);
   currentLanguage: string = 'en';
 
   constructor(
-    private route: ActivatedRoute,
     private titleService: Title,
     private metaService: Meta,
     private searchService: SearchService,
-    private projectService: ProjectService
+    private projectService: ProjectService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -43,11 +38,13 @@ export class ProjectSearchResultComponent implements OnInit {
     this.metaService.updateTag({ name: 'description', content: 'Browse our projects searched by keywords to learn more about the amazing things we have done at Perpetua.' });
 
     this.searchService.keyword$.subscribe((keyword) => {
+      console.log('Keyword changed:', keyword); // Debugging
       this.keyword = keyword;
       this.filterProjects();
     });
 
     this.projectService.projects$.subscribe((projects) => {
+      console.log('Projects loaded:', projects); // Debugging
       this.allProjectData = projects;
       this.filterProjects();
     });
@@ -59,14 +56,13 @@ export class ProjectSearchResultComponent implements OnInit {
   }
 
   filterProjects(): void {
+    console.log('Filtering projects with keyword:', this.keyword); // Debugging
     if (this.keyword) {
       this.visibleProjects = this.allProjectData.filter(project =>
         project.project_title.toLowerCase().includes(this.keyword.toLowerCase())
       );
-    } else {
-      this.visibleProjects = this.allProjectData;
     }
-    this.loadMoreButtonVisible = false;
+    this.loadMoreButtonVisible = this.visibleProjects.length < this.allProjectData.length;
   }
 
   capitalizeFirstLetter(value: string): string {
@@ -74,9 +70,22 @@ export class ProjectSearchResultComponent implements OnInit {
     return value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
   }
 
-  loadMoreProjects(): void {
-    const newProjects = this.allProjectData.slice(this.visibleProjects.length, this.visibleProjects.length + this.projectsToLoad);
-    this.visibleProjects = [...this.visibleProjects, ...newProjects];
-    this.loadMoreButtonVisible = this.visibleProjects.length < this.allProjectData.length;
+  scrollToTop(): void {
+    window.scrollTo({
+      top: 0,
+      behavior: 'instant'
+    });
+  }
+
+  navigateToProject(documentId: string): void {
+    this.scrollToTop();
+    this.router.navigate(['/projects', documentId]);
+  }
+
+  onKeyDown(event: KeyboardEvent, documentId: string): void {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      this.navigateToProject(documentId);
+    }
   }
 }

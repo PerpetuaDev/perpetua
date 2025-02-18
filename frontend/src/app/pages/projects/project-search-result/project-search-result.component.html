@@ -1,6 +1,7 @@
 <section>
     <ul>
-        <li *ngFor="let project of visibleProjects">
+        <li *ngFor="let project of visibleProjects" (click)="navigateToProject(project.documentId)"
+            (keydown)="onKeyDown($event, project.documentId)">
             <div class="image-wrapper">
                 <img [src]="project.thumbnail_image.url" alt="">
             </div>

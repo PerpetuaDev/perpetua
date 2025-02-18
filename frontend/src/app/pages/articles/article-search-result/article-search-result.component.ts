@@ -3,9 +3,8 @@ import { Meta, Title } from '@angular/platform-browser';
 import { Component, OnInit, inject } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 // Services
 import { ArticleService } from '../../../shared/article.service';
 import { IArticle } from '../../../../util/interfaces';
@@ -14,7 +13,7 @@ import { SearchService } from '../../../shared/search.service';
 @Component({
   selector: 'app-article-search-result',
   standalone: true,
-  imports: [CommonModule, TranslateModule, RouterLink],
+  imports: [CommonModule, TranslateModule],
   templateUrl: './article-search-result.component.html',
   styleUrl: './article-search-result.component.scss'
 })
@@ -29,12 +28,11 @@ export class ArticleSearchResultComponent implements OnInit {
   currentLanguage: string = 'en';
 
   constructor(
-    private route: ActivatedRoute,
     private titleService: Title,
     private metaService: Meta,
     private searchService: SearchService,
     private ArticleService: ArticleService,
-
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -43,10 +41,11 @@ export class ArticleSearchResultComponent implements OnInit {
     this.metaService.updateTag({ name: 'description', content: 'Browse our articles searched by keywords to learn more about the amazing things we have done at Perpetua.' });
 
     this.searchService.keyword$.subscribe((keyword) => {
-      this.keyword = keyword;
-      this.filterArticles();
+      this.keyword = keyword;  // Update the local keyword whenever the global keyword changes
+      this.filterArticles();   // Call method to filter articles
     });
 
+    // Fetch all article data initially
     this.ArticleService.articles$.subscribe((articles) => {
       this.allArticleData = articles;
       this.filterArticles();
@@ -59,9 +58,9 @@ export class ArticleSearchResultComponent implements OnInit {
         article.title.toLowerCase().includes(this.keyword.toLowerCase())
       );
     } else {
-      this.visibleArticles = this.allArticleData;
+      this.visibleArticles = this.allArticleData.slice(0, this.articlesToLoad);
     }
-    this.loadMoreButtonVisible = false;
+    this.loadMoreButtonVisible = this.visibleArticles.length < this.allArticleData.length;
   }
 
   capitalizeFirstLetter(value: string): string {
@@ -73,5 +72,24 @@ export class ArticleSearchResultComponent implements OnInit {
     const newProjects = this.allArticleData.slice(this.visibleArticles.length, this.visibleArticles.length + this.articlesToLoad);
     this.visibleArticles = [...this.visibleArticles, ...newProjects];
     this.loadMoreButtonVisible = this.visibleArticles.length < this.allArticleData.length;
+  }
+
+  scrollToTop(): void {
+    window.scrollTo({
+      top: 0,
+      behavior: 'instant'
+    });
+  }
+
+  navigateToArticle(documentId: string): void {
+    this.scrollToTop();
+    this.router.navigate(['/articles', documentId]);
+  }
+
+  onKeyDown(event: KeyboardEvent, documentId: string): void {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      this.navigateToArticle(documentId);
+    }
   }
 }

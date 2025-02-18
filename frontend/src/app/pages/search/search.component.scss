@@ -57,6 +57,19 @@
                     opacity: 1;
                 }
             }
+
+            .b-bottom {
+                width: 0;
+                height: 2px;
+                background-color: #0e0e01;
+                border-radius: 20px;
+                margin-top: 2px;
+                transition: width 0.1s ease;
+            }
+
+            .b-bottom.visible {
+                width: 100% !important;
+            }
         }
     }
 }
@@ -128,18 +141,6 @@
 }
 
 
-.input-wrapper .b-bottom {
-    width: 0;
-    height: 1px;
-    background-color: #0e0e01;
-    border-radius: 20px;
-    margin-top: 2px;
-    transition: width 0.1s ease;
-}
-
-.b-bottom.visible {
-    width: 100% !important;
-}
 
 section {
     width: 100%;
@@ -158,6 +159,7 @@ section {
             column-gap: 69px;
             padding: 50px 0 50px 105px;
             border-bottom: 2px solid #0e0e01;
+            cursor: pointer;
 
             .image-wrapper {
                 position: relative;

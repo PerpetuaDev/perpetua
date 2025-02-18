@@ -128,11 +128,11 @@ export class SearchBarComponent implements OnInit {
     if (data === 'projects') {
       this.projectService.setSearchResults(this.allProjectData);
       this.router.navigate(['/search'], {
-        queryParams: { keyword: this.searchControl.value },
+        queryParams: { keyword: this.searchControl.value, source: 'projects' },
       });
     } else if (data === 'articles') {
       this.router.navigate(['/search'], {
-        queryParams: { keyword: this.searchControl.value },
+        queryParams: { keyword: this.searchControl.value, source: 'articles' },
       });
     }
   }

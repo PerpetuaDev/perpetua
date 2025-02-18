@@ -31,19 +31,16 @@ export class SearchComponent implements OnInit {
   selectedFilter: 'all' | 'project' | 'blog' = 'all';
   keyword: string = '';
   isBorderVisible: boolean = false;
-  allArticleData: any[] = [];
-  visibleArticles: IArticle[] = [];
-  articlesToLoad: number = 12;
-  loadMoreButtonVisible: boolean = false;
   ArticleService: ArticleService = inject(ArticleService);
-  translate: TranslateService = inject(TranslateService);
-  currentLanguage: string = 'en';
   searchControl = new FormControl();
   projects: IProject[] = [];
-  allProjectData: IProject[] = [];
   articles: IArticle[] = [];
   searchResultAll: string[] = [];
+  translate: TranslateService = inject(TranslateService);
+  currentLanguage: string = 'en';
+
   searchResults: {
+    documentId: string,
     title: string,
     path: string,
     thumbnail_image: {
@@ -84,11 +81,8 @@ export class SearchComponent implements OnInit {
     });
 
     this.searchControl.valueChanges.subscribe((value) => {
+      this.keyword = value;
       this.searchService.updateKeyword(value);
-    });
-
-    this.searchControl.valueChanges.subscribe(() => {
-      this.keyword = this.searchControl.value || '';
       this.onSearchInput();
     });
 
@@ -96,6 +90,13 @@ export class SearchComponent implements OnInit {
       this.currentLanguage = event.lang;
       this.titleService.setTitle(this.translate.instant('articles.title') + ' - Perpetua');
     });
+
+    if (this.keyword.length >= 0 && this.searchInput) {
+      const border = this.searchInput.nativeElement.nextElementSibling;
+      if (border) {
+        this.renderer.addClass(border, 'visible');
+      }
+    }
   }
 
   sortResults(sort: string): void {
@@ -114,8 +115,23 @@ export class SearchComponent implements OnInit {
     }
   }
 
+  onSearchIconClick(): void {
+    const keyword = this.searchControl.value;
+    if (keyword || keyword.length >= 0) {
+      this.isBorderVisible = true;
+    }
+  }
+
   onSearchInput(isFocused: boolean = false): void {
     const keyword = this.searchControl.value?.toLowerCase() || '';
+
+    this.searchService.updateKeyword(keyword);
+
+    if (isFocused || keyword.length >= 0) {
+      this.isBorderVisible = true;
+    } else {
+      this.isBorderVisible = false;
+    }
 
     if (!keyword) {
       this.searchResults = [];
@@ -126,36 +142,33 @@ export class SearchComponent implements OnInit {
 
     this.projectService.projects$.subscribe((projects) => {
       this.projects = projects;
-      this.allProjectData = projects.filter(project => project.project_title.toLowerCase().includes(keyword));
 
       this.articleService.articles$.subscribe((articles) => {
         this.articles = articles;
-        this.allArticleData = articles.filter(article => article.title.toLowerCase().includes(keyword));
 
-        // Combine both articles and projects
+        // Combining both articles and projects based on the search keyword
         this.searchResults = [
-          ...this.allProjectData.map(project => ({
+          ...this.projects.filter(project => project.project_title.toLowerCase().includes(keyword)).map(project => ({
+            documentId: project.documentId,
             title: project.project_title,
-            path: `/projects/${project.documentId}`,
+            path: "/projects",
             thumbnail_image: { url: project.thumbnail_image.url },
             type: this.capitalizeFirstLetter(project.project_type),
-            createdAt: project.createdAt
+            createdAt: project.createdAt instanceof Date ? project.createdAt.toISOString() : project.createdAt
           })),
-          ...this.allArticleData.map(article => ({
+          ...this.articles.filter(article => article.title.toLowerCase().includes(keyword)).map(article => ({
+            documentId: article.documentId,
             title: article.title,
-            path: `/articles/${article.documentId}`,
+            path: "/articles",
             thumbnail_image: { url: article.thumbnail_image.url },
             type: this.capitalizeFirstLetter(article.type),
             createdAt: article.createdAt
           }))
         ];
 
-        // Sort by createdAt (descending order)
         this.searchResults.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
       });
     });
-
-    console.log(this.searchResults)
   }
 
   removeBottomBorder(): void {
@@ -178,8 +191,27 @@ export class SearchComponent implements OnInit {
 
     if (!targetElement.closest('.search-bar-wrapper')) {
       this.isBorderVisible = false;
-      this.searchResults = [];
+
       this.searchInput.nativeElement.blur();
+    }
+  }
+
+  scrollToTop(): void {
+    window.scrollTo({
+      top: 0,
+      behavior: 'instant'
+    });
+  }
+
+  navigateToDetail(path: string, documentId: string): void {
+    this.scrollToTop();
+    this.router.navigate([path, documentId]);
+  }
+
+  onKeyDown(event: KeyboardEvent, path: string, documentId: string): void {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      this.navigateToDetail(path, documentId);
     }
   }
 }

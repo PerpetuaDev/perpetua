@@ -1,6 +1,7 @@
 <section>
     <ul>
-        <li *ngFor="let article of visibleArticles">
+        <li *ngFor="let article of visibleArticles" (click)="navigateToArticle(article.documentId)"
+            (keydown)="onKeyDown($event, article.documentId)">
             <div class="image-wrapper">
                 <img [src]="article.thumbnail_image.url" alt="">
             </div>

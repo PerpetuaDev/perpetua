@@ -6,7 +6,7 @@
         </h1>
         <!-- Search box -->
         <div class="search-bar-wrapper">
-            <div class="search-icon-wrapper" (click)="onSearchInput()" (keydown)="onSearchIconKeyDown($event)">
+            <div class="search-icon-wrapper" (click)="onSearchIconClick()" (keydown)="onSearchIconKeyDown($event)">
                 <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 24 24" fill="none"
                     stroke="#0e0e01" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="11" cy="13" r="7" stroke-width="1.5"></circle>
@@ -45,7 +45,8 @@
     <!-- all results -->
     <section *ngIf="selectedFilter === 'all'">
         <ul>
-            <li *ngFor="let result of searchResults">
+            <li *ngFor="let result of searchResults" (click)="navigateToDetail(result.path, result.documentId)"
+                (keydown)="onKeyDown($event, result.path, result.documentId)">
                 <div class="image-wrapper">
                     <img [src]="result.thumbnail_image.url" alt="">
                 </div>
@@ -54,7 +55,7 @@
                         <div>
                             <p class="category">
                                 {{ ['Software', 'Website', 'App', 'Design'].includes(result.type) ? 'Work' : 'News' }}
-                                &nbsp;&middot;&nbsp;{{ result.type }}
+                                &nbsp;&middot;&nbsp;&nbsp;{{ result.type }}
                             </p>
                             <p class="title">{{ result.title }}</p>
                         </div>
