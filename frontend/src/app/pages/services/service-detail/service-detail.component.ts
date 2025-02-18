@@ -38,7 +38,6 @@ export class ServiceDetailComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     const serviceTitle = this.activatedRoute.snapshot.paramMap.get('serviceTitle');
-    console.log(serviceTitle)
     if (serviceTitle) {
       this.currentService = this.ServiceDetailData.find(service => service.code === serviceTitle);
 

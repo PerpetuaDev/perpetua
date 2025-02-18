@@ -1,15 +1,15 @@
 .success-msg,
 .error-msg {
     position: absolute;
-    top: 77px;
-    right: -100%;
+    top: -150px;
+    right: -70px;
     width: auto;
     height: 38px;
     font-family: 'Sohne', sans-serif;
     font-size: 1.5rem;
     padding: 5px 20px;
-    transition: right 0.3s ease-in-out;
-    display: none;
+    transition: opacity 0.3s ease-in-out;
+    opacity: 0;
 }
 
 .success-msg {
@@ -23,11 +23,11 @@
 }
 
 .visible {
-    right: 15px;
-    display: flex;
+    opacity: 1;
 }
 
 .form-container {
+    position: relative;
     display: flex;
     flex-direction: column;
     padding: 89.34px 0 0 0;

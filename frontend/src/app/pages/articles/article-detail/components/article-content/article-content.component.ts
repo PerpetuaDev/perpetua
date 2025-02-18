@@ -42,7 +42,6 @@ export class ArticleContentComponent implements OnChanges, OnDestroy {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log("data: ", this.article?.thumbnail_image)
     if (changes['article'] && this.article?.content) {
       this.parseContent();
     }

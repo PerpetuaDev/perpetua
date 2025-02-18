@@ -60,7 +60,6 @@ export class PageListComponent implements OnInit, OnDestroy {
       if (sortType === 'allArticle') {
         sortType = 'all';
       }
-      console.log(sortType)
       this.sortArticles(sortType);
     } else {
       this.sortProjects(sortType);

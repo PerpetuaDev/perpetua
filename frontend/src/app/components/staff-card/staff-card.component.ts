@@ -42,7 +42,6 @@ export class StaffCardComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getMemberImageUrl(member: IMember): string {
-    console.log(member.portrait_image.url)
     return member.portrait_image?.url ? member.portrait_image.url : "../../../assets/images/img_n.a.png";
   }
 

@@ -110,7 +110,7 @@
             </div>
             <div class="submit-button-wrapper">
                 <button type="submit" class="submit-button" [disabled]="contactForm.invalid">
-                    {{ formSubmitted ? 'contact.form.sending' : 'contact.form.send' | translate }}
+                    {{ formSubmitted ? ('contact.form.sending' | translate) : ('contact.form.send' | translate) }}
                     <i class="bi bi-arrow-right-short"></i>
                 </button>
             </div>

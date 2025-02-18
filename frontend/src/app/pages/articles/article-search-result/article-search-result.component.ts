@@ -5,9 +5,6 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { RouterLink } from '@angular/router';
-// Components
-import { BackToTopButtonComponent } from '../../../components/buttons/back-to-top-button/back-to-top-button.component';
-import { CallActionComponent } from '../../../components/call-action/call-action.component';
 // Services
 import { ArticleService } from '../../../shared/article.service';
 import { IArticle } from '../../../../util/interfaces';
@@ -15,7 +12,7 @@ import { IArticle } from '../../../../util/interfaces';
 @Component({
   selector: 'app-article-search-result',
   standalone: true,
-  imports: [CommonModule, TranslateModule, BackToTopButtonComponent, CallActionComponent, RouterLink],
+  imports: [CommonModule, TranslateModule, RouterLink],
   templateUrl: './article-search-result.component.html',
   styleUrl: './article-search-result.component.scss'
 })
@@ -42,7 +39,6 @@ export class ArticleSearchResultComponent implements OnInit {
       this.keyword = params['keyword'] || '';
 
       this.allArticleData = this.ArticleService.getSearchResults();
-      console.log("articles: ", this.allArticleData);
 
       if (!this.allArticleData || this.allArticleData.length === 0) {
         this.ArticleService.articles$.subscribe((articles) => {

@@ -64,7 +64,6 @@ export class AboutComponent implements OnInit, OnDestroy {
     this.metaService.updateTag({ name: 'description', content: 'Browse About up to learn more about our amazing clients and team at Perpetua.' });
 
     this.route.fragment.subscribe((fragment) => {
-      console.log('URL Fragment:', fragment);
       if (fragment) {
         this.scrollToSection(fragment);
       }

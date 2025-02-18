@@ -4,7 +4,7 @@
         <app-back-to-career-button></app-back-to-career-button>
         <div class="description-wrapper">
             <h1 class="title">{{ career?.job_title }}</h1>
-            <p class="county">{{ getCountry }}</p>
+            <p class="county">{{ career?.job_location }}</p>
             <div class="job-description" [innerHTML]="jobDescriptionHtml"></div>
         </div>
         <div class="location-wrapper">

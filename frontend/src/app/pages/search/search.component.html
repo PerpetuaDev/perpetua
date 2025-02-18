@@ -1,0 +1,48 @@
+<div class='w-100 m-0' id="pageTop">
+    <!-- Title -->
+    <h1>
+        Page Search
+    </h1>
+    <!-- Search box -->
+    <div class="search-bar-wrapper">
+        <div class="search-icon-wrapper" (click)="onSearchInput()" (keydown)="onSearchIconKeyDown($event)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                stroke="#a8a8a8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="13" r="7" stroke-width="1.5"></circle>
+                <line x1="1" y1="23" x2="6" y2="18.5" stroke="#a8a8a8" stroke-width="1.5"></line>
+            </svg>
+        </div>
+        <div class="input-wrapper">
+            <label for="searchInput">Search</label>
+            <input #searchInput id="searchInput" type="text" [placeholder]="placeholder" [formControl]="searchControl"
+                (focus)="onSearchInput()" (input)="onSearchInput()" />
+            <span class="b-bottom"></span>
+        </div>
+    </div>
+    <span>Searching for page titles that include keyword &lsquo;{{ keyword }}&rsquo;</span>
+
+    <!-- Sorting buttons -->
+    <div class="sort-button-container">
+        <button class="sort-button" (click)="sortResults('project')">
+            Projects
+            <i class="bi" [ngClass]="{
+                    'bi-chevron-down': (selectedFilter) !== 'project',
+                    'bi-x': (selectedFilter) === 'project'
+                }"></i>
+        </button>
+        <button class="sort-button" (click)="sortResults('blog')" [ngClass]="{'selected': (selectedFilter) === 'blog'}">
+            Blog content
+            <i class="bi" [ngClass]="{
+                'bi-chevron-down': (selectedFilter) !== 'blog',
+                'bi-x': (selectedFilter) === 'blog'
+            }"></i>
+        </button>
+    </div>
+    <span class="separator"></span>
+    <ng-container>
+        <!-- if clicking the "project" sort button -->
+        <app-project-search-result></app-project-search-result>
+        <!-- if clicking the "article" sort button -->
+        <app-article-search-result></app-article-search-result>
+    </ng-container>
+</div>

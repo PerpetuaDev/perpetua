@@ -1,46 +1,27 @@
-<div class='w-100 m-0' id="pageTop">
-    <!-- Title -->
-    <h1>
-        Search result
-    </h1>
-    <!-- All results -->
-    <section>
-        <ul>
-            <li *ngFor="let project of visibleProjects">
-                <div class="image-wrapper">
-                    <img [src]="project.thumbnail_image.url" alt="">
-                </div>
-                <div class="right-wrapper">
-                    <div class="info-wrapper">
-                        <div>
-                            <p class="title">{{ project.project_title }}</p>
-                            <p class="category">
-                                {{ capitalizeFirstLetter(project.industry) }}&nbsp;&middot;&nbsp;{{
-                                capitalizeFirstLetter(project.project_type) }}
-                            </p>
-                        </div>
-                        <p class="content">{{ project.project_description }}</p>
-                        <div class="see-more-button-wrapper">
-                            <button class="see-more-button" [routerLink]="['/projects', project.documentId]">
-                                See more
-                                <i class="bi bi-arrow-right-short"></i>
-                            </button>
-                        </div>
+<section>
+    <ul>
+        <li *ngFor="let project of visibleProjects">
+            <div class="image-wrapper">
+                <img [src]="project.thumbnail_image.url" alt="">
+            </div>
+            <div class="right-wrapper">
+                <div class="info-wrapper">
+                    <div>
+                        <p class="title">{{ project.project_title }}</p>
+                        <p class="category">
+                            {{ capitalizeFirstLetter(project.industry) }}&nbsp;&middot;&nbsp;{{
+                            capitalizeFirstLetter(project.project_type) }}
+                        </p>
+                    </div>
+                    <p class="content">{{ project.project_description }}</p>
+                    <div class="see-more-button-wrapper">
+                        <button class="see-more-button" [routerLink]="['/projects', project.documentId]">
+                            See more
+                            <i class="bi bi-arrow-right-short"></i>
+                        </button>
                     </div>
                 </div>
-            </li>
-        </ul>
-    </section>
-    <!-- Footer -->
-    <div class="footer-button-wrapper">
-        <button id="loadMoreButton" *ngIf="loadMoreButtonVisible" class="footer-button" (click)="loadMoreProjects()">
-            {{ 'button.load-more' | translate }}
-            <i class="bi bi-arrow-down-short"></i>
-        </button>
-        <app-back-to-top-button></app-back-to-top-button>
-    </div>
-    <span class="separator"></span>
-
-    <!-- Call to action -->
-    <app-call-action></app-call-action>
-</div>
+            </div>
+        </li>
+    </ul>
+</section>

@@ -20,17 +20,6 @@ export class ClientService {
     private fetchClients(): void {
         this.strapiService.getAllClients().pipe(
             map((result: APIResponseModel) => result.data.map((client: IClient) => {
-                // Debug: Check if client has a company_logo and log it
-                console.log('client: ', client);
-                console.log('company_logo:', client.company_logo);
-
-                // Check if company_logo exists and log its URL
-                if (client.company_logo) {
-                    console.log('company logo URL: ', client.company_logo.url);
-                } else {
-                    console.log('No company logo available');
-                }
-
                 return {
                     ...client,
                     company_logo: client.company_logo

@@ -5,4 +5,6 @@ export const environment = {
     emailjsServiceId: 'service_cvy0zb6',
     emailjsTemplateId: 'template_x70ax2q',
     emailjsPublicKey: 'W8luC9ul7Wgdj9Zdh',
+    applyJobEmailjsServiceId: 'service_6pn6zym',
+    applyJobEmailTemplateId: 'template_bno4s9h',
 };

@@ -78,9 +78,6 @@ export class CareersComponent implements OnInit {
           async (result: APIResponseModel) => {
             if (result && result.data) {
               this.career = result.data;
-
-              console.log(this.career)
-
               if (this.career?.job_description) {
                 const rawHtml = await this.parseMarkdown(this.career.job_description);
                 this.jobDescriptionHtml = this.sanitizer.bypassSecurityTrustHtml(rawHtml);
@@ -108,17 +105,11 @@ export class CareersComponent implements OnInit {
     });
   }
 
-  get getCountry() {
-    console.log("country: ", this.career?.office_address)
-    return this.career?.office_address?.[0]?.country || 'Unknown location';
-  }
-
   private async parseMarkdown(markdown: string): Promise<string> {
     const result = marked.parse(markdown);
     if (result instanceof Promise) {
       return await result;
     }
-    console.log(result)
     return result;
   }
 

@@ -4,20 +4,37 @@ import { CommonModule } from '@angular/common';
 import { RouterLink, Router } from '@angular/router';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { Meta, Title } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+// Components
+import { SearchBarComponent } from '../../components/menu/search-bar/search-bar.component';
+import { ProjectSearchResultComponent } from '../projects/project-search-result/project-search-result.component';
+import { ArticleSearchResultComponent } from '../articles/article-search-result/article-search-result.component';
+
 // Services
-import { IProject, IArticle } from '../../../../util/interfaces';
-import { ProjectService } from '../../../shared/project.service';
-import { ArticleService } from '../../../shared/article.service';
+import { IProject, IArticle } from '../../../util/interfaces';
+import { ProjectService } from '../../shared/project.service';
+import { ArticleService } from '../../shared/article.service';
 
 @Component({
-  selector: 'app-search-bar',
+  selector: 'app-search',
   standalone: true,
-  imports: [CommonModule, RouterLink, ReactiveFormsModule],
-  templateUrl: './search-bar.component.html',
-  styleUrls: ['./search-bar.component.scss']
+  imports: [CommonModule, ReactiveFormsModule, SearchBarComponent, ProjectSearchResultComponent, ArticleSearchResultComponent],
+  templateUrl: './search.component.html',
+  styleUrl: './search.component.scss'
 })
+export class SearchComponent implements OnInit {
+  selectedFilter: string = 'all';
+  keyword: string = '';
+  allArticleData: any[] = [];
+  visibleArticles: IArticle[] = [];
+  articlesToLoad: number = 12;
+  loadMoreButtonVisible: boolean = false;
+  ArticleService: ArticleService = inject(ArticleService);
+  translate: TranslateService = inject(TranslateService);
+  currentLanguage: string = 'en';
 
-export class SearchBarComponent implements OnInit {
   @Input() placeholder: string = '';
   @Input() data: 'projects' | 'articles' = 'projects';
   @Output() resultSelected = new EventEmitter<void>();
@@ -26,19 +43,47 @@ export class SearchBarComponent implements OnInit {
   projects: IProject[] = [];
   allProjectData: IProject[] = [];
   articles: IArticle[] = [];
-  allArticleData: IArticle[] = [];
+  // allArticleData: IArticle[] = [];
   searchResultAll: string[] = [];
   searchResults: { title: string, path: string, highlightedTitle: SafeHtml }[] = [];
   sanitizer = inject(DomSanitizer);
 
   constructor(
+    private route: ActivatedRoute,
+    private titleService: Title,
+    private metaService: Meta,
     private renderer: Renderer2,
     private router: Router,
     private projectService: ProjectService,
     private articleService: ArticleService,
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
+    // Meta info for SEO
+    this.titleService.setTitle(`Search Result ${this.selectedFilter} - Perpetua`);
+    this.metaService.updateTag({ name: 'description', content: 'Browse our articles searched by keywords to learn more about the amazing things we have done at Perpetua.' });
+
+
+    this.route.queryParams.subscribe((params) => {
+      this.keyword = params['keyword'] || '';
+
+      this.allArticleData = this.ArticleService.getSearchResults();
+
+      if (!this.allArticleData || this.allArticleData.length === 0) {
+        this.ArticleService.articles$.subscribe((articles) => {
+          this.allArticleData = articles.filter((article) =>
+            article.title.toLowerCase().includes(this.keyword.toLowerCase()),
+          );
+          this.visibleArticles = this.allArticleData.slice(0, this.articlesToLoad);
+          this.loadMoreButtonVisible = this.allArticleData.length > this.articlesToLoad;
+        });
+      } else {
+        this.visibleArticles = this.allArticleData.slice(0, this.articlesToLoad);
+        this.loadMoreButtonVisible = this.allArticleData.length > this.articlesToLoad;
+      }
+    });
+
     if (this.data === 'projects') {
       this.projectService.projects$.subscribe((projects: IProject[]) => {
         this.projects = projects;
@@ -52,7 +97,40 @@ export class SearchBarComponent implements OnInit {
         console.error('Error fetching articles:', error);
       });
     }
+
+    this.translate.onLangChange.subscribe((event) => {
+      this.currentLanguage = event.lang;
+      this.titleService.setTitle(this.translate.instant('articles.title') + ' - Perpetua');
+    });
   }
+
+  capitalizeFirstLetter(value: string): string {
+    if (!value) return '';
+    return value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
+  }
+
+  sortResults(sort: string) {
+    this.selectedFilter = sort;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   onSearchIconKeyDown(event: KeyboardEvent): void {
     if (event.key === 'Enter' || event.key === ' ') {
@@ -103,6 +181,10 @@ export class SearchBarComponent implements OnInit {
       this.searchResultAll = this.articles.filter((article: IArticle) => article.title.toLowerCase().includes(keyword)).map((article: IArticle) => (`/articles/${article.documentId}`));
     }
   }
+
+
+
+
 
   removeBottomBorder(): void {
     if (this.searchInput) {

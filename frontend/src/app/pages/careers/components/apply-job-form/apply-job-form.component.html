@@ -65,8 +65,8 @@
         <!-- File upload -->
         <div class="input-wrapper file-upload-wrapper">
             <label id="file-label" for="file">Upload file</label>
-            <input id="file" type="file" accept=".pdf, .doc, .docx" formControlName="file" placeholder=""
-                aria-labelledby="file-label" (change)="onFileSelected($event)">
+            <input id="file" type="file" accept=".pdf, .doc, .docx" aria-labelledby="file-label"
+                (change)="onFileSelected($event)">
             <button type="button" class="upload-file-button" (click)="fileUploadInput.nativeElement.click()">
                 Upload your documents
                 <i class="bi bi-arrow-right-short"></i>
@@ -77,7 +77,7 @@
     </div>
     <div class="submit-button-wrapper">
         <button type="submit" class="submit-button" [disabled]="contactForm.invalid">
-            {{ formSubmitted ? 'contact.form.sending' : 'contact.form.send' | translate }}
+            {{ formSubmitted ? ('contact.form.sending' | translate) : ('contact.form.send' | translate) }}
             <i class="bi bi-arrow-right-short"></i>
         </button>
     </div>

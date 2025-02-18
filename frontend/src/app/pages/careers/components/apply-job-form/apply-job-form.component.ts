@@ -1,5 +1,5 @@
 // Libraries
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef, HostListener } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, HostListener, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { ReactiveFormsModule, FormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -45,7 +45,7 @@ export class ApplyJobFormComponent implements OnInit, OnDestroy {
   selectedOption: string | null = null;
   dropdownOpen: boolean = false;
   fileInput!: HTMLInputElement;
-  fileName: string = '';
+  fileName: any = '';
 
   routeOptions = [
     { label: 'Website', value: 'website' },
@@ -58,11 +58,9 @@ export class ApplyJobFormComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private strapiService: StrapiService,
-    // private translationHelper: TranslationHelper,
     private languageService: LanguageService,
     private fb: FormBuilder,
   ) {
-    // this.currentLanguage = this.translationHelper.getCurrentLanguage();
     this.contactForm = this.fb.group({
       full_name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -94,9 +92,16 @@ export class ApplyJobFormComponent implements OnInit, OnDestroy {
       }));
       this.setDefaultFlag('+64');
     });
+  }
 
-    this.fileInput = this.fileUploadInput.nativeElement;
-    document.addEventListener('click', this.handleClickOutside.bind(this));
+  ngAfterViewInit(): void {
+    // Ensure @ViewChild references are available after the view is initialized
+    if (this.fileUploadInput && this.dropdownButton && this.dropdownList) {
+      this.fileInput = this.fileUploadInput.nativeElement;
+      document.addEventListener('click', this.handleClickOutside.bind(this));
+    } else {
+      console.warn('One or more @ViewChild references are not available yet.');
+    }
   }
 
   ngOnDestroy(): void {
@@ -203,26 +208,55 @@ export class ApplyJobFormComponent implements OnInit, OnDestroy {
 
     this.formSubmitted = true;
 
-    emailjs.send(
-      environment.emailjsServiceId,
-      environment.emailjsTemplateId,
-      this.contactForm.value,
-      { publicKey: environment.emailjsPublicKey }
-    )
-      .then(
-        () => {
-          this.showMessage(true);
-          this.contactForm.reset({
-            country_code: '+64'
-          });
-          this.formSubmitted = false;
-        },
-        (error) => {
-          console.error('FAILED...', (error as EmailJSResponseStatus).text);
-          this.showMessage(false);
-          this.formSubmitted = false;
-        }
-      );
+    const fileInput = this.contactForm.get('file')?.value;
+    if (fileInput) {
+      const reader = new FileReader();
+      reader.readAsDataURL(fileInput);
+
+      reader.onload = () => {
+        const fileBase64 = reader.result as string;
+
+        const attachments = [
+          {
+            content: fileBase64.split(',')[1], // Extract the base64 part (without the "data:..." prefix)
+            filename: fileInput.name,
+            type: fileInput.type,
+            disposition: 'attachment',
+          }
+        ];
+
+        emailjs.send(
+          environment.applyJobEmailjsServiceId,
+          environment.applyJobEmailTemplateId,
+          {
+            ...this.contactForm.value,
+            attachments: attachments,
+          },
+          { publicKey: environment.emailjsPublicKey }
+        )
+          .then(
+            () => {
+              this.showMessage(true);
+              this.contactForm.reset({
+                country_code: '+64',
+              });
+              this.formSubmitted = false;
+              this.selectedOption = null;
+              this.fileName = '';
+            },
+            (error) => {
+              console.error('FAILED...', error);
+              this.showMessage(false);
+              this.formSubmitted = false;
+            }
+          );
+      };
+
+      reader.onerror = (error) => {
+        console.error('Error reading file: ', error);
+        this.formSubmitted = false;
+      };
+    }
   }
 
   showMessage(success: boolean): void {
