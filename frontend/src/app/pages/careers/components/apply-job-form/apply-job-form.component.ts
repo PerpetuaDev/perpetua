@@ -1,6 +1,5 @@
 // Libraries
-import { Title, Meta } from '@angular/platform-browser';
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { ReactiveFormsModule, FormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -8,34 +7,30 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Observable, Subscription } from 'rxjs';
 import emailjs, { type EmailJSResponseStatus } from '@emailjs/browser';
 // Components
-import { LocationCardComponent } from '../about/components/location-card/location-card.component';
-import { ContactData } from './contact-data';
 // Services
-import { StrapiService } from '../../api/strapi.service';
-import { IOffice, APIResponseModel, IFlag } from '../../../util/interfaces';
-import { LanguageService } from '../../shared/language.service';
-import { environment } from '../../../environments/environment.development';
-import { OfficeService } from '../../shared/office.service';
+import { StrapiService } from '../../../../api/strapi.service';
+import { APIResponseModel, IFlag } from '../../../../../util/interfaces';
+import { LanguageService } from '../../../../shared/language.service';
+import { environment } from '../../../../../environments/environment.development';
 
 @Component({
-  selector: 'app-contact',
+  selector: 'app-apply-job-form',
   standalone: true,
   imports: [
     CommonModule,
-    LocationCardComponent,
     FormsModule,
     ReactiveFormsModule,
     TranslateModule
   ],
-  templateUrl: './contact.component.html',
-  styleUrl: './contact.component.scss'
+  templateUrl: './apply-job-form.component.html',
+  styleUrl: './apply-job-form.component.scss'
 })
+export class ApplyJobFormComponent implements OnInit, OnDestroy {
+  @ViewChild('file') fileUploadInput!: ElementRef;
+  @ViewChild('dropdownButton') dropdownButton!: ElementRef;
+  @ViewChild('dropdownList') dropdownList!: ElementRef;
 
-export class ContactComponent implements OnInit, OnDestroy {
-  @ViewChild('messageTextarea') messageTextarea!: ElementRef<HTMLTextAreaElement>;
-  offices$: Observable<IOffice[]>;
   officeImage: string | null = '../../../assets/images/img_n.a.png';
-  contactData = ContactData;
   selectedLocation: string | null = 'christchurch';
   selectedContactInfo: any = null;
   flags: IFlag[] = [];
@@ -47,52 +42,45 @@ export class ContactComponent implements OnInit, OnDestroy {
   private timeoutId: any;
   currentLanguage: string = 'en';
   private langChangeSubscription!: Subscription;
+  selectedOption: string | null = null;
+  dropdownOpen: boolean = false;
+  fileInput!: HTMLInputElement;
+  fileName: string = '';
+
+  routeOptions = [
+    { label: 'Website', value: 'website' },
+    { label: 'Social Media', value: 'social-media' },
+    { label: 'Referral', value: 'referral' },
+    { label: 'Job Board', value: 'job-board' },
+    { label: 'Other', value: 'other' }
+  ];
 
   constructor(
-    private titleService: Title,
-    private metaService: Meta,
     private route: ActivatedRoute,
     private strapiService: StrapiService,
     // private translationHelper: TranslationHelper,
     private languageService: LanguageService,
-    private officeService: OfficeService,
     private fb: FormBuilder,
   ) {
     // this.currentLanguage = this.translationHelper.getCurrentLanguage();
-    this.offices$ = this.officeService.offices$;
     this.contactForm = this.fb.group({
       full_name: ['', Validators.required],
-      company: [''],
       email: ['', [Validators.required, Validators.email]],
+      route: ['', Validators.required],
       country_code: ['+64'],
       phone: [''],
-      message: ['', Validators.required]
+      portfolio: ['', Validators.required],
+      file: ['']
     });
   }
 
   ngOnInit(): void {
-    // Meta info for SEO
-    this.titleService.setTitle('Contact - Perpetua');
-    this.metaService.updateTag({ name: 'description', content: 'Browse Contact to get in touch with us at Perpetua.' });
-
     this.currentLanguage = this.languageService.getCurrentLanguage();
     this.langChangeSubscription = this.languageService.currentLanguage$.subscribe(
       (lang) => {
         this.currentLanguage = lang;
       }
     );
-
-    this.selectedLocation = 'Christchurch';
-    this.selectedContactInfo = this.contactData.find(data => data.location === 'Christchurch');
-    this.offices$.subscribe((offices: IOffice[]) => {
-      const matchingOffice = offices.find(office => office.office_location === this.selectedLocation);
-      if (matchingOffice) {
-        this.officeImage = matchingOffice.office_image.url;
-      } else {
-        this.officeImage = '../../../assets/images/img_n.a.png';
-      }
-    });
-
 
     this.strapiService.getAllFlags().subscribe((response: APIResponseModel) => {
       this.flags = response.data.map((flag: IFlag) => ({
@@ -107,17 +95,8 @@ export class ContactComponent implements OnInit, OnDestroy {
       this.setDefaultFlag('+64');
     });
 
-    this.route.fragment.subscribe((fragment) => {
-      if (fragment) {
-        this.scrollToSection(fragment);
-      }
-    });
-
-    setTimeout(() => {
-      if (this.messageTextarea) {
-        this.autoResize(this.messageTextarea.nativeElement);
-      }
-    });
+    this.fileInput = this.fileUploadInput.nativeElement;
+    document.addEventListener('click', this.handleClickOutside.bind(this));
   }
 
   ngOnDestroy(): void {
@@ -131,6 +110,7 @@ export class ContactComponent implements OnInit, OnDestroy {
     if (this.timeoutId) {
       clearTimeout(this.timeoutId);
     }
+    document.removeEventListener('click', this.handleClickOutside.bind(this));
   }
 
   setDefaultFlag(defaultCode: string): void {
@@ -164,34 +144,40 @@ export class ContactComponent implements OnInit, OnDestroy {
     }
   }
 
-  onLocationClick(location: string): void {
-    this.selectedLocation = location;
-    this.selectedContactInfo = this.contactData.find(data => data.location.toLowerCase() === location.toLowerCase()) || null;
-    this.offices$.subscribe((offices: IOffice[]) => {
-      const matchingOffice = offices.find(office => office.office_location === this.selectedLocation);
-      if (matchingOffice) {
-        this.officeImage = matchingOffice.office_image.url;
-      } else {
-        this.officeImage = '../../../assets/images/img_n.a.png';
-      }
-    });
-  }
-
-  onLocationKeydown(event: KeyboardEvent, location: string): void {
-    if (event.key === 'Enter' || event.key === ' ') {
-      event.preventDefault();
-      this.onLocationClick(location);
+  @HostListener('document:click', ['$event'])
+  handleClickOutside(event: MouseEvent) {
+    if (
+      this.dropdownButton &&
+      !this.dropdownButton.nativeElement.contains(event.target) &&
+      this.dropdownList &&
+      !this.dropdownList.nativeElement.contains(event.target)
+    ) {
+      this.dropdownOpen = false;
     }
   }
 
-  autoResize(textarea: HTMLTextAreaElement): void {
-    textarea.style.height = 'auto';
-    if (textarea.value.trim() === '') {
-      textarea.style.height = '38px';
-      textarea.classList.remove('first-line');
-    } else {
-      textarea.style.height = '38px';
-      textarea.style.height = `${textarea.scrollHeight}px`;
+  toggleDropdown() {
+    this.dropdownOpen = !this.dropdownOpen;
+  }
+
+  onToggleOptionKeyDown(option: any, event: KeyboardEvent) {
+    event.preventDefault();
+    this.selectOption(option);
+  }
+
+  selectOption(option: any) {
+    this.selectedOption = option.label;
+    this.contactForm.patchValue({ route: option.value });
+    this.dropdownOpen = false;
+  }
+
+  onFileSelected(event: Event) {
+    const file = (event.target as HTMLInputElement).files?.[0];
+    if (file) {
+      this.fileName = file.name;
+      this.contactForm.patchValue({
+        file: file
+      });
     }
   }
 
@@ -230,11 +216,6 @@ export class ContactComponent implements OnInit, OnDestroy {
             country_code: '+64'
           });
           this.formSubmitted = false;
-          setTimeout(() => {
-            if (this.messageTextarea) {
-              this.autoResize(this.messageTextarea.nativeElement);
-            }
-          }, 0);
         },
         (error) => {
           console.error('FAILED...', (error as EmailJSResponseStatus).text);
@@ -261,12 +242,5 @@ export class ContactComponent implements OnInit, OnDestroy {
         errorMessage.classList.remove('visible');
       }
     }, 5000);
-  }
-
-  scrollToSection(sectionId: string): void {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'instant' });
-    }
   }
 }

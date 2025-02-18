@@ -2,7 +2,6 @@ import { Component, Input, CUSTOM_ELEMENTS_SCHEMA, OnInit, AfterViewInit, ViewCh
 import { CommonModule } from '@angular/common';
 import { IMember } from '../../../util/interfaces';
 import { register } from 'swiper/element/bundle';
-import { environment } from '../../../environments/environment.development';
 
 register();
 
@@ -17,7 +16,6 @@ register();
 export class StaffCardComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() members: IMember[] = [];
   shuffledMembers: IMember[][] = [];
-  strapiUrl = environment.strapiMediaUrl;
   @ViewChildren('swiperRef') swiperContainers!: QueryList<ElementRef>;
 
   private swiperInstances: any[] = [];

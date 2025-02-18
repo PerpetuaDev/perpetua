@@ -4,7 +4,6 @@ import { BehaviorSubject } from 'rxjs';
 // Services
 import { IMember, APIResponseModel, IImage } from '../../util/interfaces';
 import { StrapiService } from '../api/strapi.service';
-import { environment } from '../../environments/environment.development';
 
 @Injectable({
     providedIn: 'root'
@@ -23,8 +22,6 @@ export class MemberService {
     private loadingSubject = new BehaviorSubject<boolean>(true);
     isLoading$ = this.loadingSubject.asObservable();
 
-    strapiUrl = environment.strapiMediaUrl;
-
     constructor(private strapiService: StrapiService) {
         this.fetchMembers();
     }
@@ -34,9 +31,6 @@ export class MemberService {
         this.strapiService.getAllMembers().subscribe((result: APIResponseModel) => {
             const members = result.data
                 .map((member: IMember) => {
-                    // Log each member's portrait image URL (before and after mapping)
-                    console.log('Portrait image before mapping:', member.portrait_image);
-
                     return {
                         ...member,
                         portrait_image: member.portrait_image

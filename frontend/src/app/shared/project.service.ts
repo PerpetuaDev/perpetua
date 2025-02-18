@@ -4,7 +4,6 @@ import { BehaviorSubject } from 'rxjs';
 // Services
 import { StrapiService } from '../api/strapi.service';
 import { IProject, APIResponseModel } from '../../util/interfaces';
-import { environment } from '../../environments/environment.development';
 
 @Injectable({
     providedIn: 'root'
@@ -31,8 +30,6 @@ export class ProjectService {
 
     private searchResultsSubject = new BehaviorSubject<IProject[]>([]);
     searchResults$ = this.searchResultsSubject.asObservable();
-
-    strapiUrl = environment.strapiMediaUrl;
 
     constructor(private strapiService: StrapiService) {
         this.fetchProjects();
@@ -96,7 +93,7 @@ export class ProjectService {
                     thumbnail_image: project.thumbnail_image
                         ? {
                             ...project.thumbnail_image,
-                            url: this.strapiUrl + (project.thumbnail_image.url || "../../../../../assets/images/img_n.a.png")
+                            url: project.thumbnail_image.url || "../../../../../assets/images/img_n.a.png"
                         } : { url: "../../../../../assets/images/img_n.a.png" }
                 }));
 

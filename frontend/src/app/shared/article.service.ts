@@ -4,7 +4,6 @@ import { BehaviorSubject } from 'rxjs';
 // Services
 import { IArticle, APIResponseModel, IImage } from '../../util/interfaces';
 import { StrapiService } from '../api/strapi.service';
-import { environment } from '../../environments/environment.development';
 
 @Injectable({
     providedIn: 'root'
@@ -29,8 +28,6 @@ export class ArticleService {
     private searchResultsSubject = new BehaviorSubject<IArticle[]>([]);
     searchResults$ = this.searchResultsSubject.asObservable();
 
-    strapiUrl = environment.strapiMediaUrl;
-
     constructor(private strapiService: StrapiService) {
         this.fetchArticles();
     }
@@ -38,26 +35,15 @@ export class ArticleService {
     fetchArticles(): void {
         this.loadingSubject.next(true);
         this.strapiService.getAllArticles().subscribe((result: APIResponseModel) => {
-            const articles = result.data.map((article: IArticle) => {
-                // Log the thumbnail_image URL before assignment
-                console.log("Data: ", article.thumbnail_image.url);
-
-                // if (article.thumbnail_image) {
-                //     console.log("Thumbnail Image URL before assignment: ", article.thumbnail_image.url);
-                // } else {
-                //     console.log("No thumbnail image for article with ID: ", article.documentId);
-                // }
-
-                return {
-                    ...article,
-                    thumbnail_image: article.thumbnail_image
-                        ? {
-                            ...article.thumbnail_image,
-                            url: article.thumbnail_image.url
-                        }
-                        : { url: "../../../../../assets/images/img_n.a.png" }
-                };
-            });
+            const articles = result.data.map((article: IArticle) => ({
+                ...article,
+                thumbnail_image: article.thumbnail_image
+                    ? {
+                        ...article.thumbnail_image,
+                        url: article.thumbnail_image.url
+                    }
+                    : { url: "../../../../../assets/images/img_n.a.png" }
+            }));
             this.articlesSubject.next(articles);
             this.filteredArticlesSubject.next(articles);
             this.loadingSubject.next(false);

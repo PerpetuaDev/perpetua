@@ -4,17 +4,17 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 // Services
-import { IClient } from '../../../../../util/interfaces';
-import { TranslationHelper } from '../../../../shared/translation-helper';
+import { IClient } from '../../../../util/interfaces';
+import { TranslationHelper } from '../../../shared/translation-helper';
 
 @Component({
-  selector: 'app-client-block',
+  selector: 'app-client-block-about',
   standalone: true,
   imports: [CommonModule, RouterLink, TranslateModule],
-  templateUrl: './client-block.component.html',
-  styleUrl: './client-block.component.scss'
+  templateUrl: './client-block-about.component.html',
+  styleUrl: './client-block-about.component.scss'
 })
-export class ClientBlockComponent implements OnDestroy {
+export class ClientBlockAboutComponent implements OnDestroy {
   @Input() clients: IClient[] = [];
   currentLanguage: string = 'en';
 
@@ -27,6 +27,6 @@ export class ClientBlockComponent implements OnDestroy {
   }
 
   emptySpaces() {
-    return new Array(9 - this.clients.length).fill(null);
+    return new Array(14 - this.clients.length).fill(null);
   }
 }

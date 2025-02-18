@@ -1,82 +1,136 @@
-section {
-    padding: 90px 105px;
-}
-
-h1 {
-    margin-bottom: 40px;
-}
-
-h2 {
-    font-family: 'Larsseit-500' !important;
-    font-size: 1.75rem;
-    color: #0e0e01;
-}
-
-p,
-span,
-.job-description {
-    padding: 0;
-    margin: 0;
-    font-family: 'Sohne' !important;
-    font-size: 1.5rem;
-    color: #0e0e01;
+.career-container {
+    overflow-x: hidden;
 }
 
 .header-container {
+    width: 100%;
     display: flex;
 
-    .header-left-container {
-        width: 70%;
+    justify-content: start;
+    align-items: start;
+    padding: 77px 65px 136px;
+
+    .back-button-wrapper {
+        display: flex;
+        justify-content: start;
+        align-items: center;
+    }
+
+    .description-wrapper {
+        max-width: 806px;
+        margin-right: 180px;
+        display: flex;
+        flex-direction: column;
+        color: #0E0E01;
+        font-family: 'Sohne';
+
+        .county {
+            font-size: 1.75rem;
+            margin-bottom: 88px;
+        }
 
         .job-description {
-            width: 70%;
-            margin-top: 60px;
+            font-size: 1.5rem;
         }
     }
 
-    .header-right-container {
-        width: 30%;
-
-        h2 {
-            margin-bottom: 20px;
-        }
+    .location-wrapper {
+        display: flex;
+        text-align: right;
+        color: #0E0E01;
+        font-family: 'Sohne';
+        font-size: 1.5rem;
     }
 }
 
-.offer-wrapper {
-    border-bottom: 2px solid #0e0e01;
-    cursor: pointer;
+.image-container {
+    width: 100%;
+    height: 740px;
+    padding: 0 65px;
 
-    .title-wrapper {
+    .image {
         width: 100%;
-        margin: 50px 0;
+        height: 100%;
+        background-color: #898989;
+    }
+}
+
+.offer-container {
+    padding: 115px 65px 130px;
+    border-bottom: 2px solid #0E0E01;
+
+    .offer-wrapper {
+        width: 573px;
         display: flex;
-        justify-content: space-between;
-        align-items: center;
+        flex-direction: column;
+        justify-content: start;
+        align-items: start;
+        margin: 115px 156px 0 0;
+        border-bottom: #0E0E01;
 
-        i {
-            font-size: 2rem;
-            transition: transform 0.2s ease;
-            transform-origin: center;
+        img {
+            width: 60px;
+            height: auto;
         }
-    }
 
-    p {
-        margin: 50px 0;
-        display: none;
-        height: 0;
-        overflow: hidden;
-        transition: height 0.2s ease;
-    }
+        .title-wrapper {
+            width: 100%;
+            margin: 26px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
 
-    &.visible {
-        i {
-            transform: rotate(180deg);
+            h2 {
+                margin: 0;
+            }
+
+            i {
+                font-size: 2rem;
+                transition: display 0.2s ease;
+                transform-origin: center;
+                cursor: pointer;
+            }
+
+            .bi-x::before {
+                font-size: 2.5rem;
+            }
         }
 
         p {
-            display: block;
-            height: auto;
+            max-width: 518px;
+            color: #0E0E01;
+            font-family: 'Sohne';
+            font-size: 1.5rem;
+            margin: 50px 0;
+            display: none;
+            height: 0;
+            overflow: hidden;
+            transition: height 0.2s ease;
         }
+
+        &.visible {
+            p {
+                display: block;
+                height: auto;
+            }
+        }
+
+    }
+}
+
+.form-container {
+    padding: 77px 65px 0;
+    border-bottom: 1.5px solid #0e0e01;
+
+    h1 {
+        margin-bottom: 49px;
+    }
+
+    p {
+        color: #0E0E01;
+        font-family: 'Sohne';
+        font-size: 1.5rem;
+        margin: 0;
+        padding: 0;
     }
 }

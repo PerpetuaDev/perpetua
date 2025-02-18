@@ -1,10 +1,6 @@
 <section class='w-100 m-0'>
     <div class="image-wrapper">
-        <img *ngIf="article?.thumbnail_image; else fallbackImage" [src]="article?.thumbnail_image?.url"
-            alt="article?.title || 'No Title Available'" />
-        <ng-template #fallbackImage>
-            <img src="../../../assets/images/img_n.a.png" alt="No Available" />
-        </ng-template>
+        <img [src]="article?.thumbnail_image?.url" alt="article thumbnail" />
     </div>
     <div class="content-container">
         <!-- Left section -->

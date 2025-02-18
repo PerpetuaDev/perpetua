@@ -9,7 +9,6 @@ import { StaffCardComponent } from '../../../../components/staff-card/staff-card
 import { IMember, APIResponseModel, IImage } from '../../../../../util/interfaces';
 import { StrapiService } from '../../../../api/strapi.service';
 import { TranslationHelper } from '../../../../shared/translation-helper';
-import { environment } from '../../../../../environments/environment.development';
 
 @Component({
   selector: 'app-team',
@@ -21,7 +20,6 @@ import { environment } from '../../../../../environments/environment.development
 export class TeamComponent implements OnInit, OnDestroy {
   members: IMember[] = [];
   strapiService = inject(StrapiService);
-  strapiUrl = environment.strapiMediaUrl;
   intervalId: any;
   currentLanguage: string = 'en';
 
@@ -62,7 +60,7 @@ export class TeamComponent implements OnInit, OnDestroy {
 
     return {
       ...portrait,
-      url: this.strapiUrl + (portrait.url || "../../../assets/images/img_n.a.png")
+      url: portrait.url || "../../../assets/images/img_n.a.png"
     };
   }
 }

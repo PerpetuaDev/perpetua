@@ -1,6 +1,6 @@
 // Libraries
 import { Title, Meta } from '@angular/platform-browser';
-import { Component, OnInit, OnDestroy, inject, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { RouterLink, ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -11,9 +11,8 @@ import { CareerCardComponent } from '../components/career-card/career-card.compo
 import { ArticleAndProjectCardSkeletonComponent } from '../../../components/skeletons/article-and-project-card-skeleton/article-and-project-card-skeleton.component';
 // Services
 import { StrapiService } from '../../../api/strapi.service';
-import { IOffice, ICareer, APIResponseModel } from '../../../../util/interfaces';
+import { IOffice, ICareer } from '../../../../util/interfaces';
 import { TranslationHelper } from '../../../shared/translation-helper';
-import { environment } from '../../../../environments/environment.development';
 import { ProjectService } from '../../../shared/project.service';
 import { CareerService } from '../../../shared/career.service';
 import { OfficeService } from '../../../shared/office.service';
@@ -43,7 +42,6 @@ export class OfficeDetailComponent implements OnInit, OnDestroy {
   office?: IOffice;
   memberNames: string[] = [];
   formattedTime: { hours: string, minutes: string, period: string } | null = null;
-  strapiUrl = environment.strapiMediaUrl;
   projectService: ProjectService = inject(ProjectService);
   private intervalId: any;
   private timeoutId: any;

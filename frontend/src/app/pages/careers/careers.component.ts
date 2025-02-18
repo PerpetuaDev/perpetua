@@ -6,16 +6,16 @@ import { CommonModule } from '@angular/common';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { marked } from 'marked';
 // Components
-import { FooterComponent } from '../../components/footer/footer.component';
+import { BackToCareerButtonComponent } from '../../components/buttons/back-to-career-button/back-to-career-button.component';
+import { ApplyJobFormComponent } from './components/apply-job-form/apply-job-form.component';
 // Services
 import { ICareer, APIResponseModel } from '../../../util/interfaces';
 import { StrapiService } from '../../api/strapi.service';
-import { environment } from '../../../environments/environment.development';
 
 @Component({
   selector: 'app-careers',
   standalone: true,
-  imports: [CommonModule, FooterComponent],
+  imports: [CommonModule, ApplyJobFormComponent, BackToCareerButtonComponent],
   templateUrl: './careers.component.html',
   styleUrl: './careers.component.scss'
 })
@@ -29,23 +29,43 @@ export class CareersComponent implements OnInit {
     {
       title: 'Supportive & Friendly Work Environment',
       description:
-        "At Perpetua we believe people produce their best work when they’re happy, rested, and they feel their work has meaning. It’s with this in mind that we take particular care to foster a supportive and friendly workplace—no one at Perpetua has ever been punished for making a mistake, as making mistakes is a natural part of pushing for the top."
+        "At Perpetua we believe people produce their best work when they’re happy, rested, and they feel their work has meaning. It’s with this in mind that we take particular care to foster a supportive and friendly workplace—no one at Perpetua has ever been punished for making a mistake, as making mistakes is a natural part of pushing for the top.",
+      visible: false
     },
     {
       title: 'Health & Wellness Programs & Subsidies',
       description:
-        'As part of our investment in a happy, healthy, productive workplace, we offer every member of staff support for maintaining and bettering your physical and mental health. This includes subsidised or completely covered fitness memberships, and an employee assistance program with our client OCP.'
+        'As part of our investment in a happy, healthy, productive workplace, we offer every member of staff support for maintaining and bettering your physical and mental health. This includes subsidised or completely covered fitness memberships, and an employee assistance program with our client OCP.',
+      visible: false
     },
     {
       title: 'Flexible Hours, Location & Remote Work',
       description:
-        "As part of Perpetua’s global team, you’ll have access to a shared office space as per your location. However, there’s no requirement to go in. Many of our team prefer the security of fixed hours, (and some positions demand relatively fixed hours) but many others can choose the days, times and locations of their work as it suits their schedules, and we encourage them to do so."
+        "As part of Perpetua’s global team, you’ll have access to a shared office space as per your location. However, there’s no requirement to go in. Many of our team prefer the security of fixed hours, (and some positions demand relatively fixed hours) but many others can choose the days, times and locations of their work as it suits their schedules, and we encourage them to do so.",
+      visible: false
+    },
+    {
+      title: 'Flexible Hours, Location & Remote Work',
+      description:
+        "As part of Perpetua’s global team, you’ll have access to a shared office space as per your location. However, there’s no requirement to go in. Many of our team prefer the security of fixed hours, (and some positions demand relatively fixed hours) but many others can choose the days, times and locations of their work as it suits their schedules, and we encourage them to do so.",
+      visible: false
+    },
+    {
+      title: 'Flexible Hours, Location & Remote Work',
+      description:
+        "As part of Perpetua’s global team, you’ll have access to a shared office space as per your location. However, there’s no requirement to go in. Many of our team prefer the security of fixed hours, (and some positions demand relatively fixed hours) but many others can choose the days, times and locations of their work as it suits their schedules, and we encourage them to do so.",
+      visible: false
+    },
+    {
+      title: 'Flexible Hours, Location & Remote Work',
+      description:
+        "As part of Perpetua’s global team, you’ll have access to a shared office space as per your location. However, there’s no requirement to go in. Many of our team prefer the security of fixed hours, (and some positions demand relatively fixed hours) but many others can choose the days, times and locations of their work as it suits their schedules, and we encourage them to do so.",
+      visible: false
     }
   ];
   strapiService = inject(StrapiService);
   route = inject(ActivatedRoute);
   sanitizer = inject(DomSanitizer);
-  strapiUrl = environment.strapiMediaUrl;
 
   constructor(private titleService: Title, private metaService: Meta) { }
 
@@ -88,6 +108,11 @@ export class CareersComponent implements OnInit {
     });
   }
 
+  get getCountry() {
+    console.log("country: ", this.career?.office_address)
+    return this.career?.office_address?.[0]?.country || 'Unknown location';
+  }
+
   private async parseMarkdown(markdown: string): Promise<string> {
     const result = marked.parse(markdown);
     if (result instanceof Promise) {
@@ -98,6 +123,15 @@ export class CareersComponent implements OnInit {
   }
 
   toggleDetail(index: number): void {
-    this.activeOfferIndex = this.activeOfferIndex === index ? null : index;
+    if (this.activeOfferIndex === index) {
+      this.offers[index].visible = !this.offers[index].visible;
+    } else {
+      if (this.activeOfferIndex !== null) {
+        this.offers[this.activeOfferIndex].visible = false;
+      }
+      this.offers[index].visible = true;
+    }
+
+    this.activeOfferIndex = this.offers[index].visible ? index : null;
   }
 }

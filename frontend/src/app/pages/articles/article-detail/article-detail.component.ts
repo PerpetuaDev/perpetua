@@ -14,7 +14,6 @@ import { ArticleDetailSkeletonComponent } from '../../../components/skeletons/ar
 import { StrapiService } from '../../../api/strapi.service';
 import { IArticle, APIResponseModel, IImage } from '../../../../util/interfaces';
 import { TranslationHelper } from '../../../shared/translation-helper';
-import { environment } from '../../../../environments/environment.development';
 
 @Component({
   selector: 'app-article-detail',
@@ -34,7 +33,6 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
   documentId!: string;
   article?: IArticle;
   currentLanguage: string = 'en';
-  strapiUrl = environment.strapiMediaUrl;
 
   constructor(
     private metaService: Meta,
@@ -98,7 +96,7 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
 
     return {
       ...thumbnail,
-      url: this.strapiUrl + (thumbnail.url || "../../../assets/images/img_n.a.png")
+      url: thumbnail.url || "../../../assets/images/img_n.a.png"
     };
   }
 

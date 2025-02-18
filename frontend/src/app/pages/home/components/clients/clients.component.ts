@@ -11,7 +11,6 @@ import { ClientCardComponent } from './components/client-card/client-card.compon
 import { IClient, APIResponseModel, IImage } from '../../../../../util/interfaces';
 import { StrapiService } from '../../../../api/strapi.service';
 import { TranslationHelper } from '../../../../shared/translation-helper';
-import { environment } from '../../../../../environments/environment.development';
 
 @Component({
   selector: 'app-clients',
@@ -24,7 +23,6 @@ export class ClientsComponent implements OnInit, OnDestroy {
   clients: IClient[] = [];
   selectedClientIndex: number = 0;
   strapiService = inject(StrapiService);
-  strapiUrl = environment.strapiMediaUrl;
   currentLanguage: string = 'en';
   parsedTestimonial: SafeHtml | undefined;
 
@@ -67,7 +65,7 @@ export class ClientsComponent implements OnInit, OnDestroy {
 
     return {
       ...logo,
-      url: this.strapiUrl + (logo.url || "../../../assets/images/img_n.a.png")
+      url: logo.url || "../../../assets/images/img_n.a.png"
     };
   }
 

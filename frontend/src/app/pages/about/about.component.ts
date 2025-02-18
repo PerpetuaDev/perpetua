@@ -6,7 +6,7 @@ import { RouterLink, ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 // Components
-import { ClientBlockComponent } from './components/client-block/client-block.component';
+import { ClientBlockAboutComponent } from '../../components/client-cards/client-block-about/client-block-about.component';
 import { LocationCardComponent } from './components/location-card/location-card.component';
 import { StaffCardComponent } from '../../components/staff-card/staff-card.component';
 import { CareerCardComponent } from './components/career-card/career-card.component';
@@ -14,7 +14,6 @@ import { CareerCardComponent } from './components/career-card/career-card.compon
 import { StrapiService } from '../../api/strapi.service';
 import { IClient, IMember, IOffice, ICareer, APIResponseModel } from '../../../util/interfaces';
 import { TranslationHelper } from '../../shared/translation-helper';
-import { environment } from '../../../environments/environment.development';
 import { CareerService } from '../../shared/career.service';
 import { OfficeService } from '../../shared/office.service';
 
@@ -23,7 +22,7 @@ import { OfficeService } from '../../shared/office.service';
   standalone: true,
   imports: [
     CommonModule,
-    ClientBlockComponent,
+    ClientBlockAboutComponent,
     LocationCardComponent,
     StaffCardComponent,
     CareerCardComponent,
@@ -41,7 +40,6 @@ export class AboutComponent implements OnInit, OnDestroy {
   members: IMember[] = [];
   memberNames: string[] = [];
   selectedMember: IMember | undefined;
-  strapiUrl = environment.strapiMediaUrl;
   private intervalId: any;
   private timeoutId: any;
   currentLanguage: string = 'en';
@@ -77,7 +75,7 @@ export class AboutComponent implements OnInit, OnDestroy {
         ...client,
         company_logo: client.company_logo ? {
           ...client.company_logo,
-          url: this.strapiUrl + (client.company_logo.url || "../../../assets/images/img_n.a.png")
+          url: client.company_logo.url || "../../../assets/images/img_n.a.png"
         } : { url: "../../../assets/images/img_n.a.png" }
       }));
     });
@@ -88,7 +86,7 @@ export class AboutComponent implements OnInit, OnDestroy {
           ...member,
           portrait_image: member.portrait_image ? {
             ...member.portrait_image,
-            url: this.strapiUrl + (member.portrait_image.url || "../../../assets/images/img_n.a.png")
+            url: member.portrait_image.url || "../../../assets/images/img_n.a.png"
           } : { url: "../../../assets/images/img_n.a.png" }
         }))
         .sort((a: IMember, b: IMember) => {

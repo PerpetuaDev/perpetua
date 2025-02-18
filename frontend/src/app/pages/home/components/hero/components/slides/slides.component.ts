@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 // Components
 import { SlidesSkeletonComponent } from '../../../../../../components/skeletons/slides-skeleton/slides-skeleton.component';
 // Services
-import { environment } from '../../../../../../../environments/environment.development';
 import { StrapiService } from '../../../../../../api/strapi.service';
 import { ISlide, APIResponseModel } from '../../../../../../../util/interfaces';
 
@@ -18,7 +17,6 @@ import { ISlide, APIResponseModel } from '../../../../../../../util/interfaces';
 export class SlidesComponent implements OnInit, AfterViewInit, OnDestroy {
   strapiService = inject(StrapiService);
   cdr = inject(ChangeDetectorRef);
-  strapiUrl = environment.strapiMediaUrl;
   slides: ISlide[] = [];
   isLoading: boolean = false;
   autoSlideInterval: any;
@@ -35,39 +33,30 @@ export class SlidesComponent implements OnInit, AfterViewInit, OnDestroy {
     this.isLoading = true;
 
     this.strapiService.getSlides().subscribe((result: APIResponseModel) => {
-      this.slides = result.data;
-      this.slides = this.slides.map((slide: ISlide) => ({
+      this.slides = result.data.map((slide: ISlide) => ({
         ...slide,
         project_image: {
           ...slide.project_image,
-          thumbnail_image: slide.project_image.thumbnail_image
+          thumbnail_image: slide.project_image?.thumbnail_image
             ? {
-              id: slide.project_image.thumbnail_image.id,
-              documentId: slide.project_image.thumbnail_image.documentId,
-              name: slide.project_image.thumbnail_image.name,
+              ...slide.project_image.thumbnail_image,
+              // Ensure all required properties are present, even if not in the API response
+              id: slide.project_image.thumbnail_image.id || null,
+              documentId: slide.project_image.thumbnail_image.documentId || null,
+              name: slide.project_image.thumbnail_image.name || null,
+              createdAt: slide.project_image.thumbnail_image.createdAt || null,
+              updatedAt: slide.project_image.thumbnail_image.updatedAt || null,
               url: slide.project_image.thumbnail_image.url,
-              alternativeText: slide.project_image.thumbnail_image.alternativeText || '',
-              caption: slide.project_image.thumbnail_image.caption || '',
-              width: slide.project_image.thumbnail_image.width || null,
-              height: slide.project_image.thumbnail_image.height || null,
-              formats: slide.project_image.thumbnail_image.formats || {},
-              createdAt: slide.project_image.thumbnail_image.createdAt,
-              updatedAt: slide.project_image.thumbnail_image.updatedAt,
             }
             : {
-              id: 0,
-              documentId: '',
-              name: 'default',
               url: "../../../assets/images/img_n.a.png",
-              alternativeText: '',
-              caption: '',
-              width: null,
-              height: null,
-              formats: {},
-              createdAt: new Date(),
-              updatedAt: new Date(),
+              id: null,
+              documentId: null,
+              name: null,
+              createdAt: null,
+              updatedAt: null,
             },
-        }
+        },
       }));
 
       this.array1 = [...this.slides];

@@ -34,29 +34,20 @@ export class ShareArticleButtonComponent implements OnDestroy {
     this.translationHelper.unsubscribe();
   }
 
+  shareArticle() {
+    if (navigator.share) {
+      navigator.share({
+        title: this.articleTitle,
+        url: this.articleUrl
+      })
+        .then(() => console.log('Article shared successfully'))
+        .catch((error) => console.log('Error sharing article', error));
+    } else {
+      this.showModal();
+    }
+  }
+
   showModal() {
     this.isModalVisible = !this.isModalVisible;
-  }
-
-  shareOnTwitter() {
-    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(this.articleTitle)}&url=${encodeURIComponent(this.articleUrl)}`;
-    window.open(twitterUrl, '_blank');
-  }
-
-  shareOnLinkedIn() {
-    const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(this.articleUrl)}`;
-    window.open(linkedInUrl, '_blank');
-  }
-
-  shareOnFacebook() {
-    const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(this.articleUrl)}`;
-    window.open(facebookUrl, '_blank');
-  }
-
-  shareByEmail() {
-    const subject = `Check out this article: ${this.articleTitle}`;
-    const body = `I thought you might find this interesting: ${this.articleTitle}\n\n${this.articleUrl}`;
-    const mailToUrl = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    window.location.href = mailToUrl;
   }
 }

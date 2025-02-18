@@ -14,7 +14,6 @@ import { ProjectContentComponent } from './components/project-content/project-co
 // Services
 import { StrapiService } from '../../../api/strapi.service';
 import { IProject, APIResponseModel, IImage } from '../../../../util/interfaces';
-import { environment } from '../../../../environments/environment.development';
 import { TranslationHelper } from '../../../shared/translation-helper';
 
 @Component({
@@ -35,7 +34,6 @@ import { TranslationHelper } from '../../../shared/translation-helper';
 export class ProjectDetailComponent implements OnInit {
   documentId!: string;
   project?: IProject;
-  strapiUrl = environment.strapiMediaUrl;
   currentLanguage: string = 'en';
   parsedTestimonial: SafeHtml | undefined;
 
@@ -119,7 +117,7 @@ export class ProjectDetailComponent implements OnInit {
 
     return {
       ...image,
-      url: this.strapiUrl + (image.url || "../../../assets/images/img_n.a.png")
+      url: image.url || "../../../assets/images/img_n.a.png"
     };
   }
 

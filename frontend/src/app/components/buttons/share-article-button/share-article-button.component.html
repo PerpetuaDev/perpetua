@@ -1,25 +1,6 @@
 <div class="share-button-wrapper">
-    <button class="share-button" [ngClass]="{'footer-share-button': isFooterPosition}" (click)="showModal()">
+    <button class="share-button" [ngClass]="{'footer-share-button': isFooterPosition}" (click)="shareArticle()">
         {{ 'articles.share-article' | translate }}
         <i class="bi bi-arrow-right-short"></i>
     </button>
-
-    <div class="sm-modal" *ngIf="isModalVisible" [ngClass]="{'footer-sm-modal': isFooterPosition}">
-        <button (click)="shareOnTwitter()" title="Share on Twitter">
-            <i class="bi bi-twitter-x" aria-hidden="true"></i>
-            <span class="sr-only">Share on Twitter</span>
-        </button>
-        <button (click)="shareOnLinkedIn()" title="Share on LinkedIn">
-            <i class="bi bi-linkedin" aria-hidden="true"></i>
-            <span class="sr-only">Share on LinkedIn</span>
-        </button>
-        <button (click)="shareOnFacebook()" title="Share on Facebook">
-            <i class="bi bi-facebook" aria-hidden="true"></i>
-            <span class="sr-only">Share on Facebook</span>
-        </button>
-        <button (click)="shareByEmail()" title="Share by Email">
-            <i class="bi bi-envelope" aria-hidden="true"></i>
-            <span class="sr-only">Share by Email</span>
-        </button>
-    </div>
 </div>

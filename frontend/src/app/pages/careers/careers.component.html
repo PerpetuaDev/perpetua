@@ -1,32 +1,39 @@
-<div class='w-100 m-0'>
+<div class='w-100 m-0 career-container'>
+    <!-- Header -->
     <section class="header-container">
-        <div class="header-left-container">
+        <app-back-to-career-button></app-back-to-career-button>
+        <div class="description-wrapper">
             <h1 class="title">{{ career?.job_title }}</h1>
-            <span>{{ career?.job_type }}&nbsp;&#8213;&nbsp;{{ career?.job_location }}</span>
-            <div>
-                <p>{{ career?.location_type }}</p>
-                <div class="job-description" [innerHTML]="jobDescriptionHtml"></div>
-            </div>
+            <p class="county">{{ getCountry }}</p>
+            <div class="job-description" [innerHTML]="jobDescriptionHtml"></div>
         </div>
-        <div class="header-right-container">
-            <h2>Apply for this position</h2>
-            <p>To apply, please submit your CV and cover letter via email to <a
-                    href="mailto:team@perpetua.co">career&#64;perpetua.co</a>.</p>
-            <br />
-            <p>Please include your full name and location in the subject of the email.</p>
+        <div class="location-wrapper">
+            <span>{{ career?.job_type }}&nbsp;&nbsp;&middot;&nbsp;&nbsp;{{ career?.location_type }}</span>
         </div>
     </section>
+    <div class="image-container">
+        <!-- <img src="" alt=""> -->
+        <div class="image"></div>
+    </div>
     <section class="offer-container">
         <h1>What we offer</h1>
-        <div *ngFor="let offer of offers; let i = index" class="offer-wrapper"
-            [ngClass]="{ visible: i === activeOfferIndex }" (click)="toggleDetail(i)" (keydown.enter)="toggleDetail(i)">
-            <div class="title-wrapper">
-                <h2>{{ offer.title }}</h2>
-                <i class="bi bi-chevron-down example-menu-icon"></i>
+        <div class="row row-cols-1 row-cols-md-2">
+            <div *ngFor="let offer of offers; let i = index" class="offer-wrapper"
+                [ngClass]="{ visible: i === activeOfferIndex }" (click)="toggleDetail(i)"
+                (keydown.enter)="toggleDetail(i)">
+                <img src="../../../assets/images/connection.svg" alt="connection icon">
+                <div class="title-wrapper">
+                    <h2>{{ offer.title }}</h2>
+                    <i class="bi" [ngClass]="{'bi-chevron-down': !offer.visible, 'bi-x': offer.visible}"></i>
+                </div>
+                <p class="offer-description">{{ offer.description }}</p>
             </div>
-            <p class="offer-description">{{ offer.description }}</p>
         </div>
     </section>
-
-    <app-footer></app-footer>
+    <section class="form-container">
+        <h1>Apply for this position</h1>
+        <p>Upload your CV & cover letter using the form below.</p>
+        <p>Please use either .pdf, .doc. or .docx files where possible.</p>
+        <app-apply-job-form></app-apply-job-form>
+    </section>
 </div>
