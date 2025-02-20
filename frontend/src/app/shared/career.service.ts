@@ -12,6 +12,9 @@ export class CareerService {
 
     private selectedCareerSubject = new BehaviorSubject<ICareer | null>(null);
 
+    private loadingSubject = new BehaviorSubject<boolean>(true);
+    isLoading$ = this.loadingSubject.asObservable();
+
     constructor(private strapiService: StrapiService) {
         this.fetchCareers();
     }

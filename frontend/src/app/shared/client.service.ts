@@ -13,6 +13,9 @@ export class ClientService {
     private clientsSubject = new BehaviorSubject<IClient[]>([]);
     clients$ = this.clientsSubject.asObservable();
 
+    private loadingSubject = new BehaviorSubject<boolean>(true);
+    isLoading$ = this.loadingSubject.asObservable();
+
     constructor(private strapiService: StrapiService) {
         this.fetchClients();
     }

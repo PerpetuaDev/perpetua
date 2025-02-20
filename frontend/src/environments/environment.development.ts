@@ -1,7 +1,7 @@
 export const environment = {
     production: true,
-    strapiUrl: 'https://stunning-book-723036d2c5.strapiapp.com/api',
-    strapiApi: '7aca7bb7816b8e0393ac7460acf392fc66eae73f2e32e423f8def37d279357ca7d3495b2e36291511e155f24f6ee2b8cb637865c761872d89110205bae7a333a330529837b629f9cee3bbdce11265a70b6384bf8f9643c8ba4ecd4b83de83efade7224cb3d349a231b27df798a31c942996cf8741768a7def3b58a46afa0f512',
+    strapiUrl: 'http://localhost:1337/api',
+    strapiApi: '44a41a2160303479083f9928d0ce6ffe6f29d1fa61f1098092e1756729cc9be1a9ef8e43043687d2955311399bed06b3190bb00460fcf34f530dbf1768bc555c5a4a8c320b17d2d79f872f2e687cbcfcabba15787e04c6adf5ecccbf98ed738627b8e1a941ca8661879050e8f0eebb15681a85ca1260860eb2a1f586296b7cbf',
     emailjsServiceId: 'service_cvy0zb6',
     emailjsTemplateId: 'template_x70ax2q',
     emailjsPublicKey: 'W8luC9ul7Wgdj9Zdh',

@@ -714,6 +714,35 @@ export interface ApiSlideSlide extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiStaticImageStaticImage extends Struct.CollectionTypeSchema {
+  collectionName: 'static_images';
+  info: {
+    displayName: 'Static Image';
+    pluralName: 'static-images';
+    singularName: 'static-image';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    image_location: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::static-image.static-image'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface PluginContentReleasesRelease
   extends Struct.CollectionTypeSchema {
   collectionName: 'strapi_releases';
@@ -1231,6 +1260,7 @@ declare module '@strapi/strapi' {
       'api::office.office': ApiOfficeOffice;
       'api::project.project': ApiProjectProject;
       'api::slide.slide': ApiSlideSlide;
+      'api::static-image.static-image': ApiStaticImageStaticImage;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

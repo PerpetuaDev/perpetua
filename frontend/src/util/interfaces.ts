@@ -129,6 +129,13 @@ export interface IArticle {
     updatedAt: string;
 }
 
+export interface IStaticImage {
+    id: number;
+    documentId: string;
+    image_location: string;
+    image: IImage;
+}
+
 export interface IImage {
     id: number;
     documentId: string;

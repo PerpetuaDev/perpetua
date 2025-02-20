@@ -25,7 +25,12 @@ export class ClientsListComponent implements OnInit, OnDestroy {
   selectedClientIndex: number = 0;
   currentLanguage: string = 'en';
 
-  constructor(private titleService: Title, private metaService: Meta, private clientService: ClientService, private translationHelper: TranslationHelper) {
+  constructor(
+    private titleService: Title,
+    private metaService: Meta,
+    private clientService: ClientService,
+    private translationHelper: TranslationHelper
+  ) {
     this.currentLanguage = this.translationHelper.getCurrentLanguage();
     this.clients$ = this.clientService.getClients();
   }

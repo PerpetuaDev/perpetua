@@ -11,7 +11,8 @@
             </p>
             <!-- Image -->
             <div class="image-cover">
-                <img src="../../../assets/images/img_n.a.png" alt="Service Top" class="service-top-image" />
+                <img *ngIf="(staticImages$ | async) as staticImages" [src]="headerImage" alt="Service Top"
+                    class="service-top-image" />
             </div>
         </div>
     </section>

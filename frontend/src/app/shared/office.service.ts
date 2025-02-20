@@ -13,8 +13,12 @@ import { IOffice, APIResponseModel } from '../../util/interfaces';
 export class OfficeService {
     private intervalId: any;
     private timeoutId: any;
+
     private officesSubject = new BehaviorSubject<IOffice[]>([]);
     offices$ = this.officesSubject.asObservable();
+
+    private loadingSubject = new BehaviorSubject<boolean>(true);
+    isLoading$ = this.loadingSubject.asObservable();
 
     constructor(private strapiService: StrapiService) {
         this.getAllOffices().subscribe(offices => {

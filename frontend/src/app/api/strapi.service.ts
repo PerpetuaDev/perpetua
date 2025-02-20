@@ -91,4 +91,9 @@ export class StrapiService {
     );
   }
 
+  getAllStaticImages(): Observable<APIResponseModel> {
+    return this.http.get<APIResponseModel>(`${this.apiUrl}/static-images?populate=*`, {
+      headers: this.getHeaders()
+    });
+  }
 }
