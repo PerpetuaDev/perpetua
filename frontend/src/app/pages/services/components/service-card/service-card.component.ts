@@ -32,6 +32,14 @@ export class ServiceCardComponent implements OnDestroy {
   }
 
   getTitle(service: any): string {
+    return this.translate.instant(service.title);
+  }
+
+  getDescription(service: IService): string {
+    return this.translate.instant(service.description);
+  }
+
+  getPath(service: any): string {
     const titleMap: any = {
       1: 'custom-software',
       2: 'websites&cms',
@@ -43,9 +51,4 @@ export class ServiceCardComponent implements OnDestroy {
 
     return titleMap[service.id] || 'no-title';
   }
-
-  getDescription(service: IService): string {
-    return this.translate.instant(service.description);
-  }
-
 }

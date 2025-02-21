@@ -33,9 +33,9 @@ import { StaticImageService } from '../../shared/static-image.service';
 
 export class ServicesComponent implements OnInit, OnDestroy {
   staticImages$: Observable<IStaticImage[]>
-  headerImage: string = '';
   currentLanguage: string = 'en';
   private langChangeSubscription!: Subscription;
+  headerImage: string = '';
 
   constructor(
     private titleService: Title,
@@ -63,12 +63,10 @@ export class ServicesComponent implements OnInit, OnDestroy {
       behavior: 'instant'
     });
 
-
     this.staticImages$.subscribe((staticImages) => {
       if (staticImages && staticImages.length > 0) {
         staticImages.map((image: IStaticImage) => {
           if (image.image_location === 'service-header-image') {
-            console.log(image.image.url);
             this.headerImage = image.image.url;
           }
         });

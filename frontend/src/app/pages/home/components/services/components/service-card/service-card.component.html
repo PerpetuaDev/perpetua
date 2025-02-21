@@ -18,7 +18,7 @@
                     <p class="description" [innerHTML]="getDescription(service)">
                     </p>
                     <div class="more-container">
-                        <div class="more-wrapper" routerLink="/services">
+                        <div class="more-wrapper" [routerLink]="['/services/details', getPath(service)]">
                             <p>{{ 'service.learn-more' | translate }}</p>
                             <i class="bi bi-arrow-right-short"></i>
                         </div>

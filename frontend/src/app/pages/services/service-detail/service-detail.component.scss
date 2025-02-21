@@ -67,10 +67,16 @@ section {
     }
 
     .image-cover {
-        padding: 77px 105px;
+        padding: 0;
         width: 100%;
         height: 830px;
         background-color: #898989;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
     }
 
     .service-explanation-wrapper {

@@ -9,7 +9,7 @@
             </div>
         </div>
         <div class="image-cover">
-            <!-- <img src="" alt=""> -->
+            <img [src]="currentService?.image" alt="service-header">
         </div>
         <div class="service-explanation-wrapper">
             <p class="title">What is {{ getFormattedTitle(currentService?.title) }} development?</p>

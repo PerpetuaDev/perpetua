@@ -675,6 +675,16 @@ export interface ApiProjectProject extends Struct.CollectionTypeSchema {
       ['software', 'website', 'app', 'design', 'other']
     >;
     publishedAt: Schema.Attribute.DateTime;
+    service_type: Schema.Attribute.Enumeration<
+      [
+        'Custom Software',
+        'Websites & CMS',
+        'Native & Web Apps',
+        'Artificial Intelligence',
+        'Hosting & Cloud Services',
+        'Data & Analytics',
+      ]
+    >;
     slide: Schema.Attribute.Relation<'oneToOne', 'api::slide.slide'>;
     thumbnail_image: Schema.Attribute.Media<
       'images' | 'files' | 'videos' | 'audios'

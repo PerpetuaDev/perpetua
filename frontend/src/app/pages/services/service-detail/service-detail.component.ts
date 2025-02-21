@@ -8,10 +8,12 @@ import { ActivatedRoute } from '@angular/router';
 import { CallActionComponent } from '../../../components/call-action/call-action.component';
 import { BackToTopButtonComponent } from '../../../components/buttons/back-to-top-button/back-to-top-button.component';
 import { ServiceCardComponent } from '../components/service-card/service-card.component';
-import { ServiceDetailData } from './service-detail-data';
 import { StartProjectButtonComponent } from '../../../components/buttons/start-project-button/start-project-button.component';
 // Services
 import { TranslationHelper } from '../../../shared/translation-helper';
+import { ServiceDetailData } from './service-detail-data';
+import { StaticImageService } from '../../../shared/static-image.service';
+import { IStaticImage } from '../../../../util/interfaces';
 
 @Component({
   selector: 'app-service-detail',
@@ -23,7 +25,7 @@ import { TranslationHelper } from '../../../shared/translation-helper';
 
 export class ServiceDetailComponent implements OnInit, OnDestroy {
   currentService: any;
-  ServiceDetailData = ServiceDetailData;
+  ServiceDetailData = [...ServiceDetailData];
   currentLanguage: string = 'en';
 
   constructor(
@@ -31,7 +33,8 @@ export class ServiceDetailComponent implements OnInit, OnDestroy {
     private metaService: Meta,
     private activatedRoute: ActivatedRoute,
     private translationHelper: TranslationHelper,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private staticImageService: StaticImageService
   ) {
     this.currentLanguage = this.translationHelper.getCurrentLanguage();
   }
@@ -47,6 +50,28 @@ export class ServiceDetailComponent implements OnInit, OnDestroy {
         this.metaService.updateTag({ name: 'description', content: this.currentService.explanation });
       }
     }
+
+    this.staticImageService.staticImages$.subscribe((staticImages) => {
+      if (staticImages.length > 0) {
+        this.ServiceDetailData = this.ServiceDetailData.map((service) => {
+          const matchedImage = staticImages.find(image =>
+            this.getServiceIndexFromLocation(image.image_location) === this.ServiceDetailData.indexOf(service)
+          );
+          if (matchedImage) {
+            service.image = matchedImage.image.url;
+            if (this.currentService?.code === service.code) {
+              this.currentService.image = matchedImage.image.url;
+            }
+          }
+          return service;
+        });
+      }
+    });
+
+    window.scrollTo({
+      top: 0,
+      behavior: 'instant'
+    });
   }
 
   ngOnDestroy(): void {
@@ -70,5 +95,17 @@ export class ServiceDetailComponent implements OnInit, OnDestroy {
       default:
         return title.toLowerCase();
     }
+  }
+
+  getServiceIndexFromLocation(imageLocation: any): number {
+    const mappings: { [key: string]: number } = {
+      'service-custom-software-header-image': 0,
+      'service-websites&cms-header-image': 1,
+      'service-native&web-apps-header-image': 2,
+      'service-artificial-intelligence-header-image': 3,
+      'service-hosting&cloud-services-header-image': 4,
+      'service-data&analytics-header-image': 5,
+    };
+    return mappings[imageLocation] ?? -1;
   }
 }

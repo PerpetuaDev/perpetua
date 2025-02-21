@@ -47,4 +47,17 @@ export class ServiceCardComponent implements OnDestroy {
       this.showDescription(index);
     }
   }
+
+  getPath(service: any): string {
+    const titleMap: any = {
+      1: 'custom-software',
+      2: 'websites&cms',
+      3: 'native&web-apps',
+      4: 'artificial-intelligence',
+      5: 'hosting&cloud-services',
+      6: 'data&analytics',
+    };
+
+    return titleMap[service.id] || 'no-title';
+  }
 }

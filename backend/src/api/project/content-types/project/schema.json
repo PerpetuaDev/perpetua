@@ -113,6 +113,17 @@
       "relation": "oneToOne",
       "target": "api::slide.slide",
       "mappedBy": "project_image"
+    },
+    "service_type": {
+      "type": "enumeration",
+      "enum": [
+        "Custom Software",
+        "Websites & CMS",
+        "Native & Web Apps",
+        "Artificial Intelligence",
+        "Hosting & Cloud Services",
+        "Data & Analytics"
+      ]
     }
   }
 }
