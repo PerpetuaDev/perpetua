@@ -11,7 +11,7 @@
             </p>
             <!-- Image -->
             <div class="image-cover">
-                <ng-container *ngIf="(isLoading$ | async); else imageSkeleton">
+                <ng-container *ngIf="!(isLoading$ | async); else imageSkeleton">
                     <img *ngIf="(staticImages$ | async) as staticImages" [src]="headerImage" alt="Service Top"
                         class="service-top-image" />
                 </ng-container>

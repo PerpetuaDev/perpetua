@@ -1,6 +1,7 @@
 // Libraries
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 // Services
 import { StrapiService } from '../api/strapi.service';
 import { IProject, APIResponseModel } from '../../util/interfaces';
@@ -22,8 +23,12 @@ export class ProjectService {
     private projectsByIndustrySubject = new BehaviorSubject<{ [industry: string]: IProject[] }>({});
     projectsByIndustry$ = this.projectsByIndustrySubject.asObservable();
 
+    public projectsByServiceTypeSubject = new BehaviorSubject<IProject[]>([]);
+    projectsByServiceType$ = this.projectsByServiceTypeSubject.asObservable();
+
     public moreProjectsSubject = new BehaviorSubject<IProject[]>([]);
     moreProjects$ = this.moreProjectsSubject.asObservable();
+
 
     private loadingSubject = new BehaviorSubject<boolean>(true);
     isLoading$ = this.loadingSubject.asObservable();
@@ -139,4 +144,16 @@ export class ProjectService {
         this.searchResultsSubject.next([]);
         localStorage.removeItem('projectSearchResults');
     }
+
+    public getProjectsByServiceType(serviceType: string): Observable<IProject[]> {
+        return this.projects$.pipe(
+            map((projects) => {
+                const filteredProjects = projects.filter(
+                    (project) => project.service_type?.toLowerCase() === serviceType.toLowerCase()
+                );
+                return filteredProjects;
+            })
+        );
+    }
+
 }

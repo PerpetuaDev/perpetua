@@ -3,6 +3,7 @@ import { Component, inject, Input, SimpleChanges, OnChanges, OnDestroy } from '@
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 // Components
 import { ArticleCardPlusInfoComponent } from '../../../../../components/article-cards/article-card-plus-info/article-card-plus-info.component';
 // Services
@@ -24,7 +25,9 @@ export class MoreArticlesComponent implements OnChanges, OnDestroy {
   currentLanguage: string = 'en';
 
   constructor(private translationHelper: TranslationHelper) {
-    this.moreArticles$ = this.articleService.moreArticles$;
+    this.moreArticles$ = this.articleService.moreArticles$.pipe(
+      map(articles => articles.slice(0, 6))
+    );
     this.currentLanguage = this.translationHelper.getCurrentLanguage();
   }
 

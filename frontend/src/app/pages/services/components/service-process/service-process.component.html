@@ -2,7 +2,12 @@
     <div *ngFor="let step of serviceProcessData" class="process-step-cover">
         <!-- Image -->
         <div class="process-image-cover">
-            <img *ngIf="step.image" [src]="step.image" alt="{{ step.title }}">
+            <ng-container *ngIf="!(isLoading$ | async); else imageSkeleton">
+                <img *ngIf="step.image" [src]="step.image" alt="{{ step.title }}">
+            </ng-container>
+            <ng-template #imageSkeleton>
+                <app-service-header-skeleton></app-service-header-skeleton>
+            </ng-template>
         </div>
         <!-- Description -->
         <div class="process-description-cover">

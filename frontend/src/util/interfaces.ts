@@ -111,6 +111,7 @@ export interface IProject {
     project_comment2: string,
     project_comment3: string,
     project_comment4: string,
+    service_type: string,
     createdAt: Date,
     updatedAt: Date,
 }

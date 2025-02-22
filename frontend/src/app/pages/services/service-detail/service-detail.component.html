@@ -89,8 +89,13 @@
     <!-- Selected custom software projects -->
     <section class="selected-projects-container">
         <h1>Selected custom software projects</h1>
-        <div class="projects-wrapper">
-
+        <div *ngIf="projectsByServiceType$ | async as projects">
+            <div *ngIf="projects.length > 0; else noProjects">
+                <app-project-card [projects]="projects.slice(0, 3)"></app-project-card>
+            </div>
+            <ng-template #noProjects>
+                <p>No projects found for this service.</p>
+            </ng-template>
         </div>
     </section>
     <div class="footer-button-wrapper">

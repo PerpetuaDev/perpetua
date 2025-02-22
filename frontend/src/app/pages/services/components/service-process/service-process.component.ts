@@ -1,5 +1,10 @@
+// Libraries
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Observable } from 'rxjs';
+// Components
+import { ServiceHeaderSkeletonComponent } from '../../../../components/skeletons/service-header-skeleton/service-header-skeleton.component';
+// Services
 import { ServiceProcessData } from './service-process-data';
 import { StaticImageService } from '../../../../shared/static-image.service';
 import { IStaticImage } from '../../../../../util/interfaces';
@@ -7,15 +12,18 @@ import { IStaticImage } from '../../../../../util/interfaces';
 @Component({
   selector: 'app-service-process',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ServiceHeaderSkeletonComponent],
   templateUrl: './service-process.component.html',
   styleUrl: './service-process.component.scss'
 })
 export class ServiceProcessComponent implements OnInit {
   serviceProcessData = [...ServiceProcessData];
   headerImage: string = '';
+  isLoading$!: Observable<boolean | null>;
 
-  constructor(private staticImageService: StaticImageService) { }
+  constructor(private staticImageService: StaticImageService) {
+    this.isLoading$ = this.staticImageService.isLoading$;
+  }
 
   ngOnInit(): void {
     this.staticImageService.staticImages$.subscribe((staticImages) => {
