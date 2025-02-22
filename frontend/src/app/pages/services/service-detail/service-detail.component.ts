@@ -4,21 +4,28 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
 // Components
 import { CallActionComponent } from '../../../components/call-action/call-action.component';
 import { BackToTopButtonComponent } from '../../../components/buttons/back-to-top-button/back-to-top-button.component';
-import { ServiceCardComponent } from '../components/service-card/service-card.component';
 import { StartProjectButtonComponent } from '../../../components/buttons/start-project-button/start-project-button.component';
+import { ServiceHeaderSkeletonComponent } from '../../../components/skeletons/service-header-skeleton/service-header-skeleton.component';
 // Services
 import { TranslationHelper } from '../../../shared/translation-helper';
 import { ServiceDetailData } from './service-detail-data';
 import { StaticImageService } from '../../../shared/static-image.service';
-import { IStaticImage } from '../../../../util/interfaces';
 
 @Component({
   selector: 'app-service-detail',
   standalone: true,
-  imports: [CommonModule, TranslateModule, CallActionComponent, BackToTopButtonComponent, ServiceCardComponent, StartProjectButtonComponent],
+  imports: [
+    CommonModule,
+    TranslateModule,
+    CallActionComponent,
+    BackToTopButtonComponent,
+    StartProjectButtonComponent,
+    ServiceHeaderSkeletonComponent
+  ],
   templateUrl: './service-detail.component.html',
   styleUrl: './service-detail.component.scss'
 })
@@ -26,6 +33,7 @@ import { IStaticImage } from '../../../../util/interfaces';
 export class ServiceDetailComponent implements OnInit, OnDestroy {
   currentService: any;
   ServiceDetailData = [...ServiceDetailData];
+  isLoading$!: Observable<boolean | null>;
   currentLanguage: string = 'en';
 
   constructor(
@@ -34,9 +42,10 @@ export class ServiceDetailComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private translationHelper: TranslationHelper,
     private translate: TranslateService,
-    private staticImageService: StaticImageService
+    private staticImageService: StaticImageService,
   ) {
     this.currentLanguage = this.translationHelper.getCurrentLanguage();
+    this.isLoading$ = this.staticImageService.isLoading$;
   }
 
   ngOnInit() {

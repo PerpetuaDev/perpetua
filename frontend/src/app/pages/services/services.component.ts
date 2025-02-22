@@ -10,6 +10,7 @@ import { BackToTopButtonComponent } from '../../components/buttons/back-to-top-b
 import { ServiceCardComponent } from './components/service-card/service-card.component';
 import { ServiceProcessComponent } from './components/service-process/service-process.component';
 import { StartProjectButtonComponent } from '../../components/buttons/start-project-button/start-project-button.component';
+import { ServiceHeaderSkeletonComponent } from '../../components/skeletons/service-header-skeleton/service-header-skeleton.component';
 // Services
 import { LanguageService } from '../../shared/language.service';
 import { IStaticImage } from '../../../util/interfaces';
@@ -25,7 +26,8 @@ import { StaticImageService } from '../../shared/static-image.service';
     BackToTopButtonComponent,
     ServiceCardComponent,
     ServiceProcessComponent,
-    StartProjectButtonComponent
+    StartProjectButtonComponent,
+    ServiceHeaderSkeletonComponent
   ],
   templateUrl: './services.component.html',
   styleUrl: './services.component.scss'
@@ -33,9 +35,10 @@ import { StaticImageService } from '../../shared/static-image.service';
 
 export class ServicesComponent implements OnInit, OnDestroy {
   staticImages$: Observable<IStaticImage[]>
+  headerImage: string = '';
+  isLoading$!: Observable<boolean | null>;
   currentLanguage: string = 'en';
   private langChangeSubscription!: Subscription;
-  headerImage: string = '';
 
   constructor(
     private titleService: Title,
@@ -43,6 +46,7 @@ export class ServicesComponent implements OnInit, OnDestroy {
     private languageService: LanguageService,
     private staticImageService: StaticImageService,
   ) {
+    this.isLoading$ = this.staticImageService.isLoading$;
     this.staticImages$ = this.staticImageService.staticImages$;
   }
 

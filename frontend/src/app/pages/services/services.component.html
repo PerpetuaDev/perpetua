@@ -11,8 +11,13 @@
             </p>
             <!-- Image -->
             <div class="image-cover">
-                <img *ngIf="(staticImages$ | async) as staticImages" [src]="headerImage" alt="Service Top"
-                    class="service-top-image" />
+                <ng-container *ngIf="(isLoading$ | async); else imageSkeleton">
+                    <img *ngIf="(staticImages$ | async) as staticImages" [src]="headerImage" alt="Service Top"
+                        class="service-top-image" />
+                </ng-container>
+                <ng-template #imageSkeleton>
+                    <app-service-header-skeleton></app-service-header-skeleton>
+                </ng-template>
             </div>
         </div>
     </section>

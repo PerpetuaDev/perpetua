@@ -9,7 +9,12 @@
             </div>
         </div>
         <div class="image-cover">
-            <img [src]="currentService?.image" alt="service-header">
+            <ng-container *ngIf="!(isLoading$ | async); else imageSkeleton">
+                <img [src]="currentService?.image" alt="service-header">
+            </ng-container>
+            <ng-template #imageSkeleton>
+                <app-service-header-skeleton></app-service-header-skeleton>
+            </ng-template>
         </div>
         <div class="service-explanation-wrapper">
             <p class="title">What is {{ getFormattedTitle(currentService?.title) }} development?</p>
