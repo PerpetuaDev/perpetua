@@ -7,7 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 // Components
 import { CallActionComponent } from '../../../components/call-action/call-action.component';
-import { BackToTopButtonComponent } from '../../../components/buttons/back-to-top-button/back-to-top-button.component';
+import { MoreProjectButtonComponent } from '../../../components/buttons/more-project-button/more-project-button.component';
 import { StartProjectButtonComponent } from '../../../components/buttons/start-project-button/start-project-button.component';
 import { ServiceHeaderSkeletonComponent } from '../../../components/skeletons/service-header-skeleton/service-header-skeleton.component';
 import { ProjectCardComponent } from '../../../components/project-card/project-card.component';
@@ -25,7 +25,7 @@ import { IProject } from '../../../../util/interfaces';
     CommonModule,
     TranslateModule,
     CallActionComponent,
-    BackToTopButtonComponent,
+    MoreProjectButtonComponent,
     StartProjectButtonComponent,
     ServiceHeaderSkeletonComponent,
     ProjectCardComponent
