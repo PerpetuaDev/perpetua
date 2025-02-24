@@ -18,8 +18,11 @@ module.exports = [
   {
     name: 'strapi::cors',
     config: {
-      origin: ['*'],
+      enabled: true,
+      origin: ['http://localhost:4200', 'https://stunning-book-723036d2c5.strapiapp.com'], // Multiple origins
       headers: ['Content-Type', 'Authorization'],
+      methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+      credentials: true, // Allow authentication (cookies, tokens)
     },
   },
   'strapi::poweredBy',

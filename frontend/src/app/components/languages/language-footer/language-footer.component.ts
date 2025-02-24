@@ -15,7 +15,7 @@ import { LanguageService } from '../../../shared/language.service';
 })
 export class LanguageFooterComponent implements OnInit, OnDestroy {
   allLanguages: { key: string, label: string, code: string }[] = [
-    { key: 'korean', label: '한국어', code: 'ko' },
+    // { key: 'korean', label: '한국어', code: 'ko' },
     { key: 'japanese', label: '日本語', code: 'ja' },
     { key: 'english', label: 'English', code: 'en' }
   ];

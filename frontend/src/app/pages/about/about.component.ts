@@ -105,6 +105,11 @@ export class AboutComponent implements OnInit, OnDestroy {
     this.careerService.careers$.subscribe((careers) => {
       this.careers = careers;
     });
+
+    window.scrollTo({
+      top: 0,
+      behavior: 'instant'
+    });
   }
 
   ngOnDestroy(): void {
@@ -135,7 +140,7 @@ export class AboutComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       const element = document.getElementById(sectionId);
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        element.scrollIntoView({ behavior: 'instant', block: 'start' });
       }
     }, 100);
   }
