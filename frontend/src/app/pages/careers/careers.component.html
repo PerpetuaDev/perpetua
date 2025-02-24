@@ -12,8 +12,12 @@
         </div>
     </section>
     <div class="image-container">
-        <!-- <img src="" alt=""> -->
-        <div class="image"></div>
+        <ng-container *ngIf="!(isLoading$ | async); else imageSkeleton">
+            <img *ngIf="(staticImages$ | async) as staticImages" [src]="headerImage" alt="Service Top" class="image" />
+        </ng-container>
+        <ng-template #imageSkeleton>
+            <app-career-header-skeleton></app-career-header-skeleton>
+        </ng-template>
     </div>
     <section class="offer-container">
         <h1>What we offer</h1>

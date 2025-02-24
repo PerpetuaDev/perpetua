@@ -1,0 +1,49 @@
+.image-skeleton {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: linear-gradient(to right, #f2f2f2 0%, #f2f2f2 30%, #d9d9d9 45%, #d9d9d9 50%, #f2f2f2 70%, #f2f2f2 100%);
+    background-size: 400%;
+    animation: skeleton 2s linear infinite;
+
+    i {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 150px;
+        color: #bdbdbd;
+    }
+}
+
+@keyframes skeleton {
+    0% {
+        background-position: 100%;
+    }
+
+    100% {
+        background-position: 0%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .skeleton-slide {
+        width: 100%;
+        height: 30%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-image: linear-gradient(to right, #f2f2f2 0%, #f2f2f2 30%, #d9d9d9 45%, #d9d9d9 50%, #f2f2f2 70%, #f2f2f2 100%);
+        background-size: 400%;
+        animation: skeleton 2s linear infinite;
+
+        i {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 60px;
+            color: #bdbdbd;
+        }
+    }
+}

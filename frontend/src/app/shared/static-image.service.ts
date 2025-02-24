@@ -46,4 +46,9 @@ export class StaticImageService {
     getStaticImages(): IStaticImage[] {
         return this.staticImagesSubject.getValue();
     }
+
+    getImageByTitle(title: string) {
+        const staticImages = this.staticImagesSubject.getValue();
+        return staticImages.find(staticImage => staticImage.image_location === title)?.image;
+    }
 }

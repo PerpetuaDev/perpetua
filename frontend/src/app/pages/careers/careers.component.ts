@@ -5,23 +5,35 @@ import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { marked } from 'marked';
+import { Observable } from 'rxjs';
 // Components
 import { BackToCareerButtonComponent } from '../../components/buttons/back-to-career-button/back-to-career-button.component';
 import { ApplyJobFormComponent } from './components/apply-job-form/apply-job-form.component';
+import { CareerHeaderSkeletonComponent } from '../../components/skeletons/career-header-skeleton/career-header-skeleton.component';
 // Services
 import { ICareer, APIResponseModel } from '../../../util/interfaces';
 import { StrapiService } from '../../api/strapi.service';
+import { IStaticImage } from '../../../util/interfaces';
+import { StaticImageService } from '../../shared/static-image.service';
 
 @Component({
   selector: 'app-careers',
   standalone: true,
-  imports: [CommonModule, ApplyJobFormComponent, BackToCareerButtonComponent],
+  imports: [
+    CommonModule,
+    ApplyJobFormComponent,
+    BackToCareerButtonComponent,
+    CareerHeaderSkeletonComponent
+  ],
   templateUrl: './careers.component.html',
   styleUrl: './careers.component.scss'
 })
 
 export class CareersComponent implements OnInit {
+  staticImages$: Observable<IStaticImage[]>
+  isLoading$!: Observable<boolean | null>;
   documentId: string = '';
+  headerImage: string = '';
   career: ICareer | null = null;
   jobDescriptionHtml: SafeHtml = '';
   activeOfferIndex: number | null = null;
@@ -67,7 +79,14 @@ export class CareersComponent implements OnInit {
   route = inject(ActivatedRoute);
   sanitizer = inject(DomSanitizer);
 
-  constructor(private titleService: Title, private metaService: Meta) { }
+  constructor(
+    private titleService: Title,
+    private metaService: Meta,
+    private staticImageService: StaticImageService,
+  ) {
+    this.isLoading$ = this.staticImageService.isLoading$;
+    this.staticImages$ = this.staticImageService.staticImages$;
+  }
 
   async ngOnInit(): Promise<void> {
     this.route.paramMap.subscribe((params) => {
@@ -96,6 +115,16 @@ export class CareersComponent implements OnInit {
             console.error('Error fetching career:', error);
           }
         );
+
+        this.staticImages$.subscribe((staticImages) => {
+          if (staticImages && staticImages.length > 0) {
+            staticImages.map((image: IStaticImage) => {
+              if (image.image_location === 'career-header-image') {
+                this.headerImage = image.image.url;
+              }
+            });
+          }
+        });
 
         window.scrollTo({
           top: 0,
