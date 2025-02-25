@@ -19,7 +19,7 @@ module.exports = [
     name: 'strapi::cors',
     config: {
       enabled: true,
-      origin: ['http://localhost:4200', 'https://stunning-book-723036d2c5.strapiapp.com'], // Multiple origins
+      origin: ['http://localhost:4200', 'https://stunning-book-723036d2c5.strapiapp.com', 'https://perpetua-live.web.app'],
       headers: ['Content-Type', 'Authorization'],
       methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
       credentials: true, // Allow authentication (cookies, tokens)
