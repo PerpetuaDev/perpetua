@@ -62,10 +62,6 @@
             }
         }
 
-        &:hover img {
-            transform: scale(1.05)
-        }
-
         &:hover ::after {
             height: 0;
         }
@@ -134,10 +130,6 @@
                 font-size: 1.5rem;
                 color: #0e0e01;
             }
-        }
-
-        &:hover img {
-            transform: scale(1.05)
         }
 
         &:hover ::after {
@@ -219,10 +211,6 @@
                 }
             }
 
-            &:hover img {
-                transform: scale(1.05)
-            }
-
             &:hover ::after {
                 height: 0;
             }
@@ -291,10 +279,6 @@
                     font-size: 1.5rem;
                     color: #0e0e01;
                 }
-            }
-
-            &:hover img {
-                transform: scale(1.05)
             }
 
             &:hover ::after {

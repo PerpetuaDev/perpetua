@@ -126,12 +126,29 @@ html,
 body {
   height: 100%;
   font-size: 1rem;
+
+  -webkit-font-smoothing: antialiased;
+  /* Safari & Mac */
+  -moz-osx-font-smoothing: grayscale;
+  /* Firefox on Mac */
+  text-rendering: optimizeLegibility;
+  /* Improves kerning */
+
+  text-size-adjust: 100%;
+  /* Standard property */
+  -webkit-text-size-adjust: 100%;
+  /* Safari fallback */
+  -moz-text-size-adjust: 100%;
+  /* Firefox fallback */
+  -ms-text-size-adjust: 100%;
+  /* Old Edge fallback */
 }
 
 body {
   font-family: 'Larsseit', 'Sohne', Arial, sans-serif !important;
   color: #0e0e01;
   margin: 0;
+  font-size: 1rem;
 }
 
 h1 {
