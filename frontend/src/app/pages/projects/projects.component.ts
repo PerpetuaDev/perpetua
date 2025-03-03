@@ -8,7 +8,6 @@ import { filter } from 'rxjs/operators';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 // Components
 import { ProjectCardComponent } from '../../components/project-card/project-card.component';
-import { CallActionComponent } from '../../components/call-action/call-action.component';
 import { BackToTopButtonComponent } from '../../components/buttons/back-to-top-button/back-to-top-button.component';
 import { ArticleAndProjectCardSkeletonComponent } from '../../components/skeletons/article-and-project-card-skeleton/article-and-project-card-skeleton.component';
 // Service
@@ -22,7 +21,13 @@ import { IProject } from '../../../util/interfaces';
 @Component({
   selector: 'app-projects',
   standalone: true,
-  imports: [CommonModule, ProjectCardComponent, TranslateModule, CallActionComponent, BackToTopButtonComponent, ArticleAndProjectCardSkeletonComponent],
+  imports: [
+    CommonModule,
+    ProjectCardComponent,
+    TranslateModule,
+    BackToTopButtonComponent,
+    ArticleAndProjectCardSkeletonComponent
+  ],
   templateUrl: './projects.component.html',
   styleUrl: './projects.component.scss'
 })
@@ -45,7 +50,10 @@ export class ProjectsComponent implements OnInit {
   translate: TranslateService = inject(TranslateService);
   currentLanguage: string = 'en';
 
-  constructor(private titleService: Title, private metaService: Meta) {
+  constructor(
+    private titleService: Title,
+    private metaService: Meta,
+  ) {
     this.filteredProjects$ = this.projectService.filteredProjects$;
     this.selectedFilter$ = this.projectService.selectedFilter$;
     this.industries$ = this.projectService.projectsByIndustry$;
@@ -68,6 +76,9 @@ export class ProjectsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    document.documentElement.scrollTo({ top: 0, behavior: 'instant' });
+    document.body.scrollTo({ top: 0, behavior: 'instant' });
+
     // Meta info for SEO
     this.titleService.setTitle('Projects - Perpetua');
     this.metaService.updateTag({ name: 'description', content: 'Browse our projects to learn more about the amazing things we have done at Perpetua.' });

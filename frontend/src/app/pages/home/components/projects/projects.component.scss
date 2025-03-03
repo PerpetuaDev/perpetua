@@ -48,12 +48,10 @@ h1 {
         }
 
         &:hover .bi-chevron-down {
-            transform: translateY(2px);
             color: #a8a8a8;
         }
 
         &:hover .bi-arrow-right-short {
-            transform: translateX(2px);
             color: #a8a8a8;
         }
 
@@ -104,7 +102,6 @@ h1 {
         }
 
         &:hover .bi-arrow-right-short {
-            transform: translateX(2px);
             color: #a8a8a8;
         }
     }
@@ -163,7 +160,6 @@ h1 {
             }
 
             &:hover .bi-arrow-right-short {
-                transform: translateX(2px);
                 color: #a8a8a8;
             }
         }

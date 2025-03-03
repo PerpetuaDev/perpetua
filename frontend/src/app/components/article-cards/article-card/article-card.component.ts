@@ -27,10 +27,8 @@ export class ArticleCardComponent implements OnInit {
   }
 
   scrollToTop(): void {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
+    document.documentElement.scrollTo({ top: 0, behavior: 'smooth' });
+    document.body.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   navigateToArticle(documentId: string): void {

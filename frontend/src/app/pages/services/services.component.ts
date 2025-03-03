@@ -51,6 +51,9 @@ export class ServicesComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    document.documentElement.scrollTo({ top: 0, behavior: 'instant' });
+    document.body.scrollTo({ top: 0, behavior: 'instant' });
+
     // Meta info for SEO
     this.titleService.setTitle('What we do - Perpetua');
     this.metaService.updateTag({ name: 'description', content: 'Browse Services to learn more about our ultimate services at Perpetua.' });
@@ -70,11 +73,6 @@ export class ServicesComponent implements OnInit, OnDestroy {
           }
         });
       }
-    });
-
-    window.scrollTo({
-      top: 0,
-      behavior: 'instant'
     });
   }
 

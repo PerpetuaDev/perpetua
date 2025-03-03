@@ -89,6 +89,9 @@ export class CareersComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
+    document.documentElement.scrollTo({ top: 0, behavior: 'instant' });
+    document.body.scrollTo({ top: 0, behavior: 'instant' });
+
     this.route.paramMap.subscribe((params) => {
       this.documentId = params.get('id') || '';
 
@@ -124,11 +127,6 @@ export class CareersComponent implements OnInit {
               }
             });
           }
-        });
-
-        window.scrollTo({
-          top: 0,
-          behavior: 'instant'
         });
       }
     });

@@ -21,9 +21,7 @@ export class NotFoundComponent implements OnInit {
       content: 'This page does not exist. Please return to the homepage.',
     });
 
-    window.scrollTo({
-      top: 0,
-      behavior: 'instant'
-    });
+    document.documentElement.scrollTo({ top: 0, behavior: 'instant' });
+    document.body.scrollTo({ top: 0, behavior: 'instant' });
   }
 }

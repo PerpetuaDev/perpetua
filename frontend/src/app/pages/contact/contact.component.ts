@@ -268,6 +268,7 @@ export class ContactComponent implements OnInit, OnDestroy {
       const element = document.getElementById(sectionId);
       if (element) {
         element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // element.scrollTo({ top: 0, behavior: 'smooth' });
       }
     }, 100);
   }

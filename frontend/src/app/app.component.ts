@@ -8,6 +8,8 @@ import { filter } from 'rxjs/operators';
 import { LogoComponent } from './components/logo/logo.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { MobileMenuComponent } from './components/menu/mobile-menu/mobile-menu.component';
+import { CallActionComponent } from './components/call-action/call-action.component';
+import { FooterComponent } from './components/footer/footer.component';
 import { LanguagesComponent } from './components/languages/languages-header/languages.component';
 import translationsEN from "../../public/i18n/en.json";
 import translationsJP from "../../public/i18n/ja.json";
@@ -24,7 +26,9 @@ import { LanguageService } from './shared/language.service';
     MenuComponent,
     LanguagesComponent,
     TranslateModule,
-    MobileMenuComponent
+    MobileMenuComponent,
+    CallActionComponent,
+    FooterComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

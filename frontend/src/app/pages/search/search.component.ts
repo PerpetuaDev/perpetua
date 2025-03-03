@@ -197,10 +197,8 @@ export class SearchComponent implements OnInit {
   }
 
   scrollToTop(): void {
-    window.scrollTo({
-      top: 0,
-      behavior: 'instant'
-    });
+    document.documentElement.scrollTo({ top: 0, behavior: 'instant' });
+    document.body.scrollTo({ top: 0, behavior: 'instant' });
   }
 
   navigateToDetail(path: string, documentId: string): void {

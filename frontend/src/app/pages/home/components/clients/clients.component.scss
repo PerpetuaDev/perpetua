@@ -4,7 +4,7 @@
 }
 
 .left-container {
-    width: 45%;
+    width: 650px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -13,7 +13,7 @@
     .quotation {
         width: 200px;
         height: 380px;
-        margin: 100px 0 0 -12.41px;
+        margin: 132px 0 0 -12.41px;
         color: #000000;
         font-family: 'Sohne' !important;
         font-size: 25rem;
@@ -92,7 +92,6 @@
         }
 
         &:hover .bi-arrow-right-short {
-            transform: translateX(2px);
             color: #a8a8a8;
         }
     }

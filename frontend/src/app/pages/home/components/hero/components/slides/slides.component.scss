@@ -47,11 +47,14 @@
     left: 0;
     width: 100%;
     height: auto;
+    padding: 0;
+    margin-bottom: 15px;
     z-index: 5;
     display: flex;
     align-items: center;
 
     .text-wrapper {
+        height: 72px;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -61,14 +64,15 @@
             font-family: 'Sohne-500';
             font-size: 2.25rem;
             z-index: 3;
+            margin: 0;
         }
 
         .counter {
-            margin-left: 30.25px;
+            margin-left: 45.25px;
         }
 
         .title {
-            margin-right: 280px;
+            margin-right: 295px;
         }
     }
 }

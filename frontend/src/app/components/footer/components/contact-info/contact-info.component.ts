@@ -1,5 +1,5 @@
 // Libraries
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild, HostListener, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CdkMenu, CdkMenuItem, CdkMenuTrigger } from '@angular/cdk/menu';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -16,13 +16,17 @@ import { TranslationHelper } from '../../../../shared/translation-helper';
   styleUrls: ['./contact-info.component.scss']
 })
 export class ContactInfoComponent implements OnInit, OnDestroy {
-  @ViewChild(CdkMenuTrigger) trigger!: CdkMenuTrigger; // Reference to the CdkMenuTrigger
+  @ViewChild(CdkMenuTrigger) trigger!: CdkMenuTrigger;
   offices: any[] = OfficeData;
   selectedOfficeIndex: number = 0;
   isMenuOpen: boolean = false; // Track menu visibility
   currentLanguage: string = 'en';
 
-  constructor(private translationHelper: TranslationHelper, private translate: TranslateService) {
+  constructor(
+    private translationHelper: TranslationHelper,
+    private translate: TranslateService,
+    private elementRef: ElementRef
+  ) {
     this.currentLanguage = this.translationHelper.getCurrentLanguage();
   }
 
@@ -66,6 +70,13 @@ export class ContactInfoComponent implements OnInit, OnDestroy {
     if (event.key === 'Enter' || event.key === ' ') {
       this.closeMenu();
       event.preventDefault();
+    }
+  }
+
+  @HostListener('document:click', ['$event'])
+  onClickOutside(event: Event): void {
+    if (this.isMenuOpen && !this.elementRef.nativeElement.contains(event.target)) {
+      this.closeMenu();
     }
   }
 }

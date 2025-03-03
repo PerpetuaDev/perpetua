@@ -2,10 +2,11 @@
 import { Meta, Title } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink, NavigationEnd } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { marked } from 'marked';
+import { filter } from 'rxjs/operators';
 // Components
 import { BackToTopButtonComponent } from '../../../components/buttons/back-to-top-button/back-to-top-button.component';
 import { ProjectDetailSkeletonComponent } from '../../../components/skeletons/project-detail-skeleton/project-detail-skeleton.component';
@@ -56,6 +57,12 @@ export class ProjectDetailComponent implements OnInit {
         this.documentId = id;
         this.loadProjectDetails();
       }
+    });
+
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe(() => {
+      this.scrollToTop();
     });
   }
 
@@ -144,6 +151,12 @@ export class ProjectDetailComponent implements OnInit {
     }
   }
 
+  scrollToTop(): void {
+    setTimeout(() => {
+      document.documentElement.scrollTo({ top: 0, behavior: 'instant' });
+      document.body.scrollTo({ top: 0, behavior: 'instant' });
+    }, 50);
+  }
 
   goBack(): void {
     this.router.navigate(['/projects']);

@@ -57,6 +57,9 @@ export class ServiceDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    document.documentElement.scrollTo({ top: 0, behavior: 'instant' });
+    document.body.scrollTo({ top: 0, behavior: 'instant' });
+
     const serviceTitle = this.activatedRoute.snapshot.paramMap.get('serviceTitle');
     this.currentService = this.ServiceDetailData.find(service => service.code === serviceTitle);
 
@@ -94,11 +97,6 @@ export class ServiceDetailComponent implements OnInit, OnDestroy {
           return service;
         });
       }
-    });
-
-    window.scrollTo({
-      top: 0,
-      behavior: 'instant'
     });
   }
 

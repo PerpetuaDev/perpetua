@@ -66,10 +66,8 @@ export class OfficeDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    window.scrollTo({
-      top: 0,
-      behavior: 'instant'
-    });
+    document.documentElement.scrollTo({ top: 0, behavior: 'instant' });
+    document.body.scrollTo({ top: 0, behavior: 'instant' });
 
     this.careerService.careers$.subscribe(careers => {
       this.careers = careers;

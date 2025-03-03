@@ -11,18 +11,18 @@
                     <p class="title">
                         {{ getTitle(service) || 'No Title' }}
                     </p>
-                    <i class="bi bi-chevron-down" [ngClass]="{'fade-out': isVisible[i]} "></i>
+
+                    <i class="bi" [ngClass]="{'bi-x': isVisible[i], 'bi-chevron-down': !isVisible[i]}"></i>
                 </div>
                 <!-- Description -->
                 <div class="description-wrapper" [ngClass]="{'visible': isVisible[i]}">
                     <p class="description" [innerHTML]="getDescription(service)">
                     </p>
                     <div class="more-container">
-                        <div class="more-wrapper" [routerLink]="['/services/details', getPath(service)]">
+                        <div class="more-wrapper" [routerLink]="['/services', getPath(service)]">
                             <p>{{ 'service.learn-more' | translate }}</p>
                             <i class="bi bi-arrow-right-short"></i>
                         </div>
-                        <i class="bi bi-chevron-up" (click)="showDescription(i)" (keydown)="onKeyDown($event, i)"></i>
                     </div>
                 </div>
             </div>

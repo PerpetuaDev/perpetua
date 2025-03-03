@@ -7,20 +7,19 @@
 
     <!-- Dropdown menu -->
     <ng-template #menu>
-        <div class="example-menu" cdkMenu>
+        <div class="dropdown-menu" cdkMenu>
             <ng-container *ngFor="let office of offices; let i = index">
-                <button *ngIf="selectedOfficeIndex !== i" class="example-menu-item" cdkMenuItem
+                <button *ngIf="selectedOfficeIndex !== i" class="dropdown-menu-item" cdkMenuItem
                     (click)="onOfficeSelected(i)">
                     {{ office.translatedCountryName }}
                 </button>
             </ng-container>
-            <i class="bi bi-chevron-down example-menu-icon" (click)="closeMenu()"
-                (keydown)="onCloseOptionKeydown($event)"></i>
+            <i class="bi bi-chevron-down menu-icon" (click)="closeMenu()" (keydown)="onCloseOptionKeydown($event)"></i>
         </div>
     </ng-template>
 
     <!-- Office information -->
-    <div class="info-wrapper">
+    <div class="info-wrapper" [ngClass]="{'invisible': isMenuOpen}">
         <p class="office-email">{{ offices[selectedOfficeIndex].email }}</p>
         <p class="office-phone">{{ offices[selectedOfficeIndex].phone }}</p>
     </div>

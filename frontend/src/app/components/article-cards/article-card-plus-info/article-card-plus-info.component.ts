@@ -38,17 +38,13 @@ export class ArticleCardPlusInfoComponent implements OnInit, OnDestroy {
   }
 
   scrollToTop(): void {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
+    document.documentElement.scrollTo({ top: 0, behavior: 'smooth' });
+    document.body.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   backToTop(): void {
-    window.scrollTo({
-      top: 0,
-      behavior: 'instant'
-    });
+    document.documentElement.scrollTo({ top: 0, behavior: 'instant' });
+    document.body.scrollTo({ top: 0, behavior: 'instant' });
   }
 
   navigateToArticle(documentId: string): void {

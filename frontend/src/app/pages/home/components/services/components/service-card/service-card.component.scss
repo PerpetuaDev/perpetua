@@ -62,16 +62,23 @@
             margin-left: 5px;
             padding-top: 5px;
             margin-right: -1.3px;
-            transition: transform 0.1s ease, color 0.1s ease, opacity 0.1s ease;
+            transition: color 0.1s ease;
             opacity: 1;
+        }
 
-            &.fade-out {
-                opacity: 0;
-            }
+        .bi-x {
+            height: 26.25px;
+            color: #0e0e01;
+            font-size: 1.5rem;
+            margin-left: 5px;
+            margin-right: -3px;
+            transition: color 0.1s ease;
+            opacity: 1;
         }
 
         &:hover .title,
-        &:hover .bi-chevron-down {
+        &:hover .bi-chevron-down,
+        &:hover .bi-x {
             color: #a8a8a8;
         }
     }
@@ -133,7 +140,6 @@
                 }
 
                 &:hover .bi-arrow-right-short {
-                    transform: translateX(2px);
                     color: #a8a8a8
                 }
             }
@@ -149,7 +155,6 @@
             cursor: pointer;
 
             &:hover {
-                transform: translateY(-2px);
                 color: #a8a8a8;
 
                 &::after {
@@ -230,12 +235,7 @@
                 margin-left: 5px;
                 padding-top: 5px;
                 margin-right: -1.3px;
-                transition: transform 0.1s ease, color 0.1s ease, opacity 0.1s ease;
                 opacity: 1;
-
-                &.fade-out {
-                    opacity: 0;
-                }
             }
 
             &:hover .title,
@@ -301,40 +301,8 @@
                     }
 
                     &:hover .bi-arrow-right-short {
-                        transform: translateX(2px);
                         color: #a8a8a8
                     }
-                }
-            }
-
-            .bi-chevron-up {
-                position: relative;
-                color: #0e0e01;
-                font-size: 1.125rem;
-                transition: transform 0.1s ease;
-                margin-top: 3px;
-                margin-right: -1.3px;
-                cursor: pointer;
-
-                &:hover {
-                    transform: translateY(-2px);
-                    color: #a8a8a8;
-
-                    &::after {
-                        background-color: #a8a8a8;
-                    }
-                }
-
-                &::after {
-                    content: "";
-                    position: absolute;
-                    bottom: 5px;
-                    left: 50%;
-                    transform: translateX(-50%);
-                    width: 12.03px;
-                    height: 1px;
-                    background-color: #0e0e01;
-                    border-radius: 10px;
                 }
             }
         }

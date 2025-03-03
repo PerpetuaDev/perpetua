@@ -34,7 +34,7 @@ export const routes: Routes = [
     { path: 'projects/:id', component: ProjectDetailComponent },
     { path: 'projects/tags', component: ProjectTagComponent },
     { path: 'services', component: ServicesComponent },
-    { path: 'services/details/:serviceTitle', component: ServiceDetailComponent },
+    { path: 'services/:serviceTitle', component: ServiceDetailComponent },
     { path: 'about', component: AboutComponent },
     { path: 'about/:id', component: OfficeDetailComponent },
     { path: 'about/history', component: HistoryComponent },

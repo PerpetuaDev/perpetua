@@ -48,7 +48,6 @@
             }
 
             &:hover .bi-arrow-right-short {
-                transform: translateX(2px);
                 color: #a8a8a8;
             }
         }
@@ -155,7 +154,6 @@
         }
 
         &:hover .bi-arrow-left-short {
-            transform: translateX(-2px);
             color: #a8a8a8;
         }
     }
@@ -193,7 +191,6 @@
         }
 
         &:hover .bi-arrow-left-short {
-            transform: translateX(-2px);
             color: #a8a8a8;
         }
     }

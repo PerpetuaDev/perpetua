@@ -58,6 +58,9 @@ export class AboutComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    document.documentElement.scrollTo({ top: 0, behavior: 'instant' });
+    document.body.scrollTo({ top: 0, behavior: 'instant' });
+
     this.officeService.offices$.subscribe();
     // Meta info for SEO
     this.titleService.setTitle('About us - Perpetua');
@@ -104,11 +107,6 @@ export class AboutComponent implements OnInit, OnDestroy {
 
     this.careerService.careers$.subscribe((careers) => {
       this.careers = careers;
-    });
-
-    window.scrollTo({
-      top: 0,
-      behavior: 'instant'
     });
   }
 

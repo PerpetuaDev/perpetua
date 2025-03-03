@@ -24,10 +24,8 @@ export class TermsComponent implements OnInit {
     this.titleService.setTitle('Terms - Perpetua');
     this.metaService.updateTag({ name: 'description', content: 'Understand the terms and conditions for using Perpetua. Explore detailed guidelines on our services, user responsibilities, and legal agreements.' });
 
-    window.scrollTo({
-      top: 0,
-      behavior: 'instant'
-    });
+    document.documentElement.scrollTo({ top: 0, behavior: 'instant' });
+    document.body.scrollTo({ top: 0, behavior: 'instant' });
   }
 
   ngOnDestroy(): void {
