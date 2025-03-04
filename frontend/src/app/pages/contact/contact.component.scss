@@ -314,11 +314,11 @@ p {
 
 
             &:disabled {
-                color: #a8a8a8;
+                color: #0e0e01;
                 cursor: not-allowed;
 
                 .bi-arrow-right-short {
-                    color: #a8a8a8;
+                    color: #0e0e01;
                 }
             }
 
@@ -328,7 +328,7 @@ p {
         }
 
         .sending {
-            color: #a8a8a8;
+            color: #0e0e01;
         }
     }
 }
