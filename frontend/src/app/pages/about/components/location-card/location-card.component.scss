@@ -41,9 +41,14 @@ a {
         color: #000000;
 
 
+        .location-time-wrapper {
+            display: flex;
+            flex-direction: column;
+        }
+
         .location-wrapper {
             width: auto;
-            height: fit-content;
+            height: 46px;
             display: flex;
             justify-content: flex-start;
             align-items: center;
@@ -76,7 +81,7 @@ a {
 
         .time {
             font-size: 1.75rem;
-            margin: 16px 0 24px 0;
+            margin: 16px 0 40px 0;
 
             .colon {
                 animation: blink 1s infinite;
@@ -118,7 +123,7 @@ a {
 
     .office_info_right {
         width: 50%;
-        margin-top: 10px;
+        margin-top: 5px;
         font-family: 'Sohne' !important;
         font-size: 1.5rem;
         color: #0e0e01;

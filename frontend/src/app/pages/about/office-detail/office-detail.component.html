@@ -21,7 +21,7 @@
             </ng-container>
         </div>
         <div class="image-wrapper">
-            <!-- <img [src]="office.office_image[0].url" alt="office?.city"> -->
+            <img [src]="office?.office_image?.url" alt="office?.city">
         </div>
     </section>
     <!-- Contacts -->
@@ -31,7 +31,7 @@
             <div>
                 <div class="address">
                     <p>{{office?.address_1}}</p>
-                    <p>{{office?.address_2}}</p>
+                    <p>{{office?.address_2 || '&nbsp;'}}</p>
                 </div>
                 <div class="personal-info-wrapper">
                     <p class="subject">New Business</p>
