@@ -1,5 +1,5 @@
 <!-- If there's an array of careers, iterate through them -->
-<ng-container *ngIf="careers && careers.length > 0; else singleCareerTemplate">
+<ng-container *ngIf="careers && careers.length > 0; else singleCareerTemplate" class="container-wrapper">
     <div *ngFor="let career of careers" class="card-container">
         <div class="office_info_container">
             <!-- Position info -->
@@ -14,20 +14,33 @@
             </div>
 
             <!-- Location info -->
-            <div class="container_right"
-                *ngIf="career.job_location !== 'Any location' && career.office_address && career.office_address.length > 0">
-                <p class="branch-name">{{ career.branch_name }}</p>
-                <ng-container *ngIf="career.office_address[0]?.country !== 'Japan'; else japanFormat">
-                    <p>{{ career.office_address[0].address_1 }}</p>
-                    <p>{{ career.office_address[0].address_2 }}</p>
-                    <p>{{ career.office_address[0].city }}, {{ career.office_address[0].post_code }}</p>
+            <div class="container_right" *ngIf="career.job_location !== 'Any location'">
+                <p class="branch-name">
+                    Perpetua&nbsp;
+                    <ng-container *ngIf="career.office?.country !== 'Japan'; else japanLocation">
+                        {{ career.office.city_or_state }}
+                    </ng-container>
+                </p>
+
+                <!-- If not Japan -->
+                <ng-container *ngIf="career.office?.country !== 'Japan'; else japanFormat">
+                    <p>{{ career.office.address_1 }}</p>
+                    <p>{{ career.office.address_2 }}</p>
+                    <p>{{ career.office.city_or_state }}, {{ career.office.post_code }}</p>
                 </ng-container>
+
+                <!-- If Japan -->
                 <ng-template #japanFormat>
-                    <p>{{ career.office_address[0].address_1 }}, {{ career.office_address[0].address_2 }}</p>
-                    <p>{{ career.office_address[0].ward }}, {{ career.office_address[0].city }}</p>
-                    <p>{{ career.office_address[0].prefecture }}, {{ career.office_address[0].post_code }}</p>
+                    <p>{{ career.office.address_1 }}, {{ career.office.address_2 }}</p>
+                    <p>{{ career.office.ward }}, {{ career.office.city }}</p>
+                    <p>{{ career.office.prefecture }}, {{ career.office.post_code }}</p>
+                </ng-template>
+
+                <ng-template #japanLocation>
+                    {{ career.office.country }}
                 </ng-template>
             </div>
+
         </div>
         <!-- Button -->
         <div class="footer-button-wrapper">
@@ -55,18 +68,17 @@
             </div>
 
             <!-- Location info -->
-            <div class="container_right"
-                *ngIf="career.job_location !== 'Any location' && career.office_address && career.office_address.length > 0">
+            <div class="container_right" *ngIf="career.job_location !== 'Any location'">
                 <p class="branch-name">{{ career.branch_name }}</p>
-                <ng-container *ngIf="career.office_address[0]?.country !== 'Japan'; else japanFormat">
-                    <p>{{ career.office_address[0].address_1 }}</p>
-                    <p>{{ career.office_address[0].address_2 }}</p>
-                    <p>{{ career.office_address[0].city }}, {{ career.office_address[0].post_code }}</p>
+                <ng-container *ngIf="career.office?.country !== 'Japan'; else japanFormat">
+                    <p>{{ career.office.address_1 }}</p>
+                    <p>{{ career.office.address_2 }}</p>
+                    <p>{{ career.office.city }}, {{ career.office.post_code }}</p>
                 </ng-container>
                 <ng-template #japanFormat>
-                    <p>{{ career.office_address[0].address_1 }}, {{ career.office_address[0].address_2 }}</p>
-                    <p>{{ career.office_address[0].ward }}, {{ career.office_address[0].city }}</p>
-                    <p>{{ career.office_address[0].prefecture }}, {{ career.office_address[0].post_code }}</p>
+                    <p>{{ career.office.address_1 }}, {{ career.office.address_2 }}</p>
+                    <p>{{ career.office.ward }}, {{ career.office.city }}</p>
+                    <p>{{ career.office.prefecture }}, {{ career.office.post_code }}</p>
                 </ng-template>
             </div>
         </div>

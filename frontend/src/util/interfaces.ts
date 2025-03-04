@@ -40,7 +40,7 @@ export interface ICareer {
     job_location: string,
     location_type: string,
     branch_name: string,
-    office_address: IOffice[],
+    office: IOffice,
 }
 
 export interface IOffice {
