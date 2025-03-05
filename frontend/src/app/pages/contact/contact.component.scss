@@ -65,9 +65,10 @@ p {
         }
 
         .menu-icon {
-            transform: rotate(135deg);
+            font-size: 1.75rem;
+            transform: rotate(135deg) translateY(-4px);
             display: inline-block;
-            margin: -5px;
+            margin: -5px 0 0 -8px;
         }
 
 

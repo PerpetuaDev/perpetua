@@ -372,6 +372,7 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
 export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
   collectionName: 'articles';
   info: {
+    description: '';
     displayName: 'Article';
     pluralName: 'articles';
     singularName: 'article';
@@ -398,7 +399,7 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
     >;
     title: Schema.Attribute.String;
     type: Schema.Attribute.Enumeration<
-      ['news', 'blog', 'article', 'work', 'case_study', 'other']
+      ['news', 'article', 'case_study', 'other']
     >;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &

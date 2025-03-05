@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
 // Components
-import { ProjectCardComponent } from '../../../../../components/project-card/project-card.component';
+import { ProjectCardPlusInfoComponent } from '../../../../../components/project-cards/project-card-plus-info/project-card-plus-info.component';
 // Services
 import { ProjectService } from '../../../../../shared/project.service';
 import { IProject } from '../../../../../../util/interfaces';
@@ -13,7 +13,7 @@ import { TranslationHelper } from '../../../../../shared/translation-helper';
 @Component({
   selector: 'app-more-projects',
   standalone: true,
-  imports: [CommonModule, ProjectCardComponent, TranslateModule],
+  imports: [CommonModule, ProjectCardPlusInfoComponent, TranslateModule],
   templateUrl: './more-projects.component.html',
   styleUrl: './more-projects.component.scss'
 })

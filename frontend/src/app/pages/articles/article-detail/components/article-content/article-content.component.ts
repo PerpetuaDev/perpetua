@@ -1,11 +1,12 @@
 // Libraries
-import { Component, Input, inject, OnChanges, SimpleChanges, HostListener, ElementRef, ChangeDetectorRef, OnDestroy } from '@angular/core';
+import { Component, Input, inject, OnChanges, SimpleChanges, HostListener, ElementRef, ChangeDetectorRef, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { marked } from 'marked';
 import { Observable } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
+import { NgZone } from '@angular/core';
 // Components
 import { ShareArticleButtonComponent } from '../../../../../components/buttons/share-article-button/share-article-button.component';
 // Services
@@ -20,7 +21,7 @@ import { TranslationHelper } from '../../../../../shared/translation-helper';
   templateUrl: './article-content.component.html',
   styleUrl: './article-content.component.scss'
 })
-export class ArticleContentComponent implements OnChanges, OnDestroy {
+export class ArticleContentComponent implements OnInit, OnChanges, OnDestroy {
   @Input() article: IArticle | undefined;
   @Input() currentArticleDocumentId: string | null = null;
   moreArticles$: Observable<IArticle[]>;
@@ -35,10 +36,22 @@ export class ArticleContentComponent implements OnChanges, OnDestroy {
     private router: Router,
     private elRef: ElementRef,
     private cdr: ChangeDetectorRef,
-    private translationHelper: TranslationHelper
+    private translationHelper: TranslationHelper,
+    private zone: NgZone
   ) {
     this.moreArticles$ = this.articleService.moreArticles$;
     this.currentLanguage = this.translationHelper.getCurrentLanguage();
+  }
+
+  ngOnInit(): void {
+    this.zone.runOutsideAngular(() => {
+      this.onWindowScroll();
+    });
+  }
+
+  ngOnDestroy(): void {
+    window.removeEventListener('scroll', this.onWindowScroll.bind(this));
+    this.translationHelper.unsubscribe();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -49,10 +62,6 @@ export class ArticleContentComponent implements OnChanges, OnDestroy {
     if (changes['currentArticleDocumentId'] && changes['currentArticleDocumentId'].currentValue) {
       this.articleService.selectMoreArticleByDate(changes['currentArticleDocumentId'].currentValue);
     }
-  }
-
-  ngOnDestroy(): void {
-    this.translationHelper.unsubscribe();
   }
 
   async parseContent(): Promise<void> {
@@ -97,29 +106,36 @@ export class ArticleContentComponent implements OnChanges, OnDestroy {
     }
   }
 
-
-
   @HostListener('window:scroll', [])
   onWindowScroll(): void {
-    const scrollPosition = window.scrollY;
-
-    const moreArticlesElement = this.elRef.nativeElement.querySelector('.related-articles-container') as HTMLElement;
     const contentLeftElement = this.elRef.nativeElement.querySelector('.content-left') as HTMLElement;
+    const moreArticlesElement = this.elRef.nativeElement.querySelector('.related-articles-container') as HTMLElement;
 
-    if (moreArticlesElement && contentLeftElement) {
-      const contentLeftRect = contentLeftElement.getBoundingClientRect();
-      const moreArticlesRect = moreArticlesElement.getBoundingClientRect();
+    if (!contentLeftElement || !moreArticlesElement) {
+      console.warn("Elements not found!");
+      return;
+    }
 
-      const maxTranslateY = contentLeftRect.height - moreArticlesRect.height;
+    const scrollPosition = window.scrollY;
+    console.log("🔍 Corrected Scroll position:", scrollPosition);
 
-      if (scrollPosition > 550) {
-        let parallaxValue = (scrollPosition - 550) * 1.0;
-        parallaxValue = Math.min(parallaxValue, maxTranslateY);
+    const contentLeftRect = contentLeftElement.getBoundingClientRect();
+    const moreArticlesRect = moreArticlesElement.getBoundingClientRect();
 
-        moreArticlesElement.style.transform = `translateY(${parallaxValue}px)`;
-      } else {
-        moreArticlesElement.style.transform = `translateY(0)`;
-      }
+    console.log("🔍 contentLeftRect:", contentLeftRect);
+    console.log("🔍 moreArticlesRect:", moreArticlesRect);
+
+    const maxTranslateY = contentLeftRect.height - moreArticlesRect.height;
+
+    if (scrollPosition > 550) {
+      let parallaxValue = (scrollPosition - 550) * 1.0;
+      console.log("🔍 Current parallaxValue:", parallaxValue);
+
+      parallaxValue = Math.min(parallaxValue, maxTranslateY);
+
+      moreArticlesElement.style.transform = `translateY(${parallaxValue}px)`;
+    } else {
+      moreArticlesElement.style.transform = `translateY(0)`;
     }
   }
 

@@ -23,19 +23,19 @@
                     'bi-x': (selectedFilter$ | async) === 'news'
                 }"></i>
         </button>
-        <button class="sort-button" (click)="sortProjects('blog')"
-            [ngClass]="{'selected': (selectedFilter$ | async) === 'blog'}">
-            {{ 'articles.nav.work' | translate }}
+        <button class="sort-button" (click)="sortProjects('case_study')"
+            [ngClass]="{'selected': (selectedFilter$ | async) === 'case_study'}">
+            {{ 'articles.nav.case-studies' | translate }}
             <i class="bi" [ngClass]="{
-                    'bi-chevron-down': (selectedFilter$ | async) !== 'blog',
-                    'bi-x': (selectedFilter$ | async) === 'blog'
+                    'bi-chevron-down': (selectedFilter$ | async) !== 'case_study',
+                    'bi-x': (selectedFilter$ | async) === 'case_study'
                 }"></i>
         </button>
-        <button class="sort-button" (click)="sortProjects('all')"
+        <!-- <button class="sort-button" (click)="sortProjects('all')"
             [ngClass]="{'selected': (selectedFilter$ | async) === 'all'}">
             {{ 'articles.nav.clear' | translate }}
             <i class="bi bi-arrow-down-short"></i>
-        </button>
+        </button> -->
     </div>
     <span class="separator"></span>
     <!-- Article cards -->

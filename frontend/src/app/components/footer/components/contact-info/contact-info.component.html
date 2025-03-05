@@ -1,26 +1,29 @@
-<div>
+<div class="info-container">
     <!-- Dropdown menu trigger -->
-    <button [cdkMenuTriggerFor]="menu" class="select-trigger" (click)="toggleMenu()">
-        <p class="country-name">{{ offices[selectedOfficeIndex].translatedCountryName }}</p>
+    <button class="select-trigger" (click)="toggleMenu()" #menuTrigger>
+        <p class="country-name" [ngClass]="{'visible': isMenuOpen}">{{
+            offices[selectedOfficeIndex].translatedCountryName }}</p>
         <i class="bi bi-chevron-down" [ngClass]="{'invisible': isMenuOpen}"></i>
     </button>
 
-    <!-- Dropdown menu -->
-    <ng-template #menu>
-        <div class="dropdown-menu" cdkMenu>
-            <ng-container *ngFor="let office of offices; let i = index">
-                <button *ngIf="selectedOfficeIndex !== i" class="dropdown-menu-item" cdkMenuItem
-                    (click)="onOfficeSelected(i)">
-                    {{ office.translatedCountryName }}
-                </button>
-            </ng-container>
-            <i class="bi bi-chevron-down menu-icon" (click)="closeMenu()" (keydown)="onCloseOptionKeydown($event)"></i>
-        </div>
-    </ng-template>
+    <!-- Office information + Dropdown menu inside the same wrapper -->
+    <div class="info-wrapper">
+        <!-- Show Email & Phone when Menu is Closed -->
+        <ng-container *ngIf="!isMenuOpen">
+            <p class="office-email">{{ offices[selectedOfficeIndex].email }}</p>
+            <p class="office-phone">{{ offices[selectedOfficeIndex].phone }}</p>
+        </ng-container>
 
-    <!-- Office information -->
-    <div class="info-wrapper" [ngClass]="{'invisible': isMenuOpen}">
-        <p class="office-email">{{ offices[selectedOfficeIndex].email }}</p>
-        <p class="office-phone">{{ offices[selectedOfficeIndex].phone }}</p>
+        <!-- Show Dropdown Menu when Menu is Open -->
+        <ng-container *ngIf="isMenuOpen">
+            <div class="dropdown-menu" #menuDropdown>
+                <ng-container *ngFor="let office of offices; let i = index">
+                    <button *ngIf="selectedOfficeIndex !== i" class="dropdown-menu-item" (click)="onOfficeSelected(i)">
+                        {{ office.translatedCountryName }}
+                    </button>
+                </ng-container>
+                <i class="bi bi-x close-icon" (click)="closeMenu()" (keydown)="onCloseOptionKeydown($event)"></i>
+            </div>
+        </ng-container>
     </div>
 </div>

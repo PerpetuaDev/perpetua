@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
 import { filter } from 'rxjs/operators';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 // Components
-import { ProjectCardComponent } from '../../components/project-card/project-card.component';
+import { ProjectCardComponent } from '../../components/project-cards/project-card/project-card.component';
 import { BackToTopButtonComponent } from '../../components/buttons/back-to-top-button/back-to-top-button.component';
 import { ArticleAndProjectCardSkeletonComponent } from '../../components/skeletons/article-and-project-card-skeleton/article-and-project-card-skeleton.component';
 // Service

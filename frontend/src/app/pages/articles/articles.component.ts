@@ -66,6 +66,9 @@ export class ArticlesComponent implements OnInit, OnDestroy {
       this.allArticles = articles;
       this.initializeVisibleArticles();
     });
+
+    document.documentElement.scrollTo({ top: 0, behavior: 'instant' });
+    document.body.scrollTo({ top: 0, behavior: 'instant' });
   }
 
   ngOnDestroy(): void {

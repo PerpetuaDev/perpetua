@@ -1,7 +1,6 @@
 // Libraries
 import { Component, OnDestroy, OnInit, ViewChild, HostListener, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CdkMenu, CdkMenuItem, CdkMenuTrigger } from '@angular/cdk/menu';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 // Components
 import { OfficeData } from './office-data';
@@ -11,12 +10,14 @@ import { TranslationHelper } from '../../../../shared/translation-helper';
 @Component({
   selector: 'app-contact-info',
   standalone: true,
-  imports: [CommonModule, CdkMenu, CdkMenuItem, CdkMenuTrigger, TranslateModule],
+  imports: [CommonModule, TranslateModule],
   templateUrl: './contact-info.component.html',
   styleUrls: ['./contact-info.component.scss']
 })
 export class ContactInfoComponent implements OnInit, OnDestroy {
-  @ViewChild(CdkMenuTrigger) trigger!: CdkMenuTrigger;
+  @ViewChild('menuDropdown', { static: false }) menuDropdown!: ElementRef;
+  @ViewChild('menuTrigger', { static: false }) menuTrigger!: ElementRef;
+
   offices: any[] = OfficeData;
   selectedOfficeIndex: number = 0;
   isMenuOpen: boolean = false; // Track menu visibility
@@ -49,11 +50,6 @@ export class ContactInfoComponent implements OnInit, OnDestroy {
 
   toggleMenu(): void {
     this.isMenuOpen = !this.isMenuOpen;
-    if (this.isMenuOpen) {
-      this.trigger.open();
-    } else {
-      this.trigger.close();
-    }
   }
 
   onOfficeSelected(index: number): void {
@@ -63,7 +59,6 @@ export class ContactInfoComponent implements OnInit, OnDestroy {
 
   closeMenu(): void {
     this.isMenuOpen = false;
-    this.trigger.close();
   }
 
   onCloseOptionKeydown(event: KeyboardEvent): void {
@@ -75,7 +70,12 @@ export class ContactInfoComponent implements OnInit, OnDestroy {
 
   @HostListener('document:click', ['$event'])
   onClickOutside(event: Event): void {
-    if (this.isMenuOpen && !this.elementRef.nativeElement.contains(event.target)) {
+    if (
+      this.isMenuOpen &&
+      this.menuDropdown &&
+      !this.menuDropdown.nativeElement.contains(event.target) &&
+      !this.menuTrigger.nativeElement.contains(event.target)
+    ) {
       this.closeMenu();
     }
   }

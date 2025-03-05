@@ -121,6 +121,8 @@ html {
   font-size: 16px;
   scroll-behavior: smooth;
   box-sizing: border-box;
+  overflow-y: scroll;
+  scrollbar-gutter: stable;
 }
 
 * {
@@ -162,6 +164,7 @@ body {
   font-family: 'Larsseit', 'Sohne', Arial, sans-serif !important;
   color: #0e0e01;
   margin: 0;
+  padding-right: 15px;
 }
 
 h1 {
@@ -178,6 +181,10 @@ h1 {
   body {
     font-size: 0.815rem !important;
   }
+
+  body {
+    padding-right: 0 !important;
+  }
 }
 
 /* Firefox Only */
@@ -186,5 +193,9 @@ h1 {
   html,
   body {
     font-size: 0.815rem !important;
+  }
+
+  body {
+    padding-right: 0 !important;
   }
 }

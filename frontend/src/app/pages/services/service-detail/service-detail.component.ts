@@ -10,7 +10,7 @@ import { CallActionComponent } from '../../../components/call-action/call-action
 import { MoreProjectButtonComponent } from '../../../components/buttons/more-project-button/more-project-button.component';
 import { StartProjectButtonComponent } from '../../../components/buttons/start-project-button/start-project-button.component';
 import { ServiceHeaderSkeletonComponent } from '../../../components/skeletons/service-header-skeleton/service-header-skeleton.component';
-import { ProjectCardComponent } from '../../../components/project-card/project-card.component';
+import { ProjectCardComponent } from '../../../components/project-cards/project-card/project-card.component';
 // Services
 import { TranslationHelper } from '../../../shared/translation-helper';
 import { ServiceDetailData } from './service-detail-data';
@@ -131,5 +131,11 @@ export class ServiceDetailComponent implements OnInit, OnDestroy {
   fetchProjects() {
     console.log("🔍 Fetching projects for service type:", this.currentTitle);
     this.projectsByServiceType$ = this.projectService.getProjectsByServiceType(this.currentTitle);
+  }
+
+  getArticleForTitle(title?: string): string {
+    if (!title) return '';
+    const vowels = ['a', 'e', 'i', 'o', 'u'];
+    return vowels.includes(title[0].toLowerCase()) ? 'an' : 'a';
   }
 }

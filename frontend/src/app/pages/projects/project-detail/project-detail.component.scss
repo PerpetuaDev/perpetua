@@ -57,15 +57,15 @@
 
 .testimonial-section {
     display: flex;
+    align-items: start;
     padding: 100px 0 100px 195px;
 
     .quotation-start {
         width: auto;
-        height: 165px;
         font-family: 'Sohne' !important;
         font-size: 17.813rem;
-        transform: rotate(180deg);
-        transform: scaleY(-1);
+        display: inline-block;
+        transform: translateY(-92px);
     }
 
     .testimonial-container {

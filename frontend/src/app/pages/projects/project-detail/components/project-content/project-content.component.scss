@@ -6,9 +6,15 @@ section {
 
         .right-comment-wrapper {
             margin-left: 50%;
+            margin-top: 67px;
+            margin-bottom: 67px;
             max-width: 523px;
             font-family: 'Sohne' !important;
             font-size: 1.5rem;
+
+            p {
+                margin: 0;
+            }
         }
     }
 
@@ -24,7 +30,7 @@ section {
     }
 
     .comment-wrapper {
-        margin: 60px 0 40px 102px;
+        margin: 66px 0 46px 102px;
         max-width: 523px;
         font-family: 'Sohne' !important;
         font-size: 1.5rem;
@@ -60,7 +66,7 @@ section {
     }
 
     .section-small {
-        padding: 50px 102px;
+        padding: 0 102px;
 
         .sub-comment-wrapper {
             margin-left: 0;

@@ -86,7 +86,7 @@ export class ArticleService {
                     return dateB - dateA;
                 });
 
-                const moreArticles = sortedArticles.slice(0, 12);
+                const moreArticles = sortedArticles.slice(0, 6);
                 this.moreArticlesSubject.next(moreArticles);
             }
         }, error => {

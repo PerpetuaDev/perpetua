@@ -35,6 +35,7 @@ section {
 
         .content-left {
             width: 40%;
+            background-color: yellow;
 
             .title {
                 width: 100%;
@@ -44,10 +45,13 @@ section {
             }
 
             .related-articles-container {
+                overflow-y: auto;
+                overflow-x: hidden;
                 width: 100%;
                 height: auto;
                 transition: transform 0.2s ease-out;
                 padding-bottom: 25px;
+                background-color: red;
 
                 .related-article {
                     padding: 25px 0;
@@ -59,9 +63,9 @@ section {
                     }
 
                     i {
-                        font-size: 1.5rem;
+                        font-size: 1.75rem;
                         margin: 5px 0 0 -2px;
-                        transform: rotateZ(45deg) translateY(3px);
+                        transform: rotateZ(45deg) translateY(4px);
                         display: inline-block;
                         transform: color 0.1s ease;
                     }
@@ -122,12 +126,6 @@ section {
                 .first-two-words {
                     text-transform: uppercase;
                 }
-
-                .rest-of-content {}
-
-                // .asterisk {
-
-                // }
             }
         }
     }

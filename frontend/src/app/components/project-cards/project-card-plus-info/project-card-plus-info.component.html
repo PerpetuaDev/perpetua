@@ -1,0 +1,24 @@
+<div class="article-page-container container-fluid">
+    <div class="row row-cols-1 row-cols-md-3 custom-gutter" *ngIf="visibleProjects.length > 0; else noProjects">
+        <div class="col" *ngFor="let project of visibleProjects">
+            <!-- Image -->
+            <div class="image-wrapper" (click)="navigateToProject(project.documentId)"
+                (keydown)="handleKeydown($event, project.documentId)">
+                <img [src]="project.thumbnail_image.url" alt="project.author">
+            </div>
+            <div class="information-container">
+                <!-- Title -->
+                <div class="title-wrapper" (click)="navigateToProject(project.documentId)"
+                    (keydown)="handleKeydown($event, project.documentId)">
+                    <p class="title">{{ project.project_title }}</p>
+                </div>
+                <!-- First two sentences -->
+                <p class="content" *ngIf="truncatedText" [innerHTML]="truncatedText"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #noProjects>
+    <p>No Projects available.</p>
+</ng-template>

@@ -6,7 +6,7 @@ import { RouterLink, ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 // Components
-import { ProjectCardComponent } from '../../../components/project-card/project-card.component';
+import { ProjectCardComponent } from '../../../components/project-cards/project-card/project-card.component';
 import { CareerCardComponent } from '../components/career-card/career-card.component';
 import { ArticleAndProjectCardSkeletonComponent } from '../../../components/skeletons/article-and-project-card-skeleton/article-and-project-card-skeleton.component';
 // Services

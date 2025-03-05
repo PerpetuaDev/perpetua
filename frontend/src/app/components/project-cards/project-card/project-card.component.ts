@@ -3,7 +3,7 @@ import { Component, Input, OnInit, ElementRef, ViewChildren, QueryList } from '@
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 // Services
-import { IProject } from '../../../util/interfaces';
+import { IProject } from '../../../../util/interfaces';
 
 @Component({
   selector: 'app-project-card',

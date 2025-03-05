@@ -109,7 +109,7 @@ export class ProjectService {
                     return dateB - dateA; // Sort by descending order (latest projects first)
                 });
 
-                const moreProjects = sortedProjects.slice(0, 3);
+                const moreProjects = sortedProjects.slice(0, 6);
                 this.moreProjectsSubject.next(moreProjects);
             }
         }, error => {
