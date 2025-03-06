@@ -37,14 +37,14 @@
                     'bi-x': (selectedFilter$ | async) === 'app'
                 }"></i>
         </button>
-        <button class="sort-button" (click)="sortProjects('all')"
+        <!-- <button class="sort-button" (click)="sortProjects('all')"
             [ngClass]="{'selected': (selectedFilter$ | async) === 'all'}">
             {{ 'project.nav.all-work' | translate }}
             <i class="bi" [ngClass]="{
                 'bi-chevron-down': (selectedFilter$ | async) !== 'all',
                 'bi-x': (selectedFilter$ | async) === 'all'
             }"></i>
-        </button>
+        </button> -->
     </div>
     <span class="separator"></span>
     <!-- Project cards -->

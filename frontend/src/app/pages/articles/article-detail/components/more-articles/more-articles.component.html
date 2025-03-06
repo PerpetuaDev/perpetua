@@ -2,6 +2,26 @@
     <h1>{{ 'articles.more-articles' | translate }}</h1>
     <div *ngIf="moreArticles.length > 0; else noArticles">
         <app-article-card-plus-info [visibleArticles]="moreArticles"></app-article-card-plus-info>
+        <div class="article-page-container container-fluid">
+            <div class="row row-cols-1 row-cols-md-3 custom-gutter" *ngIf="visibleArticles.length > 0; else noArticles">
+                <div class="col" *ngFor="let article of visibleArticles">
+                    <!-- Image -->
+                    <div class="image-wrapper" (click)="navigateToArticle(article.documentId)"
+                        (keydown)="handleKeydown($event, article.documentId)">
+                        <img [src]="article.thumbnail_image.url" alt="article.author">
+                    </div>
+                    <div class="information-container">
+                        <!-- Title -->
+                        <div class="title-wrapper" (click)="navigateToArticle(article.documentId)"
+                            (keydown)="handleKeydown($event, article.documentId)">
+                            <p class="title">{{ article.title || 'No Title Available' }}</p>
+                        </div>
+                        <!-- First two sentences -->
+                        <p class="content" *ngIf="truncatedText" [innerHTML]="truncatedText"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 <ng-template #loading>

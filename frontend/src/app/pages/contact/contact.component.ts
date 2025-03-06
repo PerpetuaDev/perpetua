@@ -75,6 +75,9 @@ export class ContactComponent implements OnInit, OnDestroy {
     this.titleService.setTitle('Contact - Perpetua');
     this.metaService.updateTag({ name: 'description', content: 'Browse Contact to get in touch with us at Perpetua.' });
 
+    document.documentElement.scrollTo({ top: 0, behavior: 'instant' });
+    document.body.scrollTo({ top: 0, behavior: 'instant' });
+
     this.currentLanguage = this.languageService.getCurrentLanguage();
     this.langChangeSubscription = this.languageService.currentLanguage$.subscribe(
       (lang) => {

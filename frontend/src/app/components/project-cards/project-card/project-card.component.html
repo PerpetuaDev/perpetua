@@ -17,7 +17,7 @@
 </div>
 
 <div *ngIf="showTitleAsIndustry" class="industry-card-container container-fluid">
-    <div class="row row-cols-2 row-cols-md-3 custom-gutter">
+    <div class="custom-gutter">
         <div class="col" *ngFor="let project of projects" (mouseenter)="onMouseEnterTitle($event)"
             (mouseleave)="onMouseLeaveTitle($event)">
             <a class="card-container" [routerLink]="['/projects/industries', project.industry]" tabindex="0"

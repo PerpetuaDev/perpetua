@@ -59,14 +59,22 @@ h1 {
 }
 
 .custom-gutter {
-    padding: 20px 0 0 15px;
+    padding: 20px 0 0;
     margin: 0 0 105px 0;
     row-gap: 15px;
-}
 
-.col {
-    padding: 0;
-    margin: 0;
+    .col {
+        padding: 0 15px 0 0;
+        margin: 0;
+
+        &:first-child {
+            padding-left: 15px !important;
+        }
+
+        &:nth-child(3n + 1) {
+            padding-left: 15px !important;
+        }
+    }
 }
 
 .separator {
