@@ -46,6 +46,9 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    document.documentElement.scrollTo({ top: 0, behavior: 'instant' });
+    document.body.scrollTo({ top: 0, behavior: 'instant' });
+
     this.activatedRoute.paramMap.subscribe(params => {
       const id = params.get('id');
       if (id) {

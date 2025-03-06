@@ -28,14 +28,18 @@ section {
 
     .content-container {
         width: 100%;
-        height: auto;
+        height: 100%;
         display: flex;
         padding: 75px 240px 0 30px;
         column-gap: 149px;
+        position: relative;
 
         .content-left {
             width: 40%;
-            background-color: yellow;
+            position: relative;
+            top: 0;
+            height: auto;
+            overflow-y: auto;
 
             .title {
                 width: 100%;
@@ -45,13 +49,11 @@ section {
             }
 
             .related-articles-container {
-                overflow-y: auto;
                 overflow-x: hidden;
-                width: 100%;
                 height: auto;
-                transition: transform 0.2s ease-out;
                 padding-bottom: 25px;
-                background-color: red;
+                position: relative;
+                transition: top 0.3s ease, position 0.3s ease;
 
                 .related-article {
                     padding: 25px 0;

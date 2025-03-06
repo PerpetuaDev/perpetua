@@ -1,12 +1,11 @@
 // Libraries
-import { Component, Input, inject, OnChanges, SimpleChanges, HostListener, ElementRef, ChangeDetectorRef, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, inject, OnChanges, SimpleChanges, ChangeDetectorRef, OnDestroy, AfterViewInit, ElementRef, HostListener, Renderer2, ViewChild, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { marked } from 'marked';
 import { Observable } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
-import { NgZone } from '@angular/core';
 // Components
 import { ShareArticleButtonComponent } from '../../../../../components/buttons/share-article-button/share-article-button.component';
 // Services
@@ -24,6 +23,8 @@ import { TranslationHelper } from '../../../../../shared/translation-helper';
 export class ArticleContentComponent implements OnInit, OnChanges, OnDestroy {
   @Input() article: IArticle | undefined;
   @Input() currentArticleDocumentId: string | null = null;
+  private contentLeftElement: HTMLElement | null = null;
+  private relatedArticlesContainer: HTMLElement | null = null;
   moreArticles$: Observable<IArticle[]>;
   sanitizedContent: SafeHtml | undefined;
   restOfContent: SafeHtml | undefined;
@@ -34,33 +35,25 @@ export class ArticleContentComponent implements OnInit, OnChanges, OnDestroy {
   constructor(
     private sanitizer: DomSanitizer,
     private router: Router,
-    private elRef: ElementRef,
     private cdr: ChangeDetectorRef,
     private translationHelper: TranslationHelper,
-    private zone: NgZone
+    private elementRef: ElementRef
   ) {
     this.moreArticles$ = this.articleService.moreArticles$;
     this.currentLanguage = this.translationHelper.getCurrentLanguage();
   }
 
   ngOnInit(): void {
-    this.zone.runOutsideAngular(() => {
-      this.onWindowScroll();
-    });
+    this.setupParallax();
   }
 
   ngOnDestroy(): void {
-    window.removeEventListener('scroll', this.onWindowScroll.bind(this));
     this.translationHelper.unsubscribe();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['article'] && this.article?.content) {
       this.parseContent();
-    }
-
-    if (changes['currentArticleDocumentId'] && changes['currentArticleDocumentId'].currentValue) {
-      this.articleService.selectMoreArticleByDate(changes['currentArticleDocumentId'].currentValue);
     }
   }
 
@@ -106,39 +99,6 @@ export class ArticleContentComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  @HostListener('window:scroll', [])
-  onWindowScroll(): void {
-    const contentLeftElement = this.elRef.nativeElement.querySelector('.content-left') as HTMLElement;
-    const moreArticlesElement = this.elRef.nativeElement.querySelector('.related-articles-container') as HTMLElement;
-
-    if (!contentLeftElement || !moreArticlesElement) {
-      console.warn("Elements not found!");
-      return;
-    }
-
-    const scrollPosition = window.scrollY;
-    console.log("🔍 Corrected Scroll position:", scrollPosition);
-
-    const contentLeftRect = contentLeftElement.getBoundingClientRect();
-    const moreArticlesRect = moreArticlesElement.getBoundingClientRect();
-
-    console.log("🔍 contentLeftRect:", contentLeftRect);
-    console.log("🔍 moreArticlesRect:", moreArticlesRect);
-
-    const maxTranslateY = contentLeftRect.height - moreArticlesRect.height;
-
-    if (scrollPosition > 550) {
-      let parallaxValue = (scrollPosition - 550) * 1.0;
-      console.log("🔍 Current parallaxValue:", parallaxValue);
-
-      parallaxValue = Math.min(parallaxValue, maxTranslateY);
-
-      moreArticlesElement.style.transform = `translateY(${parallaxValue}px)`;
-    } else {
-      moreArticlesElement.style.transform = `translateY(0)`;
-    }
-  }
-
   backToTop(): void {
     document.documentElement.scrollTo({ top: 0, behavior: 'instant' });
     document.body.scrollTo({ top: 0, behavior: 'instant' });
@@ -153,6 +113,64 @@ export class ArticleContentComponent implements OnInit, OnChanges, OnDestroy {
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
       this.navigateToArticle(documentId);
+    }
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event): void {
+    this.handleParallax();
+  }
+
+  setupParallax(): void {
+    window.addEventListener('scroll', this.handleParallax.bind(this));
+  }
+
+  handleParallax(): void {
+    const contentLeft = document.querySelector('.content-left') as HTMLElement;
+    const relatedArticlesContainer = document.querySelector('.related-articles-container') as HTMLElement;
+    const contentRight = document.querySelector('.content-right') as HTMLElement;
+
+    if (!contentLeft || !relatedArticlesContainer || !contentRight) return;
+
+    const scrollY = window.scrollY;
+    const contentLeftRect = contentLeft.getBoundingClientRect();
+    const relatedArticlesRect = relatedArticlesContainer.getBoundingClientRect();
+
+    const stickyOffset = 735; // Scroll position where sticky behavior starts
+    const contentLeftHeight = contentLeft.offsetHeight; // Total height of .content-left
+    const relatedArticlesHeight = relatedArticlesContainer.offsetHeight; // Height of .related-articles-container
+
+    // Extra scrolling required before making the container unsticky
+    const extraScrollThreshold = contentLeftHeight - relatedArticlesHeight;
+
+    if (extraScrollThreshold <= 0) return; // Prevents issues if the related articles container is larger than content-left
+
+    const stopStickyScrollY = stickyOffset + extraScrollThreshold;
+
+    // Reset styles when scrolling back to the top
+    if (scrollY < stickyOffset) {
+      relatedArticlesContainer.style.position = 'relative';
+      relatedArticlesContainer.style.top = 'auto';
+      relatedArticlesContainer.style.marginTop = '0';
+      relatedArticlesContainer.style.width = 'auto';
+      return;
+    }
+
+    // Keep it sticky until reaching the additional scroll threshold
+    if (scrollY >= stickyOffset && scrollY < stopStickyScrollY) {
+      relatedArticlesContainer.style.position = 'fixed';
+      relatedArticlesContainer.style.top = '0';
+      relatedArticlesContainer.style.marginTop = '46px';
+      relatedArticlesContainer.style.width = `${contentLeft.offsetWidth}px`;
+      return;
+    }
+
+    // After exceeding the threshold, return it to normal scrolling behavior
+    if (scrollY >= stopStickyScrollY) {
+      relatedArticlesContainer.style.position = 'relative';
+      relatedArticlesContainer.style.top = 'auto';
+      relatedArticlesContainer.style.marginTop = `${extraScrollThreshold}px`;
+      relatedArticlesContainer.style.width = 'auto';
     }
   }
 }

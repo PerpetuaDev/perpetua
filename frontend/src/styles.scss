@@ -21,6 +21,7 @@ $frontend-theme: mat.define-theme((color: (theme-type: light,
 // that you are using.
 :root {
   @include mat.all-component-themes($frontend-theme);
+  --scroll: 0;
 }
 
 // Comment out the line below if you want to use the pre-defined typography utility classes.
@@ -140,7 +141,8 @@ html,
 body {
   overflow-y: scroll;
   overflow-x: hidden;
-  height: 100%;
+  position: relative;
+  min-height: 100vh;
   margin: 0;
   padding: 0;
   font-size: 1rem;
