@@ -29,7 +29,8 @@ export class ApplyJobFormComponent implements OnInit, OnDestroy {
   @ViewChild('file') fileUploadInput!: ElementRef;
   @ViewChild('dropdownButton') dropdownButton!: ElementRef;
   @ViewChild('dropdownList') dropdownList!: ElementRef;
-
+  @ViewChild('countryDropdown') countryDropdown!: ElementRef;
+  @ViewChild('routeDropdown') routeDropdown!: ElementRef;
   officeImage: string | null = '../../../assets/images/img_n.a.png';
   selectedLocation: string | null = 'christchurch';
   selectedContactInfo: any = null;
@@ -44,16 +45,24 @@ export class ApplyJobFormComponent implements OnInit, OnDestroy {
   private langChangeSubscription!: Subscription;
   selectedOption: string | null = null;
   dropdownOpen: boolean = false;
+  menuOpen: boolean = false;
   fileInput!: HTMLInputElement;
   fileName: any = '';
+  selectedCountryCode: string = '+64';
 
   routeOptions = [
     { label: 'Website', value: 'website' },
     { label: 'Social Media', value: 'social-media' },
     { label: 'Referral', value: 'referral' },
-    { label: 'Job Board', value: 'job-board' },
+    { label: 'Job Board (Seek, J-Sen, etc.)', value: 'job-board' },
     { label: 'Other', value: 'other' }
   ];
+
+  countryCodes = [
+    { code: '+64', country: 'New Zealand' },
+    { code: '+61', country: 'Australia' },
+    { code: '+81', country: 'Japan' }
+  ]
 
   constructor(
     private route: ActivatedRoute,
@@ -96,11 +105,9 @@ export class ApplyJobFormComponent implements OnInit, OnDestroy {
 
   ngAfterViewInit(): void {
     // Ensure @ViewChild references are available after the view is initialized
-    if (this.fileUploadInput && this.dropdownButton && this.dropdownList) {
+    if (this.fileUploadInput && this.countryDropdown && this.dropdownList && this.routeDropdown) {
       this.fileInput = this.fileUploadInput.nativeElement;
       document.addEventListener('click', this.handleClickOutside.bind(this));
-    } else {
-      console.warn('One or more @ViewChild references are not available yet.');
     }
   }
 
@@ -129,45 +136,98 @@ export class ApplyJobFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  onCountryCodeInput(event: Event): void {
-    const inputElement = event.target as HTMLInputElement;
-    let inputCode = inputElement.value.trim();
+  // onCountryCodeInput(event: Event): void {
+  //   const inputElement = event.target as HTMLInputElement;
+  //   let inputCode = inputElement.value.trim();
 
-    if (!inputCode.startsWith('+')) {
-      inputCode = '+' + inputCode;
-      inputElement.value = inputCode;
-    }
+  //   if (!inputCode.startsWith('+')) {
+  //     inputCode = '+' + inputCode;
+  //     inputElement.value = inputCode;
+  //   }
 
-    const matchingFlag = this.flags.find(flag => flag.country_code === inputCode);
+  //   const matchingFlag = this.flags.find(flag => flag.country_code === inputCode);
 
-    if (matchingFlag) {
-      this.selectedFlagUrl = matchingFlag.flag_image.url;
-      this.selectedCountryName = matchingFlag.country;
-    } else {
-      this.selectedFlagUrl = '../../../assets/images/no-flag.png';
-      this.selectedCountryName = 'New Zealand';
-    }
-  }
+  //   if (matchingFlag) {
+  //     this.selectedFlagUrl = matchingFlag.flag_image.url;
+  //     this.selectedCountryName = matchingFlag.country;
+  //   } else {
+  //     this.selectedFlagUrl = '../../../assets/images/no-flag.png';
+  //     this.selectedCountryName = 'New Zealand';
+  //   }
+  // }
+
+  // @HostListener('document:click', ['$event'])
+  // handleClickOutside(event: MouseEvent) {
+  //   if (
+  //     this.dropdownButton &&
+  //     !this.dropdownButton.nativeElement.contains(event.target) &&
+  //     this.dropdownList &&
+  //     !this.dropdownList.nativeElement.contains(event.target)
+  //   ) {
+  //     this.dropdownOpen = false;
+  //   }
+  // }
 
   @HostListener('document:click', ['$event'])
-  handleClickOutside(event: MouseEvent) {
+  handleClickOutside(event: MouseEvent): void {
+    const targetElement = event.target as Node;
+
+    // Close the route dropdown if clicking outside
     if (
-      this.dropdownButton &&
-      !this.dropdownButton.nativeElement.contains(event.target) &&
-      this.dropdownList &&
-      !this.dropdownList.nativeElement.contains(event.target)
+      this.dropdownOpen &&
+      this.routeDropdown &&
+      !this.routeDropdown.nativeElement.contains(targetElement)
     ) {
       this.dropdownOpen = false;
     }
+
+    if (this.menuOpen && this.countryDropdown && !this.countryDropdown.nativeElement.contains(event.target as Node)) {
+      this.menuOpen = false;
+    }
+  }
+
+  onPhoneInputFocus(): void {
+    this.menuOpen = false;
   }
 
   toggleDropdown() {
     this.dropdownOpen = !this.dropdownOpen;
   }
 
+  toggleCountryDropdown(): void {
+    this.menuOpen = !this.menuOpen;
+  }
+
+  handleCountryDropdownKeyDown(event: KeyboardEvent): void {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      this.toggleCountryDropdown();
+    }
+  }
+
   onToggleOptionKeyDown(option: any, event: KeyboardEvent) {
     event.preventDefault();
     this.selectOption(option);
+  }
+
+  handleCountryDropdownOptionKeyDown(event: KeyboardEvent, country: any): void {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      this.onSelectCode(country);
+    }
+  }
+
+  onSelectCode(selectedCountry: any): void {
+    this.selectedCountryCode = selectedCountry.code;
+    this.selectedFlagUrl = this.getFlagUrl(selectedCountry.code);
+    this.selectedCountryName = selectedCountry.country;
+    this.contactForm.patchValue({ country_code: selectedCountry.code });
+    this.menuOpen = false;
+  }
+
+  getFlagUrl(countryCode: string): string {
+    const matchingFlag = this.flags.find(flag => flag.country_code === countryCode);
+    return matchingFlag ? matchingFlag.flag_image.url : '../../../assets/images/no-flag.png';
   }
 
   selectOption(option: any) {

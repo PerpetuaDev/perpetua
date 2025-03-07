@@ -25,29 +25,39 @@
         <!-- Route -->
         <div class="input-wrapper route-wrapper">
             <label id="route-label" for="route">Route</label>
-            <button class="dropdown-button" type="button" (click)="toggleDropdown()">
+            <button #routeDropdown class="dropdown-button" type="button" (click)="toggleDropdown()">
                 {{ selectedOption || 'How did you hear about this opportunity with Perpetua?*' }}
-                <i class="bi bi-chevron-down"></i>
+                <i class="bi" [ngClass]="{'bi-chevron-down': !dropdownOpen, 'bi-x': dropdownOpen}"></i>
             </button>
             <ul *ngIf="dropdownOpen" class="dropdown-list">
                 <li *ngFor="let option of routeOptions" (click)="selectOption(option)"
                     (keydown)="onToggleOptionKeyDown(option, $event)">{{ option.label }}</li>
             </ul>
-            <div *ngIf="contactForm.get('route')?.invalid && contactForm.get('route')?.touched" class="error-message">
-                {{ 'contact.form.input-error.route' | translate }}
-            </div>
         </div>
         <!-- Phone -->
-        <div class="input-wrapper phone-wrapper">
-            <div class="image-wrapper">
-                <img [src]="selectedFlagUrl" alt="'Flag of ' + selectedCountryName" />
+        <div class="input-wrapper">
+            <div #countryDropdown class="phone-wrapper">
+                <div class="image-wrapper">
+                    <img [src]="selectedFlagUrl" alt="Flag of {{ selectedCountryName }}" />
+                </div>
+                <div class="country-code" (click)="toggleCountryDropdown()"
+                    (keydown)="handleCountryDropdownKeyDown($event)">
+                    {{ selectedCountryCode }}
+                </div>
+                <input id="phone" type="tel" formControlName="phone"
+                    placeholder="{{ 'contact.form.phone' | translate }}" aria-labelledby="phone-label"
+                    (focus)="onPhoneInputFocus()">
             </div>
-            <label id="country-code-label" for="country-code">Country Code</label>
-            <input id="country-code" class="country-code" type="text" formControlName="country_code" placeholder="+"
-                (input)="onCountryCodeInput($event)" aria-labelledby="country-code-label">
-            <label id="phone-label" for="phone">Phone</label>
-            <input id="phone" type="tel" formControlName="phone" placeholder="{{ 'contact.form.phone' | translate }}"
-                aria-labelledby="phone-label">
+            <ul *ngIf="menuOpen" class="dropdown-list">
+                <li *ngFor="let country of countryCodes" (click)="onSelectCode(country)"
+                    (keydown)="handleCountryDropdownOptionKeyDown($event, country)" class="code-wrapper">
+                    <div class="image-wrapper">
+                        <img [src]="getFlagUrl(country.code)" alt="Flag of {{ country.country }}" />
+                    </div>
+                    <p class="country-code">{{ country.code }}</p>
+                    <p>{{ country.country }}</p>
+                </li>
+            </ul>
         </div>
     </div>
     <div class="form-wrapper">

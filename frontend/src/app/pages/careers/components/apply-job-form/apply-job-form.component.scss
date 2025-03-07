@@ -83,17 +83,17 @@
         }
 
         .route-wrapper {
-            border-bottom: 2px solid #0e0e01;
             display: flex;
-            justify-content: center;
-            align-items: center;
+            flex-direction: column;
+            justify-content: start;
+            align-items: start;
         }
 
         .dropdown-button {
             width: 100%;
             height: 38px;
             padding: 0;
-            margin: 0;
+            margin: 0 0 6.6px 0;
             background-color: #ffffff;
             font-size: 1.5rem;
             color: #0e0e01;
@@ -102,44 +102,59 @@
             justify-content: space-between;
             align-items: center;
             border: none;
+            border-bottom: 2px solid #0e0e01;
         }
 
         .dropdown-list {
+            width: 100%;
             list-style-type: none;
             padding: 0;
-            margin: 5px 0;
-            color: #ffffff;
-            background-color: #0e0e01;
+            margin: 0;
+            color: #0e0e01;
+            background-color: #ffffff;
             border-top: none;
-            position: absolute;
-            width: 45%;
-            z-index: 1;
         }
 
         .dropdown-list li {
-            color: #ffffff;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            color: #0e0e01;
+            font-family: 'Sohne' !important;
             font-size: 1.5rem;
-            padding: 10px;
+            margin: 25px 20px 0 0;
             cursor: pointer;
         }
 
         .dropdown-list li:hover {
-            color: #ffffff;
-            background-color: #898989;
+            color: #a7a7a7;
+        }
+
+        .image-wrapper {
+            width: 38px;
+            height: 38px;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+                object-position: center;
+            }
         }
 
         .phone-wrapper {
             display: flex;
             gap: 31px;
             height: 38px;
+            margin-bottom: 6.6px;
 
             .image-wrapper {
                 width: 38px;
                 height: 38px;
 
                 img {
-                    width: 100%;
-                    height: 100%;
+                    width: 38px;
+                    height: 38px;
                     object-fit: contain;
                     object-position: center;
                 }
@@ -148,6 +163,27 @@
             .country-code {
                 min-width: 40px;
                 max-width: 50px;
+                padding-top: 3.5px;
+                font-family: 'Sohne' !important;
+                font-size: 1.5rem;
+                text-align: right;
+                border-bottom: 2px solid #0e0e01;
+                cursor: pointer;
+            }
+        }
+
+        .code-wrapper {
+            display: flex;
+            gap: 31px;
+            height: 38px;
+
+            p {
+                padding: 0;
+                margin: 0;
+            }
+
+            .country-code {
+                width: 40px;
                 text-align: right;
             }
         }
