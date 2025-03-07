@@ -75,6 +75,10 @@ h1 {
     .sorted-cards-wrapper {
         padding-bottom: 30px;
         border-bottom: 2px solid #0e0e01;
+
+        &:last-child {
+            border: none;
+        }
     }
 
     .sorting-title {
