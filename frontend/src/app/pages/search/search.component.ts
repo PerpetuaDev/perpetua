@@ -118,6 +118,7 @@ export class SearchComponent implements OnInit {
   onSearchIconClick(): void {
     const keyword = this.searchControl.value;
     if (keyword || keyword.length >= 0) {
+      this.searchInput.nativeElement.focus();
       this.isBorderVisible = true;
     }
   }
@@ -190,7 +191,9 @@ export class SearchComponent implements OnInit {
     const targetElement = event.target as HTMLElement;
 
     if (!targetElement.closest('.search-bar-wrapper')) {
-      this.isBorderVisible = false;
+      if (!this.searchControl.value || this.searchControl.value.trim() === '') {
+        this.isBorderVisible = false;
+      }
 
       this.searchInput.nativeElement.blur();
     }
