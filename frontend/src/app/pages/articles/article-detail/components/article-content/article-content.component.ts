@@ -152,6 +152,7 @@ export class ArticleContentComponent implements OnInit, OnChanges, OnDestroy {
       relatedArticlesContainer.style.position = 'relative';
       relatedArticlesContainer.style.top = 'auto';
       relatedArticlesContainer.style.marginTop = '0';
+      relatedArticlesContainer.style.paddingTop = '10px';
       relatedArticlesContainer.style.width = 'auto';
       return;
     }
