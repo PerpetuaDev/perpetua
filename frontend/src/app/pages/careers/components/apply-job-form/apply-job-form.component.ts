@@ -25,7 +25,7 @@ import { environment } from '../../../../../environments/environment.development
   templateUrl: './apply-job-form.component.html',
   styleUrl: './apply-job-form.component.scss'
 })
-export class ApplyJobFormComponent implements OnInit, OnDestroy {
+export class ApplyJobFormComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('file') fileUploadInput!: ElementRef;
   @ViewChild('dropdownButton') dropdownButton!: ElementRef;
   @ViewChild('dropdownList') dropdownList!: ElementRef;

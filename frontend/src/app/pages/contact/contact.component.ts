@@ -1,6 +1,6 @@
 // Libraries
 import { Title, Meta } from '@angular/platform-browser';
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, HostListener, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { ReactiveFormsModule, FormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -31,8 +31,10 @@ import { OfficeService } from '../../shared/office.service';
   styleUrl: './contact.component.scss'
 })
 
-export class ContactComponent implements OnInit, OnDestroy {
+export class ContactComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('messageTextarea') messageTextarea!: ElementRef<HTMLTextAreaElement>;
+  @ViewChild('countryDropdown') countryDropdown!: ElementRef;
+  @ViewChild('routeDropdown') routeDropdown!: ElementRef;
   offices$: Observable<IOffice[]>;
   officeImage: string | null = '../../../assets/images/img_n.a.png';
   contactData = ContactData;
@@ -41,12 +43,21 @@ export class ContactComponent implements OnInit, OnDestroy {
   flags: IFlag[] = [];
   selectedFlagUrl: string | null = '';
   selectedCountryName: string = 'New Zealand';
+  selectedOption: string | null = null;
   contactForm: FormGroup;
   formSubmitted: boolean = false;
   private intervalId: any;
   private timeoutId: any;
   currentLanguage: string = 'en';
+  menuOpen: boolean = false;
+  selectedCountryCode: string = '+64';
   private langChangeSubscription!: Subscription;
+
+  countryCodes = [
+    { code: '+64', country: 'New Zealand' },
+    { code: '+61', country: 'Australia' },
+    { code: '+81', country: 'Japan' }
+  ]
 
   constructor(
     private titleService: Title,
@@ -123,6 +134,13 @@ export class ContactComponent implements OnInit, OnDestroy {
     });
   }
 
+  ngAfterViewInit(): void {
+    // Ensure @ViewChild references are available after the view is initialized
+    if (this.countryDropdown && this.routeDropdown) {
+      document.addEventListener('click', this.handleClickOutside.bind(this));
+    }
+  }
+
   ngOnDestroy(): void {
     if (this.langChangeSubscription) {
       this.langChangeSubscription.unsubscribe();
@@ -147,25 +165,80 @@ export class ContactComponent implements OnInit, OnDestroy {
     }
   }
 
-  onCountryCodeInput(event: Event): void {
-    const inputElement = event.target as HTMLInputElement;
-    let inputCode = inputElement.value.trim();
+  // onCountryCodeInput(event: Event): void {
+  //   const inputElement = event.target as HTMLInputElement;
+  //   let inputCode = inputElement.value.trim();
 
-    if (!inputCode.startsWith('+')) {
-      inputCode = '+' + inputCode;
-      inputElement.value = inputCode;
-    }
+  //   if (!inputCode.startsWith('+')) {
+  //     inputCode = '+' + inputCode;
+  //     inputElement.value = inputCode;
+  //   }
 
-    const matchingFlag = this.flags.find(flag => flag.country_code === inputCode);
+  //   const matchingFlag = this.flags.find(flag => flag.country_code === inputCode);
 
-    if (matchingFlag) {
-      this.selectedFlagUrl = matchingFlag.flag_image.url;
-      this.selectedCountryName = matchingFlag.country;
-    } else {
-      this.selectedFlagUrl = '../../../assets/images/no-flag.png';
-      this.selectedCountryName = 'New Zealand';
+  //   if (matchingFlag) {
+  //     this.selectedFlagUrl = matchingFlag.flag_image.url;
+  //     this.selectedCountryName = matchingFlag.country;
+  //   } else {
+  //     this.selectedFlagUrl = '../../../assets/images/no-flag.png';
+  //     this.selectedCountryName = 'New Zealand';
+  //   }
+  // }
+
+  @HostListener('document:click', ['$event'])
+  handleClickOutside(event: MouseEvent): void {
+    const targetElement = event.target as Node;
+
+    if (this.menuOpen && this.countryDropdown && !this.countryDropdown.nativeElement.contains(event.target as Node)) {
+      this.menuOpen = false;
     }
   }
+
+  onPhoneInputFocus(): void {
+    this.menuOpen = false;
+  }
+
+  toggleCountryDropdown(): void {
+    this.menuOpen = !this.menuOpen;
+  }
+
+  handleCountryDropdownKeyDown(event: KeyboardEvent): void {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      this.toggleCountryDropdown();
+    }
+  }
+
+  onToggleOptionKeyDown(option: any, event: KeyboardEvent) {
+    event.preventDefault();
+    this.selectOption(option);
+  }
+
+  handleCountryDropdownOptionKeyDown(event: KeyboardEvent, country: any): void {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      this.onSelectCode(country);
+    }
+  }
+
+  onSelectCode(selectedCountry: any): void {
+    this.selectedCountryCode = selectedCountry.code;
+    this.selectedFlagUrl = this.getFlagUrl(selectedCountry.code);
+    this.selectedCountryName = selectedCountry.country;
+    this.contactForm.patchValue({ country_code: selectedCountry.code });
+    this.menuOpen = false;
+  }
+
+  getFlagUrl(countryCode: string): string {
+    const matchingFlag = this.flags.find(flag => flag.country_code === countryCode);
+    return matchingFlag ? matchingFlag.flag_image.url : '../../../assets/images/no-flag.png';
+  }
+
+  selectOption(option: any) {
+    this.selectedOption = option.label;
+    this.contactForm.patchValue({ route: option.value });
+  }
+
 
   onLocationClick(location: string): void {
     this.selectedLocation = location;
