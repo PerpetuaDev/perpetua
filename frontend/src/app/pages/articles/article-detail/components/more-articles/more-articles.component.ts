@@ -37,15 +37,9 @@ export class MoreArticlesComponent implements OnChanges, OnDestroy {
 
     this.moreArticles$.subscribe((articles: IArticle[]) => {
       this.visibleArticles = articles;
+      this.truncateText();
     });
 
-    this.visibleArticles.forEach((article: IArticle) => {
-      if (article.content) {
-        const words = article.content.split(' ');
-        const truncatedWords = words.slice(0, 27).join(' ');
-        this.truncatedText = truncatedWords; // + ' ...'
-      }
-    })
     this.currentLanguage = this.translationHelper.getCurrentLanguage();
   }
 
@@ -57,6 +51,16 @@ export class MoreArticlesComponent implements OnChanges, OnDestroy {
 
   ngOnDestroy(): void {
     this.translationHelper.unsubscribe();
+  }
+
+  truncateText(): void {
+    this.visibleArticles.forEach((article: IArticle) => {
+      if (article.content) {
+        const words = article.content.split(' ');
+        const truncatedWords = words.slice(0, 27).join(' ');
+        this.truncatedText = truncatedWords; // + ' ...'
+      }
+    })
   }
 
   scrollToTop(): void {

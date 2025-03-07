@@ -1,7 +1,7 @@
 <section class='w-100 m-0' *ngIf="moreArticles$ | async as moreArticles; else loading">
     <h1>{{ 'articles.more-articles' | translate }}</h1>
     <div *ngIf="moreArticles.length > 0; else noArticles">
-        <app-article-card-plus-info [visibleArticles]="moreArticles"></app-article-card-plus-info>
+        <!-- <app-article-card-plus-info [visibleArticles]="moreArticles"></app-article-card-plus-info> -->
         <div class="article-page-container container-fluid">
             <div class="row row-cols-1 row-cols-md-3 custom-gutter" *ngIf="visibleArticles.length > 0; else noArticles">
                 <div class="col" *ngFor="let article of visibleArticles">
