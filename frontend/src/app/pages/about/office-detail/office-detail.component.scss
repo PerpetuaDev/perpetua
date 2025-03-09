@@ -37,10 +37,10 @@ p {
             }
 
             .menu-icon {
-                transform: rotate(45deg);
+                font-size: 1.75rem;
+                transform: rotate(45deg) translateY(4px);
                 display: inline-block;
-                margin: -5px;
-
+                margin: -4px;
             }
 
             .location-button:hover {
