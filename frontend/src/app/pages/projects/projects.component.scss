@@ -77,6 +77,24 @@ h1 {
     }
 }
 
+.invisible {
+    display: none;
+}
+
+.industry-title {
+    font-family: 'Larsseit-500' !important;
+    font-size: 2.25rem;
+    color: #000000;
+    margin: 0;
+    width: 100%;
+    text-align: center;
+    padding: 77px 0 47px;
+}
+
+.back-toindustry-button {
+    background-color: red;
+}
+
 .separator {
     display: block;
     width: 100%;
@@ -100,7 +118,7 @@ h1 {
         margin: 0 9px 1.7px 120px;
         border: none;
         background-color: transparent;
-        font-family: 'Sohne-500' !important;
+        font-family: 'Larsseit-500' !important;
         font-size: 1.75rem;
 
         .bi-arrow-down-short {

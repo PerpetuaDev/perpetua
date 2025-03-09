@@ -1,5 +1,5 @@
 // Libraries
-import { Component, Input, OnInit, ElementRef, ViewChildren, QueryList } from '@angular/core';
+import { Component, Input, OnInit, ElementRef, ViewChildren, QueryList, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 // Services
@@ -17,7 +17,12 @@ export class ProjectCardComponent implements OnInit {
   @Input() projects: IProject[] = [];
   @Input() showTitleAsIndustry: boolean = false;
   @Input() isLoading: boolean = false;
+
+  @Output() industrySelected = new EventEmitter<string>();
+
   @ViewChildren('titleWrapper') titleWrappers!: QueryList<ElementRef>;
+
+  currentIndustry: string = '';
 
   constructor(private router: Router) { }
 
@@ -25,6 +30,9 @@ export class ProjectCardComponent implements OnInit {
     if (this.projects.length > 0) {
       this.isLoading = false;
     }
+
+    document.documentElement.scrollTo({ top: 0, behavior: 'instant' });
+    document.body.scrollTo({ top: 0, behavior: 'instant' });
   }
 
   scrollToTop(): void {
@@ -66,5 +74,9 @@ export class ProjectCardComponent implements OnInit {
 
   private isTextOverflowing(element: HTMLElement): boolean {
     return element.scrollHeight > element.clientHeight;
+  }
+
+  onIndustryCardClick(industry: string): void {
+    this.industrySelected.emit(industry);
   }
 }

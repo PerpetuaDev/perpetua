@@ -39,6 +39,9 @@ export class ProjectsComponent implements OnInit {
   isLoading$!: Observable<boolean | null>;
   private projectsSubject = new BehaviorSubject<IProject[]>([]);
   projects$ = this.projectsSubject.asObservable();
+  selectedIndustry: string | null = null;
+  industryProjects: IProject[] = [];
+  showAllIndustries: boolean = true;
 
   // Lazy loading
   visibleProjects: IProject[] = [];
@@ -92,6 +95,14 @@ export class ProjectsComponent implements OnInit {
         this.titleService.setTitle('All Projects - Perpetua');
         this.metaService.updateTag({ name: 'description', content: 'Browse all projects by Perpetua' });
       }
+
+      if (filter === 'industry') {
+        this.showAllIndustries = true;
+        this.selectedIndustry = null;
+      } else {
+        this.selectedIndustry = null;
+        this.showAllIndustries = false;
+      }
     });
 
     this.translate.onLangChange.subscribe(event => {
@@ -107,6 +118,8 @@ export class ProjectsComponent implements OnInit {
         this.allProjects = projects;
         this.initializeVisibleProjects();
       });
+
+    this.projectService.projectsByIndustry$.subscribe();
   }
 
   setProjects(projects: IProject[]): void {
@@ -130,5 +143,27 @@ export class ProjectsComponent implements OnInit {
 
   getIndustryKeys(projectsByIndustry: { [industry: string]: IProject[] }): string[] {
     return Object.keys(projectsByIndustry);
+  }
+
+  onIndustrySelected(industry: string): void {
+    this.selectedIndustry = industry;
+    this.showAllIndustries = false;
+    this.projectService.projectsByIndustry$
+      .pipe(
+        map(projectsByIndustry => projectsByIndustry[industry.toLowerCase()] || [])
+      )
+      .subscribe(industryProjects => {
+        this.industryProjects = industryProjects;
+      });
+  }
+
+  getFirstProjectPerIndustry(projectsByIndustry: { [industry: string]: IProject[] }): IProject[] {
+    return Object.values(projectsByIndustry).map(projects => projects[0]);
+  }
+
+  showIndustryCards(): void {
+    this.showAllIndustries = true;
+    this.selectedIndustry = null;
+    this.industryProjects = [];
   }
 }
