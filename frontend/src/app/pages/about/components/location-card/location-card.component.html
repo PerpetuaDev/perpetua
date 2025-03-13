@@ -22,7 +22,7 @@
             <p class="phone">{{ office.phone }}</p>
         </div>
         <div class="office_info_right">
-            @if (office.country !== 'Japan') {
+            <!-- @if (office.country !== 'Japan') {
             <p>{{ office.address_1 }}</p>
             <p>{{ office.address_2 }}</p>
             <p>{{ office.city_or_state }}, {{ office.post_code}}</p>
@@ -36,7 +36,7 @@
             <div class="direction-button-wrapper">
                 <button (click)="openGoogleMaps(office.office_location)">Get directions</button>
                 <i class="bi bi-arrow-right-short"></i>
-            </div>
+            </div> -->
         </div>
     </div>
 </ng-container>

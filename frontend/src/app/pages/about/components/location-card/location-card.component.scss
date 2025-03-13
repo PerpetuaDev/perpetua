@@ -63,7 +63,7 @@ a {
 
             .location-icon {
                 font-size: 3.25rem;
-                transform: rotate(45deg);
+                transform: rotate(45deg) translateY(4px);
                 display: inline-block;
                 transition: color 0.1s ease;
             }
@@ -81,7 +81,7 @@ a {
 
         .time {
             font-size: 1.75rem;
-            margin: 16px 0 40px 0;
+            margin: 15px 0 24px 0;
 
             .colon {
                 animation: blink 1s infinite;

@@ -63,34 +63,34 @@
 <div id="submenu-services" class="submenu-container">
     <div class="submenu-box">
         <ul class="submenu-item-wrapper">
-            <li class="submenu-item" routerLink="/services" (click)="onMenuHide('services', $event)"
-                (keydown)="onKeyDownMenuHide($event, 'services')">
+            <li class="submenu-item" [routerLink]="['/services', 'custom-software']"
+                (click)="onMenuHide('services', $event)" (keydown)="onKeyDownMenuHide($event, 'services')">
                 {{ 'service.nav.software' | translate }}
             </li>
-            <li class="submenu-item" routerLink="/services" (click)="onMenuHide('services', $event)"
-                (keydown)="onKeyDownMenuHide($event, 'services')">
+            <li class="submenu-item" [routerLink]="['/services', 'websites&cms']"
+                (click)="onMenuHide('services', $event)" (keydown)="onKeyDownMenuHide($event, 'services')">
                 {{ 'service.nav.websites-bf' | translate }}
                 <span class="ampersand">&#38;</span>
-                {{ 'service.nav.websites-bf' | translate }}
+                {{ 'service.nav.websites-af' | translate }}
             </li>
-            <li class="submenu-item" routerLink="/services" (click)="onMenuHide('services', $event)"
-                (keydown)="onKeyDownMenuHide($event, 'services')">
+            <li class="submenu-item" [routerLink]="['/services', 'native&web-apps']"
+                (click)="onMenuHide('services', $event)" (keydown)="onKeyDownMenuHide($event, 'services')">
                 {{ 'service.nav.native-bf' | translate }}
                 <span class="ampersand">&#38;</span>
                 {{ 'service.nav.native-af' | translate }}
             </li>
-            <li class="submenu-item" routerLink="/services" (click)="onMenuHide('services', $event)"
-                (keydown)="onKeyDownMenuHide($event, 'services')">
+            <li class="submenu-item" [routerLink]="['/services', 'artificial-intelligence']"
+                (click)="onMenuHide('services', $event)" (keydown)="onKeyDownMenuHide($event, 'services')">
                 {{ 'service.nav.ai' | translate }}
             </li>
-            <li class="submenu-item" routerLink="/services" (click)="onMenuHide('services', $event)"
-                (keydown)="onKeyDownMenuHide($event, 'services')">
+            <li class="submenu-item" [routerLink]="['/services', 'hosting&cloud-services']"
+                (click)="onMenuHide('services', $event)" (keydown)="onKeyDownMenuHide($event, 'services')">
                 {{ 'service.nav.hosting-bf' | translate }}
                 <span class="ampersand">&#38;</span>
                 {{ 'service.nav.hosting-af' | translate }}
             </li>
-            <li class="submenu-item" routerLink="/services" (click)="onMenuHide('services', $event)"
-                (keydown)="onKeyDownMenuHide($event, 'services')">
+            <li class="submenu-item" [routerLink]="['/services', 'data&analytics']"
+                (click)="onMenuHide('services', $event)" (keydown)="onKeyDownMenuHide($event, 'services')">
                 {{ 'service.nav.data-bf' | translate }}
                 <span class="ampersand">&#38;</span>
                 {{ 'service.nav.data-af' | translate }}
@@ -155,7 +155,7 @@
             </li>
             <li class="submenu-item" routerLink="/articles" (click)="handleClick('blog', 'articles', $event)"
                 (keydown)="handleKeydown($event, 'blog', 'articles')">
-                {{ 'articles.nav.works' | translate }}
+                {{ 'articles.nav.work' | translate }}
             </li>
         </ul>
         <ul class="submenu-item-wrapper">

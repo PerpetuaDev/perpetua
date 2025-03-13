@@ -57,34 +57,29 @@ export class ServiceDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    document.documentElement.scrollTo({ top: 0, behavior: 'instant' });
-    document.body.scrollTo({ top: 0, behavior: 'instant' });
+    this.activatedRoute.paramMap.subscribe(params => {
+      const serviceTitle = params.get('serviceTitle');
 
-    const serviceTitle = this.activatedRoute.snapshot.paramMap.get('serviceTitle');
-    this.currentService = this.ServiceDetailData.find(service => service.code === serviceTitle);
+      if (serviceTitle) {
+        this.currentService = this.ServiceDetailData.find(service => service.code === serviceTitle);
 
-    if (serviceTitle === this.currentService.code) {
-      this.currentTitle = this.currentService.title;
-      this.projectsByServiceType$ = this.projectService.getProjectsByServiceType(this.currentTitle);
-      this.projectsByServiceType$.subscribe(projects => {
-      });
+        if (this.currentService) {
+          this.currentTitle = this.currentService.title;
 
-      this.fetchProjects();
+          this.projectsByServiceType$ = this.projectService.getProjectsByServiceType(this.currentTitle);
+          this.fetchProjects();
 
-      // Meta info for SEO
-      if (this.currentService) {
-        this.titleService.setTitle(`Our service (${this.currentService.title}) - Perpetua`);
-        this.metaService.updateTag({ name: 'description', content: this.currentService.explanation });
+          this.titleService.setTitle(`Our service (${this.currentService.title}) - Perpetua`);
+          this.metaService.updateTag({ name: 'description', content: this.currentService.explanation });
+
+          this.showScreenTop();
+        }
       }
-    }
+    });
 
     this.staticImageService.staticImages$.subscribe((staticImages) => {
       if (staticImages.length > 0) {
         this.ServiceDetailData = this.ServiceDetailData.map((service) => {
-          if (this.currentService?.title === service.title) {
-            this.currentTitle = this.currentService?.title;
-          }
-
           const matchedImage = staticImages.find(image =>
             this.getServiceIndexFromLocation(image.image_location) === this.ServiceDetailData.indexOf(service)
           );
@@ -137,5 +132,10 @@ export class ServiceDetailComponent implements OnInit, OnDestroy {
     if (!title) return '';
     const vowels = ['a', 'e', 'i', 'o', 'u'];
     return vowels.includes(title[0].toLowerCase()) ? 'an' : 'a';
+  }
+
+  showScreenTop(): void {
+    document.documentElement.scrollTo({ top: 0, behavior: 'instant' });
+    document.body.scrollTo({ top: 0, behavior: 'instant' });
   }
 }
