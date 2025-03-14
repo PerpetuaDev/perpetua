@@ -9,7 +9,6 @@ module.exports = ({ env }) => {
                     basePath: env('GCS_BASE_PATH', 'uploads'),
                     publicFiles: true,
                     uniform: false,
-                    serviceAccount: JSON.parse(env('GCS_SERVICE_ACCOUNT_JSON')),
                 },
             },
         },
