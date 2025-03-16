@@ -206,6 +206,10 @@
                 padding: 0;
                 cursor: pointer;
                 z-index: 10;
+
+                &:hover {
+                    color: #a8a8a8;
+                }
             }
 
             .upload-file-button {
@@ -223,26 +227,46 @@
                 border-bottom: 1.5px solid #0e0e01;
                 cursor: pointer;
                 z-index: 0;
+
+                &:hover {
+                    color: #a8a8a8;
+                }
+
+                .bi-arrow-right-short {
+                    font-size: 1.75rem;
+                    transform: rotate(-45deg) translateY(2.5px);
+                    margin: -8px -5px -8px -8px;
+                }
             }
 
+            .file-name-container {
+                position: absolute;
+                top: 10px;
+                left: 260px;
+                display: flex;
+                flex-direction: column;
+                justify-content: start;
+                align-items: start;
+                z-index: 20;
+                // margin: 20px 0 0 20px;
 
-            .upload-file-button i {
-                font-size: 1.75rem;
-                transform: rotate(-45deg) translateY(2.5px);
-                margin: -8px -5px -8px -8px;
-            }
+                span {
+                    font-size: 1.25rem;
+                    color: #898989;
+                    display: block;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
 
-            span {
-                font-size: 1.25rem;
-                color: #898989;
-                margin: 20px 0 0 20px;
-                display: block;
-            }
-        }
-
-        .file-upload-wrapper:hover {
-            .upload-file-button {
-                color: #a8a8a8;
+                    .bi-x {
+                        font-size: 1.5rem;
+                        color: #898989;
+                        padding: 2px;
+                        margin-left: 4px;
+                        transform: translateY(2px);
+                        cursor: pointer;
+                    }
+                }
             }
         }
     }

@@ -47,7 +47,8 @@ export class ApplyJobFormComponent implements OnInit, AfterViewInit, OnDestroy {
   dropdownOpen: boolean = false;
   menuOpen: boolean = false;
   fileInput!: HTMLInputElement;
-  fileName: any = '';
+  selectedFiles: File[] = [];
+  fileNames: string[] = [];
   selectedCountryCode: string = '+64';
 
   routeOptions = [
@@ -236,13 +237,45 @@ export class ApplyJobFormComponent implements OnInit, AfterViewInit, OnDestroy {
     this.dropdownOpen = false;
   }
 
-  onFileSelected(event: Event) {
-    const file = (event.target as HTMLInputElement).files?.[0];
-    if (file) {
-      this.fileName = file.name;
-      this.contactForm.patchValue({
-        file: file
+  onFileSelected(event: Event): void {
+    const inputElement = event.target as HTMLInputElement;
+    const newFiles: FileList | null = inputElement.files;
+
+    if (newFiles && newFiles.length > 0) {
+      const totalFiles = this.selectedFiles.length + newFiles.length;
+
+      // Limit to maximum 4 files
+      if (totalFiles > 4) {
+        alert('You can upload a maximum of 4 files.');
+        return;
+      }
+
+      Array.from(newFiles).forEach(file => {
+        this.selectedFiles.push(file);
+        this.fileNames.push(file.name);
       });
+
+      this.contactForm.patchValue({
+        file: this.selectedFiles
+      });
+
+      inputElement.value = '';
+    }
+  }
+
+
+  deleteUploadedFile(index: number): void {
+    this.selectedFiles.splice(index, 1);
+    this.fileNames.splice(index, 1);
+    this.contactForm.patchValue({
+      file: this.selectedFiles
+    });
+  }
+
+  handleDeleteFileOnKeydown(event: KeyboardEvent, index: number) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      this.deleteUploadedFile(index);
     }
   }
 
@@ -268,23 +301,28 @@ export class ApplyJobFormComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.formSubmitted = true;
 
-    const fileInput = this.contactForm.get('file')?.value;
-    if (fileInput) {
-      const reader = new FileReader();
-      reader.readAsDataURL(fileInput);
+    if (this.selectedFiles && this.selectedFiles.length > 0) {
+      const attachments: any[] = [];
 
-      reader.onload = () => {
-        const fileBase64 = reader.result as string;
+      const fileReadPromises = this.selectedFiles.map((file) => {
+        return new Promise<void>((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => {
+            const fileBase64 = reader.result as string;
+            attachments.push({
+              content: fileBase64.split(',')[1], // Remove data prefix
+              filename: file.name,
+              type: file.type,
+              disposition: 'attachment',
+            });
+            resolve();
+          };
+          reader.onerror = reject;
+          reader.readAsDataURL(file);
+        });
+      });
 
-        const attachments = [
-          {
-            content: fileBase64.split(',')[1], // Extract the base64 part (without the "data:..." prefix)
-            filename: fileInput.name,
-            type: fileInput.type,
-            disposition: 'attachment',
-          }
-        ];
-
+      Promise.all(fileReadPromises).then(() => {
         emailjs.send(
           environment.applyJobEmailjsServiceId,
           environment.applyJobEmailTemplateId,
@@ -302,7 +340,8 @@ export class ApplyJobFormComponent implements OnInit, AfterViewInit, OnDestroy {
               });
               this.formSubmitted = false;
               this.selectedOption = null;
-              this.fileName = '';
+              this.selectedFiles = [];
+              this.fileNames = [];
             },
             (error) => {
               console.error('FAILED...', error);
@@ -310,12 +349,11 @@ export class ApplyJobFormComponent implements OnInit, AfterViewInit, OnDestroy {
               this.formSubmitted = false;
             }
           );
-      };
-
-      reader.onerror = (error) => {
-        console.error('Error reading file: ', error);
-        this.formSubmitted = false;
-      };
+      })
+        .catch((error) => {
+          console.error('Error reading files: ', error);
+          this.formSubmitted = false;
+        });
     }
   }
 

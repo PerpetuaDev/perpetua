@@ -75,13 +75,20 @@
         <!-- File upload -->
         <div class="input-wrapper file-upload-wrapper">
             <label id="file-label" for="file">Upload file</label>
-            <input id="file" type="file" accept=".pdf, .doc, .docx" aria-labelledby="file-label"
+            <input id="file" type="file" accept=".pdf, .doc, .docx" multiple aria-labelledby="file-label"
                 (change)="onFileSelected($event)">
             <button type="button" class="upload-file-button" (click)="fileUploadInput.nativeElement.click()">
                 Upload your documents
                 <i class="bi bi-arrow-right-short"></i>
             </button>
-            <span>{{ fileName ? fileName : '' }}</span>
+            <div class="file-name-container">
+                <span *ngFor="let name of fileNames; let i = index">
+                    {{ name }}
+                    <i class="bi bi-x" (click)="deleteUploadedFile(i)" (keydown)="handleDeleteFileOnKeydown($event, i)">
+                    </i>
+                    <br />
+                </span>
+            </div>
         </div>
 
     </div>
