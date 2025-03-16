@@ -112,6 +112,7 @@ export interface IProject {
     project_comment3: string,
     project_comment4: string,
     service_type: string,
+    related_offices: IOffice[],
     createdAt: Date,
     updatedAt: Date,
 }

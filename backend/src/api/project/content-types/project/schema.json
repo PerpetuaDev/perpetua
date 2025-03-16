@@ -124,6 +124,12 @@
         "Hosting & Cloud Services",
         "Data & Analytics"
       ]
+    },
+    "related_offices": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::office.office",
+      "inversedBy": "projects"
     }
   }
 }

@@ -593,6 +593,7 @@ export interface ApiOfficeOffice extends Struct.CollectionTypeSchema {
     phone: Schema.Attribute.String;
     post_code: Schema.Attribute.String;
     prefecture: Schema.Attribute.String;
+    projects: Schema.Attribute.Relation<'manyToMany', 'api::project.project'>;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -676,6 +677,10 @@ export interface ApiProjectProject extends Struct.CollectionTypeSchema {
       ['software', 'website', 'app', 'design', 'other']
     >;
     publishedAt: Schema.Attribute.DateTime;
+    related_offices: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::office.office'
+    >;
     service_type: Schema.Attribute.Enumeration<
       [
         'Custom Software',
