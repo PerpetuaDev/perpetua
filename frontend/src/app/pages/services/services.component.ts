@@ -5,7 +5,6 @@ import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable, Subscription } from 'rxjs';
 // Components
-import { CallActionComponent } from '../../components/call-action/call-action.component';
 import { BackToTopButtonComponent } from '../../components/buttons/back-to-top-button/back-to-top-button.component';
 import { ServiceCardComponent } from './components/service-card/service-card.component';
 import { ServiceProcessComponent } from './components/service-process/service-process.component';
@@ -22,7 +21,6 @@ import { StaticImageService } from '../../shared/static-image.service';
   imports: [
     CommonModule,
     TranslateModule,
-    CallActionComponent,
     BackToTopButtonComponent,
     ServiceCardComponent,
     ServiceProcessComponent,

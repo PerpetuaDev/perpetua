@@ -10,6 +10,7 @@ import emailjs, { type EmailJSResponseStatus } from '@emailjs/browser';
 // Components
 import { LocationCardComponent } from '../about/components/location-card/location-card.component';
 import { ContactData } from './contact-data';
+import { OfficeImageSkeletonComponent } from '../../components/skeletons/office-image-skeleton/office-image-skeleton.component';
 // Services
 import { StrapiService } from '../../api/strapi.service';
 import { IOffice, APIResponseModel, IFlag } from '../../../util/interfaces';
@@ -25,7 +26,8 @@ import { OfficeService } from '../../shared/office.service';
     LocationCardComponent,
     FormsModule,
     ReactiveFormsModule,
-    TranslateModule
+    TranslateModule,
+    OfficeImageSkeletonComponent
   ],
   templateUrl: './contact.component.html',
   styleUrl: './contact.component.scss'
@@ -36,7 +38,8 @@ export class ContactComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('countryDropdown') countryDropdown!: ElementRef;
   @ViewChild('routeDropdown') routeDropdown!: ElementRef;
   offices$: Observable<IOffice[]>;
-  officeImage: string | null = '../../../assets/images/img_n.a.png';
+  isLoading$!: Observable<boolean | null>;
+  officeImage: string | null = '';
   contactData = ContactData;
   selectedLocation: string | null = 'christchurch';
   selectedContactInfo: any = null;
@@ -67,6 +70,7 @@ export class ContactComponent implements OnInit, AfterViewInit, OnDestroy {
   ) {
     // this.currentLanguage = this.translationHelper.getCurrentLanguage();
     this.offices$ = this.officeService.offices$;
+    this.isLoading$ = this.officeService.isLoading$;
     this.contactForm = this.fb.group({
       full_name: ['', Validators.required],
       company: [''],
@@ -92,14 +96,14 @@ export class ContactComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     );
 
+    this.isLoading$ = this.officeService.isLoading$;
+
     this.selectedLocation = 'Christchurch';
     this.selectedContactInfo = this.contactData.find(data => data.location === 'Christchurch');
     this.offices$.subscribe((offices: IOffice[]) => {
       const matchingOffice = offices.find(office => office.office_location === this.selectedLocation);
       if (matchingOffice) {
         this.officeImage = matchingOffice.office_image.url;
-      } else {
-        this.officeImage = '../../../assets/images/img_n.a.png';
       }
     });
 

@@ -10,7 +10,12 @@
             </div>
         </div>
         <div class="image-wrapper">
-            <img [src]="officeImage" alt="office">
+            <ng-container *ngIf="!(isLoading$ | async); else imageSkeleton">
+                <img [src]="officeImage" alt="office">
+            </ng-container>
+            <ng-template #imageSkeleton>
+                <app-office-image-skeleton></app-office-image-skeleton>
+            </ng-template>
         </div>
         <!-- Contact info -->
         <menu id="contactInformation">

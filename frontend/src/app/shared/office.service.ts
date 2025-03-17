@@ -28,13 +28,12 @@ export class OfficeService {
     }
 
     getAllOffices(): Observable<IOffice[]> {
+        this.loadingSubject.next(true);
         return this.strapiService.getAllOffices().pipe(
             map((response: APIResponseModel) => {
-                return response.data.map((office: IOffice) => {
+                const offices = response.data.map((office: IOffice) => {
                     const officeImage = office.office_image
-                        ? {
-                            url: office.office_image.url
-                        }
+                        ? { url: office.office_image.url }
                         : { url: "../../../assets/images/img_n.a.png" };
 
                     return {
@@ -43,9 +42,13 @@ export class OfficeService {
                         currentTime: this.getCurrentTime(office.office_location)
                     };
                 }).sort((a: IOffice, b: IOffice) => a.office_location.localeCompare(b.office_location));
+
+                this.loadingSubject.next(false);
+                return offices;
             })
         );
     }
+
 
     alignToNextMinute(): void {
         const now = new Date();
