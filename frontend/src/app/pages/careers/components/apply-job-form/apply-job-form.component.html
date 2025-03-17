@@ -40,10 +40,14 @@
                 <div class="image-wrapper">
                     <img [src]="selectedFlagUrl" alt="Flag of {{ selectedCountryName }}" />
                 </div>
-                <div class="country-code" (click)="toggleCountryDropdown()"
+                <!-- <div class="country-code" (click)="toggleCountryDropdown()"
                     (keydown)="handleCountryDropdownKeyDown($event)">
                     {{ selectedCountryCode }}
-                </div>
+                </div> -->
+                <label id="country-code-label" for="country-code">Country Code</label>
+                <input id="country-code" class="country-code" type="text" formControlName="country_code" placeholder="+"
+                    (input)="onCountryCodeInput($event)" aria-labelledby="country-code-label">
+                <label id="phone-label" for="phone">Phone</label>
                 <input id="phone" type="tel" formControlName="phone"
                     placeholder="{{ 'contact.form.phone' | translate }}" aria-labelledby="phone-label"
                     (focus)="onPhoneInputFocus()">

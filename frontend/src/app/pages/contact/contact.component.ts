@@ -52,12 +52,8 @@ export class ContactComponent implements OnInit, AfterViewInit, OnDestroy {
   menuOpen: boolean = false;
   selectedCountryCode: string = '+64';
   private langChangeSubscription!: Subscription;
+  countryCodes: { code: string; country: string }[] = [];
 
-  countryCodes = [
-    { code: '+64', country: 'New Zealand' },
-    { code: '+61', country: 'Australia' },
-    { code: '+81', country: 'Japan' }
-  ]
 
   constructor(
     private titleService: Title,
@@ -184,6 +180,46 @@ export class ContactComponent implements OnInit, AfterViewInit, OnDestroy {
   //     this.selectedCountryName = 'New Zealand';
   //   }
   // }
+
+  onCountryCodeInput(event: Event): void {
+    const inputElement = event.target as HTMLInputElement;
+    let inputCode = inputElement.value.trim();
+
+    if (!inputCode.startsWith('+')) {
+      inputCode = '+' + inputCode;
+      inputElement.value = inputCode;
+    }
+
+    const numericPart = inputCode.slice(1);
+
+    if (numericPart.length === 0) {
+      this.menuOpen = false;
+      this.countryCodes = [];
+      this.selectedFlagUrl = '../../../assets/images/no-flag.png';
+      this.selectedCountryName = 'New Zealand';
+      return;
+    }
+
+    // Filter country codes including input number anywhere
+    this.countryCodes = this.flags
+      .filter(flag => flag.country_code.slice(1).includes(numericPart))
+      .map(flag => ({
+        code: flag.country_code,
+        country: flag.country
+      }));
+
+    this.menuOpen = this.countryCodes.length > 0;
+
+    const exactMatch = this.countryCodes.find(country => country.code === inputCode);
+    if (exactMatch) {
+      this.selectedCountryCode = exactMatch.code;
+      this.selectedFlagUrl = this.getFlagUrl(exactMatch.code);
+      this.selectedCountryName = exactMatch.country;
+    } else {
+      this.selectedFlagUrl = '../../../assets/images/no-flag.png';
+      this.selectedCountryName = 'New Zealand';
+    }
+  }
 
   @HostListener('document:click', ['$event'])
   handleClickOutside(event: MouseEvent): void {
