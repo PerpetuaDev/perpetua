@@ -18,6 +18,7 @@ export class ProjectCardPlusInfoComponent implements OnInit, OnDestroy {
   @Input() visibleProjects: IProject[] = [];
   truncatedText: string = '';
   currentLanguage: string = 'en';
+  hoveredProjectId: string | null = null;
 
   constructor(private router: Router, private translationHelper: TranslationHelper) {
     this.currentLanguage = this.translationHelper.getCurrentLanguage();
@@ -57,5 +58,17 @@ export class ProjectCardPlusInfoComponent implements OnInit, OnDestroy {
       event.preventDefault();
       this.navigateToProject(documentId);
     }
+  }
+
+  onMouseEnterTitle(documentId: string): void {
+    this.hoveredProjectId = documentId;
+  }
+
+  onMouseLeaveTitle(): void {
+    this.hoveredProjectId = null;
+  }
+
+  isHovered(documentId: string): boolean {
+    return this.hoveredProjectId === documentId;
   }
 }

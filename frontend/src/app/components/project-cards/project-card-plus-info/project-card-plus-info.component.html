@@ -1,6 +1,7 @@
 <div class="article-page-container container-fluid">
     <div class="row row-cols-1 row-cols-md-3 custom-gutter" *ngIf="visibleProjects.length > 0; else noProjects">
-        <div class="col" *ngFor="let project of visibleProjects">
+        <div class="col" *ngFor="let project of visibleProjects" (mouseenter)="onMouseEnterTitle(project.documentId)"
+            (mouseleave)="onMouseLeaveTitle()">
             <!-- Image -->
             <div class="image-wrapper" (click)="navigateToProject(project.documentId)"
                 (keydown)="handleKeydown($event, project.documentId)">
@@ -10,10 +11,10 @@
                 <!-- Title -->
                 <div class="title-wrapper" (click)="navigateToProject(project.documentId)"
                     (keydown)="handleKeydown($event, project.documentId)">
-                    <p class="title">{{ project.project_title }}</p>
+                    <p class="title" *ngIf="!isHovered(project.documentId)">{{ project.project_title }}</p>
+                    <p class="content" *ngIf="isHovered(project.documentId) && truncatedText"
+                        [innerHTML]="truncatedText"></p>
                 </div>
-                <!-- First two sentences -->
-                <!-- <p class="content" *ngIf="truncatedText" [innerHTML]="truncatedText"></p> -->
             </div>
         </div>
     </div>

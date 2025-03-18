@@ -1,8 +1,8 @@
 <div *ngIf="!showTitleAsIndustry" class="project-card-container container-fluid">
     <div class="row row-cols-2 row-cols-md-3 custom-gutter">
         <div class="col" *ngFor="let project of projects" (click)="navigateToProject(project.documentId)"
-            (keydown)="onKeyDown($event, project.documentId)" (mouseenter)="onMouseEnterTitle($event)"
-            (mouseleave)="onMouseLeaveTitle($event)">
+            (keydown)="onKeyDown($event, project.documentId)" (mouseenter)="onMouseEnterTitle(project.documentId)"
+            (mouseleave)="onMouseLeaveTitle()">
             <!-- Image -->
             <div class="image-wrapper">
                 <img [src]="project.thumbnail_image.url" alt="project.project_title" loading="lazy"
@@ -10,7 +10,9 @@
             </div>
             <!-- Title -->
             <div class="title-wrapper">
-                <p *ngIf="!showTitleAsIndustry" class="title">{{ project.project_title }}</p>
+                <p class="title" *ngIf="!isHovered(project.documentId)">{{ project.project_title }}</p>
+                <p class="content" *ngIf="isHovered(project.documentId) && truncatedText" [innerHTML]="truncatedText">
+                </p>
             </div>
         </div>
     </div>

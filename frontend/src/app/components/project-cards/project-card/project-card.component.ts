@@ -17,12 +17,11 @@ export class ProjectCardComponent implements OnInit {
   @Input() projects: IProject[] = [];
   @Input() showTitleAsIndustry: boolean = false;
   @Input() isLoading: boolean = false;
-
   @Output() industrySelected = new EventEmitter<string>();
-
   @ViewChildren('titleWrapper') titleWrappers!: QueryList<ElementRef>;
-
   currentIndustry: string = '';
+  truncatedText: string = '';
+  hoveredProjectId: string | null = null;
 
   constructor(private router: Router) { }
 
@@ -30,6 +29,14 @@ export class ProjectCardComponent implements OnInit {
     if (this.projects.length > 0) {
       this.isLoading = false;
     }
+
+    this.projects.forEach((project: IProject) => {
+      if (project.project_description) {
+        const words = project.project_description.split(' ');
+        const truncatedWords = words.slice(0, 27).join(' ');
+        this.truncatedText = truncatedWords; // + ' ...'
+      }
+    })
 
     document.documentElement.scrollTo({ top: 0, behavior: 'instant' });
     document.body.scrollTo({ top: 0, behavior: 'instant' });
@@ -56,24 +63,20 @@ export class ProjectCardComponent implements OnInit {
     this.isLoading = false;
   }
 
-  onMouseEnterTitle(event: MouseEvent): void {
-    const targetElement = (event.currentTarget as HTMLElement).querySelector('.title-wrapper') as HTMLElement;
-
-    if (targetElement && this.isTextOverflowing(targetElement)) {
-      targetElement.classList.add('expanded');
-    }
-  }
-
-  onMouseLeaveTitle(event: MouseEvent): void {
-    const targetElement = (event.currentTarget as HTMLElement).querySelector('.title-wrapper') as HTMLElement;
-
-    if (targetElement) {
-      targetElement.classList.remove('expanded');
-    }
-  }
-
   private isTextOverflowing(element: HTMLElement): boolean {
     return element.scrollHeight > element.clientHeight;
+  }
+
+  onMouseEnterTitle(documentId: string): void {
+    this.hoveredProjectId = documentId;
+  }
+
+  onMouseLeaveTitle(): void {
+    this.hoveredProjectId = null;
+  }
+
+  isHovered(documentId: string): boolean {
+    return this.hoveredProjectId === documentId;
   }
 
   onIndustryCardClick(industry: string): void {

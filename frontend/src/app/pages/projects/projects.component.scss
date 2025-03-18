@@ -91,8 +91,33 @@ h1 {
     padding: 77px 0 47px;
 }
 
-.back-toindustry-button {
-    background-color: red;
+.back-to-industry-button {
+    height: 25px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    color: #0e0e01;
+    margin-left: 15px;
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    font-family: 'Larsseit' !important;
+    font-size: 1.5rem;
+    border-bottom: 1.5px solid #0e0e01;
+
+    i {
+        font-size: 2rem;
+        margin-left: -6px;
+        transition: transform 0.1s ease;
+    }
+
+    &:hover {
+        color: #a8a8a8;
+    }
+
+    &:hover .bi-arrow-left-short {
+        color: #a8a8a8;
+    }
 }
 
 .separator {

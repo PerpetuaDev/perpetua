@@ -61,7 +61,8 @@
                 <div *ngIf="!showAllIndustries && selectedIndustry && industryProjects.length">
                     <!-- Button to return to all industries -->
                     <h1 class="industry-title">{{ selectedIndustry }}</h1>
-                    <button class="back-toindustry-button" (click)="showIndustryCards()">
+                    <button class="back-to-industry-button" (click)="showIndustryCards()">
+                        <i class="bi bi-arrow-left-short"></i>
                         Back to industries
                     </button>
                     <div class="">
