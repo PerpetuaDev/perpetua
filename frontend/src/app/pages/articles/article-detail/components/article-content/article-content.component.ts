@@ -68,12 +68,6 @@ export class ArticleContentComponent implements OnInit, OnChanges, OnDestroy {
       const tempElement = document.createElement('div');
       tempElement.innerHTML = parsedContent;
 
-
-      // const content = this.article.content.trim();
-      // const tempElement = document.createElement('div');
-      // tempElement.innerHTML = content;
-
-
       const textContent = tempElement.textContent || '';
       if (textContent.length > 0) {
         this.firstLetter = textContent.charAt(0).toUpperCase();
@@ -82,6 +76,22 @@ export class ArticleContentComponent implements OnInit, OnChanges, OnDestroy {
           /<img\s+([^>]*?)>/g,
           '<img style="width: 100%; height: auto; max-width: 100%;" $1>'
         );
+
+        styledContent = styledContent.replace(
+          /\*\*(\s*[^*]+?)\*\*/g,
+          '<strong>$1</strong>'
+        );
+
+        styledContent = styledContent.replace(
+          /\~\~(\s*[^*]+?)\~\~/g,
+          '<del>$1</del>'
+        );
+
+        styledContent = styledContent.replace(
+          /\_(\s*[^*]+?)\_/g,
+          '<em>$1</em>'
+        );
+
         const words = styledContent.split(/\s+/);
         for (let i = words.length - 1; i >= 0; i--) {
           if (words[i].includes('</p>')) {

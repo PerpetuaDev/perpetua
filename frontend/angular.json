@@ -36,19 +36,11 @@
             "styles": [
               "src/styles.scss",
               "./node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "./node_modules/bootstrap-icons/font/bootstrap-icons.css",
-              "./node_modules/prismjs/themes/prism-okaidia.css",
-              "./node_modules/prismjs/plugins/line-numbers/prism-line-numbers.css",
-              "./node_modules/emoji-toolkit/extras/css/joypixels.min.css"
+              "./node_modules/bootstrap-icons/font/bootstrap-icons.css"
             ],
             "scripts": [
               "./node_modules/bootstrap/dist/js/bootstrap.min.js",
-              "./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
-              "./node_modules/prismjs/prism.js",
-              "./node_modules/prismjs/components/prism-typescript.min.js",
-              "./node_modules/prismjs/components/prism-javascript.min.js",
-              "./node_modules/prismjs/plugins/line-numbers/prism-line-numbers.js",
-              "./node_modules/emoji-toolkit/lib/js/joypixels.min.js"
+              "./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
             ]
           },
           "configurations": {
