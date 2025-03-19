@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { marked } from 'marked';
 import { Observable } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
+import { MarkdownModule, MarkdownService } from 'ngx-markdown';
 // Components
 import { ShareArticleButtonComponent } from '../../../../../components/buttons/share-article-button/share-article-button.component';
 // Services
@@ -16,7 +17,7 @@ import { TranslationHelper } from '../../../../../shared/translation-helper';
 @Component({
   selector: 'app-article-content',
   standalone: true,
-  imports: [CommonModule, ShareArticleButtonComponent, TranslateModule],
+  imports: [CommonModule, ShareArticleButtonComponent, TranslateModule, MarkdownModule],
   templateUrl: './article-content.component.html',
   styleUrl: './article-content.component.scss'
 })
@@ -28,7 +29,9 @@ export class ArticleContentComponent implements OnInit, OnChanges, OnDestroy {
   moreArticles$: Observable<IArticle[]>;
   sanitizedContent: SafeHtml | undefined;
   restOfContent: SafeHtml | undefined;
+  // restOfContent: string = '';
   firstLetter: string = '';
+  markdownService = inject(MarkdownService);
   articleService: ArticleService = inject(ArticleService);
   currentLanguage: string = 'en';
 
@@ -58,14 +61,18 @@ export class ArticleContentComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   async parseContent(): Promise<void> {
-    if (!this.article?.content) {
-      return;
-    }
+    if (!this.article?.content) return;
 
     try {
       const parsedContent = await marked.parse(this.article.content);
       const tempElement = document.createElement('div');
       tempElement.innerHTML = parsedContent;
+
+
+      // const content = this.article.content.trim();
+      // const tempElement = document.createElement('div');
+      // tempElement.innerHTML = content;
+
 
       const textContent = tempElement.textContent || '';
       if (textContent.length > 0) {
@@ -90,8 +97,8 @@ export class ArticleContentComponent implements OnInit, OnChanges, OnDestroy {
         styledContent = styledContent.replace(textContent, remainingText);
 
         const finalContent = `${firstTwoWords} ${remainingText}`.substring(4);
-
         this.restOfContent = this.sanitizer.bypassSecurityTrustHtml(finalContent);
+        // this.restOfContent = finalContent;
         this.cdr.detectChanges();
       }
     } catch (error) {

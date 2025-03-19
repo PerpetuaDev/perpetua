@@ -113,6 +113,22 @@ section {
                 font-size: 1.5rem;
                 margin-top: 60px;
 
+                strong {
+                    font-weight: bold;
+                }
+
+                em {
+                    font-style: italic;
+                }
+
+                del {
+                    text-decoration: line-through;
+                }
+
+                u {
+                    text-decoration: underline;
+                }
+
                 p {
                     display: inline;
                 }

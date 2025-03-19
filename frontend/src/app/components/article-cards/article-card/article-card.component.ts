@@ -17,6 +17,9 @@ export class ArticleCardComponent implements OnInit {
   @Input() articles: IArticle[] = [];
   @Input() isLoading: boolean = false;
   @ViewChildren('titleWrapper') titleWrappers!: QueryList<ElementRef>;
+  truncatedText: string = '';
+  currentLanguage: string = 'en';
+  hoveredArticleId: string | null = null;
 
   constructor(private router: Router) { }
 
@@ -24,6 +27,14 @@ export class ArticleCardComponent implements OnInit {
     if (this.articles.length > 0) {
       this.isLoading = false;
     }
+
+    this.articles.forEach((article: IArticle) => {
+      if (article.sub_heading) {
+        const words = article.sub_heading.split(' ');
+        const truncatedWords = words.slice(0, 20).join(' ');
+        this.truncatedText = truncatedWords; // + ' ...'
+      }
+    })
   }
 
   scrollToTop(): void {
@@ -47,19 +58,15 @@ export class ArticleCardComponent implements OnInit {
     this.isLoading = false;
   }
 
-  onMouseEnterTitle(event: Event): void {
-    const targetElement = (event.target as HTMLElement).querySelector('.title-wrapper') as HTMLElement;
-
-    if (targetElement) {
-      targetElement.classList.remove('expanded');
-    }
+  onMouseEnterTitle(documentId: string): void {
+    this.hoveredArticleId = documentId;
   }
 
-  onMouseLeaveTitle(event: Event): void {
-    const targetElement = (event.target as HTMLElement).querySelector('.title-wrapper') as HTMLElement;
+  onMouseLeaveTitle(): void {
+    this.hoveredArticleId = null;
+  }
 
-    if (targetElement) {
-      targetElement.classList.remove('expanded');
-    }
+  isHovered(documentId: string): boolean {
+    return this.hoveredArticleId === documentId;
   }
 }
