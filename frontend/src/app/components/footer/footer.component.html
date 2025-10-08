@@ -19,4 +19,23 @@
         <!-- Language option -->
         <app-language-footer></app-language-footer>
     </div>
+
+    <!-- Bottom parts for smartphone -->
+    <div class="bottom-container-smartphone">
+        <!-- Logo -->
+        <div class="logo-wrapper">
+            <img src="../../../assets/images/footer-logo.png" alt="perpetua-software-footer-logo" />
+        </div>
+        <!-- Term/privacy -->
+        <div class="link-bottom-wrapper">
+            <span class="link-bottom" routerLink="/terms">{{ 'footer.terms' | translate }}</span>
+            <span class="link-bottom" routerLink="/privacy">{{ 'footer.privacy' | translate }}</span>
+            <!-- Language option -->
+            <app-language-footer></app-language-footer>
+        </div>
+        <!-- Copyright -->
+        <p>Copyright <span class="smaller-symbol">&#169;</span> Perpetua Software. All rights reserved.</p>
+    </div>
+
+
 </section>

@@ -8,7 +8,6 @@ import { Observable } from 'rxjs';
 // Components
 import { ClientBlockAboutComponent } from '../../components/client-cards/client-block-about/client-block-about.component';
 import { LocationCardComponent } from './components/location-card/location-card.component';
-import { StaffCardComponent } from '../../components/staff-card/staff-card.component';
 import { CareerCardComponent } from './components/career-card/career-card.component';
 // Services
 import { StrapiService } from '../../api/strapi.service';
@@ -24,7 +23,6 @@ import { OfficeService } from '../../shared/office.service';
     CommonModule,
     ClientBlockAboutComponent,
     LocationCardComponent,
-    StaffCardComponent,
     CareerCardComponent,
     RouterLink,
     TranslateModule

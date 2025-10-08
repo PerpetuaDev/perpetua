@@ -185,13 +185,14 @@
     }
 
     .custom-gutter {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr);
         row-gap: 115px;
         column-gap: 20px;
     }
 
     .col {
-        width: 200px;
-        min-height: 217px;
+        width: 100%;
     }
 
     .card-container {
@@ -224,14 +225,14 @@
 
             .title {
                 font-family: 'Larsseit-500' !important;
-                font-size: 1.25rem;
+                font-size: 1rem;
                 color: #0e0e01;
                 margin: 0;
             }
 
             .bi-chevron-down {
                 color: #0e0e01;
-                font-size: 1.125rem;
+                font-size: 1rem;
                 margin-left: 5px;
                 padding-top: 5px;
                 margin-right: -1.3px;
@@ -261,7 +262,7 @@
             .description {
                 padding: 50px 0 44.5px 0;
                 font-family: 'Sohne' !important;
-                font-size: 1.5rem;
+                font-size: 1rem;
                 color: #0e0e01;
                 margin: 0;
             }
@@ -283,7 +284,7 @@
 
                     p {
                         font-family: 'Sohne' !important;
-                        font-size: 1.5rem;
+                        font-size: 1rem;
                         color: #0e0e01;
                         margin: 0;
                     }

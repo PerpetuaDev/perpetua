@@ -6,7 +6,6 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 // Components
-import { CallActionComponent } from '../../../components/call-action/call-action.component';
 import { MoreProjectButtonComponent } from '../../../components/buttons/more-project-button/more-project-button.component';
 import { StartProjectButtonComponent } from '../../../components/buttons/start-project-button/start-project-button.component';
 import { ServiceHeaderSkeletonComponent } from '../../../components/skeletons/service-header-skeleton/service-header-skeleton.component';
@@ -24,7 +23,6 @@ import { IProject } from '../../../../util/interfaces';
   imports: [
     CommonModule,
     TranslateModule,
-    CallActionComponent,
     MoreProjectButtonComponent,
     StartProjectButtonComponent,
     ServiceHeaderSkeletonComponent,

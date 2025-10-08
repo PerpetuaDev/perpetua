@@ -187,6 +187,12 @@ h1 {
   margin: 0;
 }
 
+@media screen and (max-width: 768px) {
+  h1 {
+    font-size: 1.75rem;
+  }
+}
+
 /* Safari Only */
 @supports (-webkit-hyphens: none) and (not (-ms-ime-align: auto)) {
 
@@ -197,6 +203,12 @@ h1 {
 
   body {
     padding-right: 0 !important;
+  }
+
+  @media screen and (max-width: 768px) {
+    h1 {
+      font-size: 1.75rem;
+    }
   }
 }
 
@@ -210,5 +222,12 @@ h1 {
 
   body {
     padding-right: 0 !important;
+  }
+
+
+  @media screen and (max-width: 768px) {
+    h1 {
+      font-size: 1.75rem;
+    }
   }
 }

@@ -43,4 +43,65 @@ section {
             }
         }
     }
+
+    .bottom-container-smartphone {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    section {
+        width: 100%;
+        // height: 100vh;
+        background-color: #0e0e01;
+        color: #ffffff;
+        padding: 62px 0 66px;
+
+        .bottom-container {
+            display: none;
+        }
+
+        .bottom-container-smartphone {
+            display: flex;
+            flex-direction: column;
+            justify-content: start;
+            align-items: center;
+            font-family: 'Larsseit', sans-serif;
+            font-size: 1rem;
+            padding: 0 15px;
+
+            .logo-wrapper {
+                width: auto;
+                height: auto;
+
+                img {
+                    max-width: 350px;
+                    height: auto;
+                }
+            }
+
+            p {
+                margin: 50px 0 0;
+            }
+
+            .smaller-symbol {
+                font-size: 1rem;
+                margin-top: -20px;
+                margin-bottom: 20px;
+            }
+
+            .link-bottom-wrapper {
+                display: flex;
+                justify-content: center;
+                margin-top: 18px;
+                margin-left: -20px;
+
+                .link-bottom {
+                    padding: 3px 5px;
+                    margin: 0 30px 0 0;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
 }

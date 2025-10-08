@@ -6,7 +6,6 @@ import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 // Components
-import { ArticleCardPlusInfoComponent } from '../../../../../components/article-cards/article-card-plus-info/article-card-plus-info.component';
 // Services
 import { ArticleService } from '../../../../../shared/article.service';
 import { IArticle } from '../../../../../../util/interfaces';
@@ -15,7 +14,7 @@ import { TranslationHelper } from '../../../../../shared/translation-helper';
 @Component({
   selector: 'app-more-articles',
   standalone: true,
-  imports: [CommonModule, ArticleCardPlusInfoComponent, TranslateModule],
+  imports: [CommonModule, TranslateModule],
   templateUrl: './more-articles.component.html',
   styleUrl: './more-articles.component.scss'
 })

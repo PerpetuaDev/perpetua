@@ -91,3 +91,99 @@
         }
     }
 }
+
+@media screen and (max-width: 768px) {
+    .info-container {
+        position: relative;
+        margin-left: 15px;
+    }
+
+    .select-trigger {
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        border: none;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        gap: 7px;
+        background-color: #0e0e01;
+        cursor: pointer;
+
+        .country-name,
+        .bi-chevron-down {
+            height: 46px;
+            margin: 0;
+            color: #ffffff;
+            font-family: 'Larsseit' !important;
+            font-size: 1.5rem;
+        }
+
+        .bi-chevron-down {
+            color: #a7a7a7;
+        }
+
+        .country-name.visible {
+            color: #ffffff;
+        }
+
+        .bi-chevron-down.invisible {
+            display: none;
+        }
+    }
+
+    /* Info Section (Email & Phone) */
+    .info-wrapper {
+        display: flex;
+        justify-content: start;
+        align-items: start;
+        font-family: 'Sohne-500' !important;
+        font-size: 1.5rem;
+        padding: 0;
+        gap: 10px;
+
+        p {
+            margin: 20px 20px 50px 0;
+        }
+    }
+
+    .dropdown-menu {
+        width: 100%;
+        height: 142.88px;
+        background-color: #0e0e01;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        justify-content: start;
+        align-items: start;
+        padding: 0;
+        margin: 0;
+
+        .dropdown-menu-item {
+            color: #a7a7a7;
+            font-family: 'Larsseit' !important;
+            font-size: 1.5rem;
+            background-color: transparent;
+            cursor: pointer;
+            border: none;
+            margin-bottom: 15px;
+
+            &:hover {
+                color: #ffffff;
+            }
+        }
+
+        .close-icon {
+            color: #a7a7a7;
+            font-family: 'Larsseit' !important;
+            font-size: 1.5rem;
+            background-color: transparent;
+            cursor: pointer;
+            margin-bottom: 15px;
+
+            &:hover {
+                color: #ffffff;
+            }
+        }
+    }
+}

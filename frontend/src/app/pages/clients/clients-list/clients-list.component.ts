@@ -5,8 +5,6 @@ import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
 // Components
-import { CallActionComponent } from '../../../components/call-action/call-action.component';
-import { FooterComponent } from '../../../components/footer/footer.component';
 // Services
 import { ClientService } from '../../../shared/client.service';
 import { TranslationHelper } from '../../../shared/translation-helper';
@@ -15,7 +13,7 @@ import { IClient } from '../../../../util/interfaces';
 @Component({
   selector: 'app-clients-list',
   standalone: true,
-  imports: [CommonModule, TranslateModule, CallActionComponent, FooterComponent],
+  imports: [CommonModule, TranslateModule],
   templateUrl: './clients-list.component.html',
   styleUrl: './clients-list.component.scss'
 })

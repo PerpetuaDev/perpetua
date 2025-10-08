@@ -99,3 +99,100 @@ h1 {
         }
     }
 }
+
+@media screen and (max-width: 768px) {
+    h1 {
+        margin: 90px 0 60.75px 15px;
+        height: auto;
+    }
+
+    .sort-button-container {
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+
+        .sort-button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #0e0e01;
+            padding: 0;
+            margin: 0 15px 0px 20px;
+            border: none;
+            background-color: transparent;
+            font-family: 'Larsseit' !important;
+            font-size: 1rem;
+
+            &.selected,
+            &:hover {
+                color: #a8a8a8;
+            }
+
+            .bi-chevron-down {
+                font-size: 1rem;
+                margin-left: 5px;
+                padding-top: 5px;
+                transition: transform 0.1s ease;
+            }
+
+            .bi-arrow-right-short {
+                font-size: 1.5rem;
+                margin-left: 2.2px;
+                margin-right: -4.5px;
+                padding-top: 5px;
+                transition: transform 0.1s ease;
+            }
+
+            &:hover .bi-chevron-down {
+                color: #a8a8a8;
+            }
+
+            &:hover .bi-arrow-right-short {
+                color: #a8a8a8;
+            }
+
+            .bi-x {
+                color: #a8a8a8;
+                font-size: 1.5rem;
+                margin-left: 5px;
+                padding-top: 5px;
+            }
+        }
+    }
+
+    .footer-button-wrapper {
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+
+        .footer-button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #0e0e01;
+            padding: 0;
+            margin: 0 9px 1.7px 120px;
+            border: none;
+            background-color: transparent;
+            font-family: 'Larsseit-500' !important;
+            font-size: 1.5rem;
+
+            .bi-arrow-down-short {
+                font-size: 2rem;
+                margin-left: 0.5px;
+                padding-top: 5px;
+                transition: transform 0.1s ease;
+            }
+
+            &:hover {
+                color: #a8a8a8;
+            }
+
+            &:hover .bi-arrow-down-short {
+                color: #a8a8a8;
+            }
+        }
+    }
+}

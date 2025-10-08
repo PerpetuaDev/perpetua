@@ -52,3 +52,40 @@
     cursor: pointer;
     transition: box-shadow 0.1s ease;
 }
+
+@media screen and (max-width: 768px) {
+    .image-wrapper {
+        min-width: 145px;
+        min-height: 145px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-left: 2px solid #0e0e01;
+        background-color: #ffffff;
+        cursor: pointer;
+        transition: box-shadow 0.1s ease;
+
+        &:hover {
+            z-index: 100;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        img {
+            width: 145px;
+            height: auto;
+            object-fit: cover;
+        }
+    }
+
+    .empty-space {
+        min-width: 145px;
+        min-height: 145px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-left: 2px solid #0e0e01;
+        background-color: #ffffff;
+        cursor: pointer;
+        transition: box-shadow 0.1s ease;
+    }
+}

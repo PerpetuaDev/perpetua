@@ -22,3 +22,30 @@
         }
     }
 }
+
+@media screen and (max-width: 768px) {
+    .text-container {
+        padding: 90px 0 100px 40px;
+        border-bottom: 2px solid #0e0e01;
+
+        .title {
+            font-family: 'Larsseit-500' !important;
+            font-size: 2rem;
+            color: #0e0e01;
+        }
+
+        .content {
+            width: 90%;
+
+            p {
+                font-family: 'Larsseit' !important;
+                font-size: 1rem;
+                color: #0e0e01;
+            }
+
+            a {
+                color: #0e0e01;
+            }
+        }
+    }
+}

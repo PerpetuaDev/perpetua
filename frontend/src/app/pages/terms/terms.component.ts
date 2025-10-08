@@ -2,12 +2,11 @@ import { Meta, Title } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { TranslationHelper } from '../../shared/translation-helper';
-import { FooterComponent } from '../../components/footer/footer.component';
 
 @Component({
   selector: 'app-terms',
   standalone: true,
-  imports: [FooterComponent, TranslateModule],
+  imports: [TranslateModule],
   templateUrl: './terms.component.html',
   styleUrl: './terms.component.scss'
 })
