@@ -10,7 +10,7 @@ export class TranslationHelper {
     private subscription: Subscription;
 
     constructor(private translate: TranslateService) {
-        this.currentLanguage = this.translate.currentLang || this.translate.getDefaultLang();
+        this.currentLanguage = this.translate.currentLang ?? this.translate.getDefaultLang() ?? 'en';
         this.subscription = this.translate.onLangChange.subscribe(event => {
             this.currentLanguage = event.lang;
         });
