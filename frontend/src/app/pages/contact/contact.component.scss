@@ -528,7 +528,7 @@ p {
             width: auto;
             height: 38px;
             font-family: 'Sohne', sans-serif;
-            font-size: 1.5rem;
+            font-size: 1.25rem;
             padding: 5px 20px;
             transition: right 0.3s ease-in-out;
         }
@@ -577,15 +577,14 @@ p {
 
                 label {
                     display: none;
-
                 }
 
                 input,
                 textarea {
                     width: 100%;
-                    min-height: 38px;
+                    height: 30px;
                     font-family: 'Sohne', sans-serif;
-                    font-size: 1rem;
+                    font-size: 1.25rem;
                     color: #0e0e01;
                     border: none;
                     border-bottom: 2px solid #0e0e01;
@@ -605,11 +604,10 @@ p {
                     }
                 }
 
-
                 .phone-wrapper {
                     display: flex;
                     gap: 10px;
-                    height: 38px;
+                    height: 30px;
                     margin-bottom: 6.6px;
 
                 }
@@ -674,7 +672,7 @@ p {
                         max-width: 50px;
                         padding-top: 3.5px;
                         font-family: 'Sohne' !important;
-                        font-size: 1.5rem;
+                        font-size: 1.25rem;
                         text-align: right;
                         border-bottom: 2px solid #0e0e01;
                     }
@@ -712,7 +710,7 @@ p {
                 }
 
                 .first-line {
-                    max-height: 38px;
+                    max-height: 30px;
                     overflow: hidden;
                     white-space: nowrap;
                     text-overflow: ellipsis;
@@ -720,37 +718,37 @@ p {
 
                 ::placeholder {
                     font-family: 'Sohne', sans-serif;
-                    font-size: 1.5rem;
+                    font-size: 1.25rem;
                     color: #0e0e01;
                 }
 
                 m ::-webkit-input-placeholder {
                     font-family: 'Sohne', sans-serif;
-                    font-size: 1.5rem;
+                    font-size: 1.25rem;
                     color: #0e0e01;
                 }
 
                 :-moz-placeholder {
                     font-family: 'Sohne', sans-serif;
-                    font-size: 1.5rem;
+                    font-size: 1.25rem;
                     color: #0e0e01;
                 }
 
                 ::-moz-placeholder {
                     font-family: 'Sohne', sans-serif;
-                    font-size: 1.5rem;
+                    font-size: 1.25rem;
                     color: #0e0e01;
                 }
 
                 :-ms-input-placeholder {
                     font-family: 'Sohne', sans-serif;
-                    font-size: 1.5rem;
+                    font-size: 1.25rem;
                     color: #0e0e01;
                 }
 
                 ::-ms-input-placeholder {
                     font-family: 'Sohne', sans-serif;
-                    font-size: 1.5rem;
+                    font-size: 1.25rem;
                     color: #0e0e01;
                 }
             }
@@ -773,10 +771,10 @@ p {
                 border: none;
                 background-color: transparent;
                 font-family: 'Sohne-500' !important;
-                font-size: 1.75rem;
+                font-size: 1.5rem;
 
                 i {
-                    font-size: 2rem;
+                    font-size: 1.75rem;
                     margin-left: 0.5px;
                     padding-top: 5px;
                     transition: transform 0.1s ease;
