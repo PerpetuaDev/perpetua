@@ -5,7 +5,8 @@ h1 {
 .ampersand {
     font-family: 'Sohne' !important;
     font-weight: 600;
-    font-size: 2.5rem;
+    font-size: 2.25rem;
+    color: #000000;
 }
 
 .sort-button-container {
@@ -149,6 +150,163 @@ h1 {
 
         &:hover .bi-arrow-right-short {
             color: #a8a8a8;
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    h1 {
+        margin: 90px 15px 60px;
+    }
+
+    .ampersand {
+        font-family: 'Sohne' !important;
+        font-weight: 600;
+        font-size: 1.5rem;
+    }
+
+    .sort-button-container {
+        width: 100%;
+        height: 35px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+
+        .sort-button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #0e0e01;
+            padding: 0;
+            margin: 0 15px 0 20px;
+            border: none;
+            background-color: transparent;
+            font-family: 'Larsseit' !important;
+            font-size: 1rem;
+
+            &:last-child {
+                margin: 0 10px;
+            }
+
+            &.selected,
+            &:hover {
+                color: #a8a8a8;
+            }
+
+            .bi-chevron-down {
+                font-size: 1rem;
+                margin-left: 5px;
+                padding-top: 5px;
+                transition: transform 0.1s ease;
+            }
+
+            .bi-arrow-down-short {
+                font-size: 1.5rem;
+                margin-left: 2.2px;
+                margin-right: -4.5px;
+                padding-top: 5px;
+                transform: rotate(-45deg);
+
+            }
+
+            &:hover .bi-chevron-down {
+                color: #a8a8a8;
+            }
+
+            &:hover .bi-arrow-right-short {
+                color: #a8a8a8;
+            }
+
+            .bi-x {
+                color: #a8a8a8;
+                font-size: 1.5rem;
+                margin-left: 5px;
+                padding-top: 5px;
+            }
+        }
+    }
+
+    .staff-container {
+        padding: 20px 0 56.3px;
+        margin: 0;
+
+        .sorted-cards-wrapper {
+            padding-bottom: 30px;
+            border-bottom: 2px solid #0e0e01;
+
+            &:last-child {
+                border: none;
+            }
+        }
+
+        .sorting-title {
+            padding: 40px 0 30px 15px;
+            margin: 0;
+            font-family: 'Sohne-500' !important;
+            font-size: 1.5rem;
+            color: #000000;
+        }
+
+        .custom-gutter {
+            padding: 0 0 0 15px;
+            margin: 0;
+        }
+
+        .col {
+            padding: 0;
+            margin: 0;
+        }
+    }
+
+    .separator {
+        display: block;
+        width: 100%;
+        height: 2px;
+        background-color: #0e0e01;
+        margin: 0;
+    }
+
+    .separator-bottom {
+        margin-bottom: 46px;
+    }
+
+    .footer-button-wrapper {
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+
+        .footer-button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #0e0e01;
+            margin-left: 120px;
+            margin-right: 15px;
+            border: none;
+            background-color: transparent;
+            font-family: 'Sohne-500' !important;
+            font-size: 1.75rem;
+
+            i {
+                font-size: 2rem;
+                margin-left: 5px;
+                padding-top: 5px;
+            }
+
+            .bi-arrow-right-short {
+                transform: rotateZ(-45deg);
+                transition: transform 0.1s ease;
+
+            }
+
+            &:hover {
+                color: #a8a8a8;
+            }
+
+            &:hover .bi-arrow-right-short {
+                color: #a8a8a8;
+            }
         }
     }
 }

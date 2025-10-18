@@ -29,3 +29,25 @@ i {
 .footer-button:hover .bi-arrow-right-short {
     color: #a8a8a8;
 }
+
+@media screen and (max-width: 768px) {
+    .footer-button {
+        display: flex;
+        justify-content: end;
+        align-items: center;
+        color: #0e0e01;
+        padding: 0;
+        margin: 0 7px 0px 10px;
+        border: none;
+        background-color: transparent;
+        font-family: 'Sohne-500' !important;
+        font-size: 1.25rem;
+        width: 130px;
+    }
+
+    i {
+        font-size: 1.75rem;
+        margin-left: 0px;
+        padding-top: 5px;
+    }
+}

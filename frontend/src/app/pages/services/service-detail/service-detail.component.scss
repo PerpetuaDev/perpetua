@@ -186,8 +186,6 @@ section {
     h1 {
         margin: 77px 0 77px 105px;
     }
-
-    .projects-wrapper {}
 }
 
 .footer-button-wrapper {
@@ -197,4 +195,223 @@ section {
     align-items: center;
     margin-top: 53px;
     border-bottom: 2px solid #0e0e01;
+}
+
+@media screen and (max-width: 768px) {
+    section {
+        width: 100%;
+
+        p {
+            margin: 0;
+            font-family: 'Sohne' !important;
+            font-size: 1.5rem;
+            color: #0e0e01;
+        }
+
+        .header-title {
+            font-family: 'Larsseit-500' !important;
+            font-size: 2rem;
+            color: #000000;
+        }
+    }
+
+    .header-container {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        padding: 80px 15px 0;
+        border-bottom: 2px solid #000000;
+
+        .title-wrapper {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            cursor: pointer;
+            margin: 0 0 47px 0;
+
+            .contact-link-wrapper {
+                width: fit-content;
+                height: 28px;
+                display: flex;
+                justify-content: end;
+                align-items: start;
+                text-align: right;
+                cursor: pointer;
+                border-bottom: 2px solid #000000;
+                margin-top: 20px;
+
+                .link {
+                    color: #000000;
+                    font-family: 'Larsseit';
+                    font-size: 1.25rem;
+                    transition: color 0.2s ease;
+                }
+
+                .bi-arrow-up-short {
+                    font-size: 1.75rem;
+                    margin-right: -7px;
+                    transform: rotate(45deg) translateY(-3px);
+                    transition: color 0.2s ease;
+                }
+
+                &:hover {
+                    .link {
+                        color: #a8a8a8;
+                    }
+
+                    .bi-arrow-up-short {
+                        color: #a8a8a8;
+                    }
+                }
+
+            }
+        }
+
+        .image-cover {
+            padding: 0;
+            width: 100%;
+            height: 300px;
+            background-color: #898989;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+
+        .service-explanation-wrapper {
+            color: #0E0E01;
+            max-width: 670px;
+
+            .title {
+                font-family: 'Sohne-500';
+                font-size: 1.5rem;
+                margin: 50px 0 25px;
+            }
+
+            .explanation {
+                font-family: 'Sohne';
+                font-size: 1.25rem;
+                margin-bottom: 80px;
+            }
+        }
+    }
+
+    .capabilities-container {
+        .header-title {
+            margin: 77px 15px;
+        }
+
+        .row {
+            --bs-gutter-x: 30px;
+            --bs-gutter-y: 30px;
+            padding-left: 15px;
+            padding-right: 15px;
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+        .benefit-detail-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: start;
+            padding: 0;
+            margin: 0 0 30px;
+            max-width: none;
+
+            .icon-cover {
+                width: 30px;
+                height: auto;
+                margin-bottom: 15px;
+
+                img {
+                    width: 100%;
+                    height: auto;
+                    contain: cover;
+                }
+            }
+
+            .description-cover {
+                .process-title {
+                    color: #0E0E01;
+                    font-family: Larsseit-500;
+                    font-size: 1.25rem;
+                    margin-bottom: 20px;
+                    border-bottom: 2px solid #0E0E01;
+                }
+
+                .separator {
+                    width: 100%;
+                    height: 2px;
+                    background-color: #0E0E01;
+                }
+
+                .process-description {
+                    color: #0E0E01;
+                    font-family: Sohne;
+                    font-size: 1rem;
+                    margin: 0;
+                }
+            }
+        }
+    }
+
+    .technologies-container {
+        padding: 0 15px 60px;
+        border-bottom: 2px solid #000000;
+
+        .header-wrapper {
+            h1 {
+                padding: 50px 0;
+                margin: 0;
+            }
+
+            .sub-header {
+                margin: 0 0 40px;
+                font-size: 1.25rem;
+            }
+        }
+
+        .logo-container {
+            width: 100%;
+            height: auto;
+            padding: 0 0 0 10px;
+            margin: 0;
+
+            .row {
+                width: 100%;
+                row-gap: 20px;
+            }
+
+            .col {
+                justify-content: center;
+                align-items: center;
+                padding: 0 5px 0 0;
+
+                img {
+                    width: auto;
+                    max-height: 18px;
+                    object-fit: contain;
+                }
+            }
+        }
+    }
+
+    .selected-projects-container {
+        h1 {
+            margin: 50px 15px;
+        }
+    }
+
+    .footer-button-wrapper {
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        margin-top: 53px;
+        border-bottom: 2px solid #0e0e01;
+    }
 }

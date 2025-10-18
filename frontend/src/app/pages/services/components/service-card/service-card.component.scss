@@ -98,3 +98,116 @@
         border-bottom: 2px solid #0e0e01;
     }
 }
+
+@media screen and (max-width: 768px) {
+    .service-container {
+        border-bottom: 2px solid #0e0e01;
+
+        p {
+            margin: 0;
+            font-family: 'Sohne' !important;
+            font-size: 1rem;
+            color: #0e0e01;
+        }
+
+        .row {
+            padding: 0;
+            margin: 0;
+        }
+
+        .col {
+            box-sizing: border-box;
+            height: 230px;
+            padding: 15px;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border-top: 2px solid #0e0e01;
+            border-right: 2px solid #0e0e01;
+            cursor: pointer;
+
+            &:nth-child(2n) {
+                border-right: none;
+            }
+
+            &:nth-child(3n) {
+                border-right: 2px solid #0e0e01;
+            }
+
+            &:nth-child(6n) {
+                border-right: none;
+            }
+
+            &:hover .service-text-wrapper .service-description {
+                opacity: 1;
+            }
+
+            .service-text-wrapper {
+
+                .service-title {
+                    font-family: 'Larsseit-500' !important;
+                    font-size: 1rem;
+                    color: #0e0e01;
+                    margin-bottom: 10px;
+                }
+
+                .service-description {
+                    width: 150px;
+                    height: 50px;
+                    opacity: 0;
+                    transition: opacity 0.1s ease-in-out;
+
+                }
+            }
+
+            .service-button-wapper {
+                display: flex;
+                justify-content: space-between;
+                align-items: end;
+            }
+
+            .more-wrapper {
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                margin-bottom: -9px;
+                cursor: pointer;
+
+                p {
+                    font-family: 'Sohne-500' !important;
+                    font-size: 1rem;
+                    color: #0e0e01;
+                    margin: 0;
+                }
+
+                .bi-arrow-right-short {
+                    margin-top: 4px;
+                    margin-left: 2.3px;
+                    color: #0e0e01;
+                    font-size: 1.25rem;
+                    font-weight: 500;
+                    transition: transform 0.1s ease;
+                }
+
+                &:hover p {
+                    color: #a8a8a8
+                }
+
+                &:hover .bi-arrow-right-short {
+                    color: #a8a8a8
+                }
+
+            }
+        }
+    }
+
+    .detail-container {
+        border-bottom: none;
+
+        .service-box {
+            border-top: none;
+            border-bottom: 2px solid #0e0e01;
+        }
+    }
+}

@@ -3,6 +3,9 @@ import { Component, Input, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { map, shareReplay } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 // Services
 import { ServiceData } from '../../../home/components/services/service-data';
 import { IService } from '../../../../../util/interfaces';
@@ -19,12 +22,21 @@ export class ServiceCardComponent implements OnDestroy {
   @Input() isServiceDetail: boolean = false;
   services: IService[] = ServiceData;
   currentLanguage: string = 'en';
+  isMobile$!: Observable<boolean>;
 
   constructor(
     private translationHelper: TranslationHelper,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private breakpoint: BreakpointObserver
   ) {
     this.currentLanguage = this.translationHelper.getCurrentLanguage();
+
+    this.isMobile$ = this.breakpoint
+      .observe([Breakpoints.Handset])
+      .pipe(
+        map(r => r.matches),
+        shareReplay(1)
+      );
   }
 
   ngOnDestroy(): void {

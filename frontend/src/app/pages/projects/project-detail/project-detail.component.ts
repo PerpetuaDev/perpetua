@@ -2,7 +2,7 @@
 import { Meta, Title } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router, RouterLink, NavigationEnd } from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { marked } from 'marked';
@@ -27,7 +27,6 @@ import { TranslationHelper } from '../../../shared/translation-helper';
     MoreProjectsComponent,
     ProjectContentComponent,
     TranslateModule,
-    RouterLink
   ],
   templateUrl: './project-detail.component.html',
   styleUrl: './project-detail.component.scss'

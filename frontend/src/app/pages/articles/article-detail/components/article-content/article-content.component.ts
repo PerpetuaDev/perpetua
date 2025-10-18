@@ -46,11 +46,24 @@ export class ArticleContentComponent implements OnInit, OnChanges, OnDestroy {
     this.currentLanguage = this.translationHelper.getCurrentLanguage();
   }
 
+  private readonly mql = window.matchMedia('(max-width: 768px)');
+  private currentMode: 'mobile' | 'desktop' | null = null;
+
+  private scrollHandlerDesktop = () => this.handleParallax();           // existing desktop logic
+  private scrollHandlerMobile = () => this.handleParallaxForMobile();
+
   ngOnInit(): void {
     this.setupParallax();
+    this.attachParallaxMode(this.mql.matches ? 'mobile' : 'desktop');
+    this.mql.addEventListener?.('change', this.onMediaChange);
+    this.mql.addListener?.(this.onMediaChange);
   }
 
   ngOnDestroy(): void {
+    this.translationHelper.unsubscribe();
+    this.detachParallaxListeners();
+    this.mql.removeEventListener?.('change', this.onMediaChange);
+    this.mql.removeListener?.(this.onMediaChange);
     this.translationHelper.unsubscribe();
   }
 
@@ -59,6 +72,11 @@ export class ArticleContentComponent implements OnInit, OnChanges, OnDestroy {
       this.parseContent();
     }
   }
+
+  private onMediaChange = (e: MediaQueryListEvent | MediaQueryList) => {
+    const isMobile = ('matches' in e) ? e.matches : (e as MediaQueryList).matches;
+    this.attachParallaxMode(isMobile ? 'mobile' : 'desktop');
+  };
 
   async parseContent(): Promise<void> {
     if (!this.article?.content) return;
@@ -142,6 +160,40 @@ export class ArticleContentComponent implements OnInit, OnChanges, OnDestroy {
     window.addEventListener('scroll', this.handleParallax.bind(this));
   }
 
+  private attachParallaxMode(mode: 'mobile' | 'desktop') {
+    if (this.currentMode === mode) return;
+
+    // Remove any previous listeners and reset inline styles
+    this.detachParallaxListeners();
+    this.resetRelatedStyles();
+
+    if (mode === 'desktop') {
+      window.addEventListener('scroll', this.scrollHandlerDesktop, { passive: true });
+      // Kick once to place it correctly
+      this.handleParallax();
+    } else {
+      window.addEventListener('scroll', this.scrollHandlerMobile, { passive: true });
+      this.handleParallaxForMobile();
+    }
+
+    this.currentMode = mode;
+  }
+
+  private detachParallaxListeners() {
+    window.removeEventListener('scroll', this.scrollHandlerDesktop);
+    window.removeEventListener('scroll', this.scrollHandlerMobile);
+  }
+
+  private resetRelatedStyles() {
+    const related = document.querySelector('.related-articles-container') as HTMLElement | null;
+    if (!related) return;
+    related.style.position = 'relative';
+    related.style.top = 'auto';
+    related.style.marginTop = '0';
+    related.style.paddingTop = '10px';
+    related.style.width = 'auto';
+  }
+
   handleParallax(): void {
     const contentLeft = document.querySelector('.content-left') as HTMLElement;
     const relatedArticlesContainer = document.querySelector('.related-articles-container') as HTMLElement;
@@ -154,6 +206,56 @@ export class ArticleContentComponent implements OnInit, OnChanges, OnDestroy {
     const relatedArticlesRect = relatedArticlesContainer.getBoundingClientRect();
 
     const stickyOffset = 735; // Scroll position where sticky behavior starts
+    const contentLeftHeight = contentLeft.offsetHeight; // Total height of .content-left
+    const relatedArticlesHeight = relatedArticlesContainer.offsetHeight; // Height of .related-articles-container
+
+    // Extra scrolling required before making the container unsticky
+    const extraScrollThreshold = contentLeftHeight - relatedArticlesHeight;
+
+    if (extraScrollThreshold <= 0) return; // Prevents issues if the related articles container is larger than content-left
+
+    const stopStickyScrollY = stickyOffset + extraScrollThreshold;
+
+    // Reset styles when scrolling back to the top
+    if (scrollY < stickyOffset) {
+      relatedArticlesContainer.style.position = 'relative';
+      relatedArticlesContainer.style.top = 'auto';
+      relatedArticlesContainer.style.marginTop = '0';
+      relatedArticlesContainer.style.paddingTop = '10px';
+      relatedArticlesContainer.style.width = 'auto';
+      return;
+    }
+
+    // Keep it sticky until reaching the additional scroll threshold
+    if (scrollY >= stickyOffset && scrollY < stopStickyScrollY) {
+      relatedArticlesContainer.style.position = 'fixed';
+      relatedArticlesContainer.style.top = '0';
+      relatedArticlesContainer.style.marginTop = '46px';
+      relatedArticlesContainer.style.width = `${contentLeft.offsetWidth}px`;
+      return;
+    }
+
+    // After exceeding the threshold, return it to normal scrolling behavior
+    if (scrollY >= stopStickyScrollY) {
+      relatedArticlesContainer.style.position = 'relative';
+      relatedArticlesContainer.style.top = 'auto';
+      relatedArticlesContainer.style.marginTop = `${extraScrollThreshold}px`;
+      relatedArticlesContainer.style.width = 'auto';
+    }
+  }
+
+  handleParallaxForMobile(): void {
+    const contentLeft = document.querySelector('.content-left') as HTMLElement;
+    const relatedArticlesContainer = document.querySelector('.related-articles-container') as HTMLElement;
+    const contentRight = document.querySelector('.content-right') as HTMLElement;
+
+    if (!contentLeft || !relatedArticlesContainer || !contentRight) return;
+
+    const scrollY = window.scrollY;
+    const contentLeftRect = contentLeft.getBoundingClientRect();
+    const relatedArticlesRect = relatedArticlesContainer.getBoundingClientRect();
+
+    const stickyOffset = 315; // Scroll position where sticky behavior starts
     const contentLeftHeight = contentLeft.offsetHeight; // Total height of .content-left
     const relatedArticlesHeight = relatedArticlesContainer.offsetHeight; // Height of .related-articles-container
 

@@ -1,4 +1,22 @@
-<div *ngIf="!showTitleAsIndustry" class="project-card-container container-fluid">
+@if (showTitleAsIndustry) {
+<!-- Industry card container -->
+<div class="industry-card-container">
+    <div class="industry-custom-gutter">
+        <div class="industry-col" *ngFor="let project of projects">
+            <a class="industry-card-container" (click)="onIndustryCardClick(project.industry)" tabindex="0">
+                <div class="industry-image-wrapper">
+                    <img [src]="project.thumbnail_image.url" alt="{{ project.project_title }}" loading="lazy" />
+                </div>
+                <div class="industry-title-wrapper industry-title">
+                    <p class="industry-p">{{ project.industry | titlecase }}</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+} @else {
+<!-- Project card container -->
+<div class="project-card-container container-fluid">
     <div class="row row-cols-2 row-cols-md-3 custom-gutter">
         <div class="col" *ngFor="let project of projects" (click)="navigateToProject(project.documentId)"
             (keydown)="onKeyDown($event, project.documentId)" (mouseenter)="onMouseEnterTitle(project.documentId)"
@@ -17,19 +35,4 @@
         </div>
     </div>
 </div>
-
-<!-- Industry card container -->
-<div *ngIf="showTitleAsIndustry" class="industry-card-container">
-    <div class="custom-gutter">
-        <div class="col" *ngFor="let project of projects">
-            <a class="card-container" (click)="onIndustryCardClick(project.industry)" tabindex="0">
-                <div class="image-wrapper">
-                    <img [src]="project.thumbnail_image.url" alt="{{ project.project_title }}" loading="lazy" />
-                </div>
-                <div class="title-wrapper title">
-                    <p>{{ project.industry | titlecase }}</p>
-                </div>
-            </a>
-        </div>
-    </div>
-</div>
+}

@@ -3,23 +3,23 @@
     <p>
         {{ 'clients.sub-title' | translate }}
     </p>
-    <span class="separator"></span>
+    <!-- <span class="separator"></span> -->
     <!-- Client logos -->
-    <div class="client-card-container container-fluid">
+    <app-client-block-about [clients]="clients"></app-client-block-about>
+    <!-- <div class="client-card-container container-fluid">
         <div class="row row-cols-2 row-cols-md-3 custom-gutter" *ngIf="clients$ | async as clients;">
-            <div class="col" *ngFor="let client of clients | slice:0:9; let i = index">
+            <div class="col" *ngFor="let client of clients | slice:0:5; let i = index">
                 <div class="image-wrapper">
                     <img [src]="client.company_logo.url" alt="client.company_name">
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- All clients button -->
-    <div class="footer-button-wrapper">
+    <!-- <div class="footer-button-wrapper">
         <button class="footer-button" [routerLink]="['/clients/all']">
             {{ 'clients.all-clients' | translate }}
             <i class="bi bi-arrow-right-short"></i>
         </button>
-    </div>
-    <span class="separator"></span>
+    </div> -->
 </div>

@@ -38,3 +38,46 @@
         }
     }
 }
+
+@media screen and (max-width: 768px) {
+    .staff-card-container {
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        padding: 0 15px 73px 0;
+        margin: 0;
+
+        .image-wrapper {
+            width: 100%;
+            height: 150px;
+            padding: 0 0 8px;
+            margin: 0;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: center;
+            }
+        }
+
+        .name-role-wrapper {
+            width: 100%;
+            text-align: left;
+
+            .name {
+                font-family: 'Sohne-500' !important;
+                color: #000000;
+                font-size: 1.25rem;
+                margin-bottom: 7px;
+            }
+
+            .role {
+                font-family: 'Sohne' !important;
+                color: #0e0e01;
+                font-size: 1rem;
+            }
+        }
+    }
+}

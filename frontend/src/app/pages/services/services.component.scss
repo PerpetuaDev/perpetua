@@ -81,3 +81,89 @@ section {
     margin-top: 311px;
     border-bottom: 2px solid #0e0e01;
 }
+
+@media screen and (max-width: 768px) {
+    section {
+        width: 100%;
+
+        p {
+            margin: 0;
+            font-family: 'Sohne' !important;
+            font-size: 1.25rem;
+            color: #0e0e01;
+        }
+
+        h1 {
+            margin: 0;
+        }
+    }
+
+    .header-wrapper {
+        padding: 50px 15px 0;
+
+        h1 {
+            margin: 0 0 47px 0;
+        }
+
+        .sub-header {
+            width: auto;
+        }
+
+        .image-cover {
+            width: 100%;
+            height: 300px;
+            padding: 0;
+            margin: 50px 0 0 0;
+
+            .service-top-image {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+    }
+
+    .capabilities-container {
+        h1 {
+            padding: 50px 15px;
+        }
+    }
+
+    .technologies-container {
+        p {
+            margin-bottom: 50px;
+        }
+
+        .logo-container {
+            width: 100%;
+            height: auto;
+            padding: 0 0 0 10px;
+            margin: 0;
+
+            .row {
+                width: 100%;
+                row-gap: 20px;
+            }
+
+            .col {
+                justify-content: center;
+                align-items: center;
+
+                img {
+                    width: auto;
+                    max-height: 18px;
+                    object-fit: contain;
+                }
+            }
+        }
+    }
+
+    .footer-button-wrapper {
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        margin-top: 100px;
+        border-bottom: 2px solid #0e0e01;
+    }
+}

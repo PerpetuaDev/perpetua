@@ -167,3 +167,197 @@
         }
     }
 }
+
+@media screen and (max-width: 768px) {
+    .header-section {
+        width: 100%;
+        height: 500px;
+        padding: 50px 15px 10px;
+        margin-bottom: -20px;
+        background-color: #0e0e01;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        .header-text {
+            width: 100%;
+            font-family: 'Sohne' !important;
+            font-size: 1.5rem;
+            color: #ffffff;
+            margin: 0;
+            padding: 0 15px
+        }
+    }
+
+    .location-section {
+        padding: 50px 0 0;
+
+        .row {
+            --bs-gutter-x: 30px;
+            --bs-gutter-y: 30px;
+
+            /* Side padding to get <15px> at the edges */
+            padding-left: 15px;
+            padding-right: 15px;
+
+            /* Let Bootstrap handle spacing; no custom gap here */
+            gap: 0;
+        }
+
+        .col {
+            margin-top: 50px;
+            /* remove the extra top margin */
+            padding-left: calc(var(--bs-gutter-x) / 2);
+            padding-right: calc(var(--bs-gutter-x) / 2);
+        }
+
+        h1 {
+            margin: 20px 15px 50px;
+        }
+
+        menu {
+            display: flex;
+            width: 100%;
+            padding: 0;
+            margin: 20px 0 30px 15px;
+            color: #000000;
+            font-size: 1.25rem;
+
+            .location-button {
+                list-style: none;
+                margin-right: 30px;
+                cursor: pointer;
+            }
+
+            .menu-icon {
+                font-size: 1.75rem;
+                transform: rotate(45deg) translateY(6px);
+                display: inline-block;
+                margin: -4px;
+            }
+
+            .location-button:hover {
+                color: #a8a8a8;
+
+                .menu-icon {
+                    color: #a8a8a8;
+                }
+            }
+        }
+    }
+
+    .contact-button-wrapper {
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+        border-bottom: 2px solid #0e0e01;
+
+        .contact-button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #0e0e01;
+            padding: 0;
+            margin: 0 9px 1.7px 120px;
+            border: none;
+            background-color: transparent;
+            font-family: 'Sohne-500' !important;
+            font-size: 1.25rem;
+        }
+
+        .contact-icon {
+            font-size: 1.75rem;
+            margin-left: 0.5px;
+            padding-top: 5px;
+            transition: transform 0.1s ease;
+        }
+
+        &:hover {
+            button {
+                color: #a8a8a8;
+            }
+
+            .contact-icon {
+                color: #a8a8a8;
+            }
+        }
+    }
+
+    .sub-title {
+        margin: 50px 15px 80px;
+    }
+
+    .team-section {
+        .footer-button-wrapper {
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin-top: 144.3px;
+
+            .footer-button {
+                display: flex;
+                justify-content: start;
+                align-items: center;
+                color: #0e0e01;
+                padding: 0;
+                margin: 0 9px 1.7px 120px;
+                border: none;
+                background-color: transparent;
+                font-family: 'Sohne-500' !important;
+                font-size: 1.75rem;
+
+                i {
+                    font-size: 2rem;
+                    margin-left: 0.5px;
+                    padding-top: 5px;
+                    transition: transform 0.1s ease;
+                    position: relative;
+                }
+
+                &:hover {
+                    color: #a8a8a8;
+                }
+
+                &:hover .bi-arrow-right-short {
+                    color: #a8a8a8;
+                }
+            }
+        }
+
+        .separator {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background-color: #0e0e01;
+            margin: 0;
+        }
+    }
+
+    .careers-section {
+        width: 100%;
+        margin-top: 30px;
+        margin-bottom: 55.68px;
+        border-bottom: 2px solid #989898;
+
+        .sub-title-container {
+            padding: 50px 15px 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            gap: 20px;
+
+            .sub-title {
+                margin: 0 150px 0 0;
+            }
+
+            p {
+                max-width: 1000px;
+                font-family: 'Sohne' !important;
+                font-size: 1.25rem;
+                margin: 2.32px 0 81.68px;
+            }
+        }
+    }
+}

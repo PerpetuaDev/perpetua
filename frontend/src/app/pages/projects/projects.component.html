@@ -49,7 +49,7 @@
             <div *ngIf="selectedFilter === 'industry' && (industries$ | async) as projectsByIndustry">
 
                 <!-- All Industries (First project per industry) -->
-                <div *ngIf="showAllIndustries" class="row row-cols-1 row-cols-md-3 custom-gutter">
+                <div *ngIf="showAllIndustries" class="row row-cols-2 row-cols-md-3 custom-gutter">
                     <div class="col" *ngFor="let project of getFirstProjectPerIndustry(projectsByIndustry)">
                         <app-project-card [projects]="[project]" [showTitleAsIndustry]="true"
                             (industrySelected)="onIndustrySelected($event)">
@@ -60,7 +60,7 @@
                 <!-- Selected Industry Projects -->
                 <div *ngIf="!showAllIndustries && selectedIndustry && industryProjects.length">
                     <!-- Button to return to all industries -->
-                    <h1 class="industry-title">{{ selectedIndustry }}</h1>
+                    <h1 class="selected-industry-title">{{ selectedIndustry }}</h1>
                     <button class="back-to-industry-button" (click)="showIndustryCards()">
                         <i class="bi bi-arrow-left-short"></i>
                         Back to industries

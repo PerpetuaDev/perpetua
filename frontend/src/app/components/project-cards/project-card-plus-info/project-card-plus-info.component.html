@@ -1,5 +1,5 @@
 <div class="article-page-container container-fluid">
-    <div class="row row-cols-1 row-cols-md-3 custom-gutter" *ngIf="visibleProjects.length > 0; else noProjects">
+    <div class="row row-cols-sm-3 row-cols-md-3 custom-gutter" *ngIf="visibleProjects.length > 0; else noProjects">
         <div class="col" *ngFor="let project of visibleProjects" (mouseenter)="onMouseEnterTitle(project.documentId)"
             (mouseleave)="onMouseLeaveTitle()">
             <!-- Image -->

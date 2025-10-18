@@ -9,6 +9,15 @@
                     <i class="bi bi-arrow-right-short"></i>
                 </a>
             </div>
+            <div class="description-smartphone">
+                <p class=" description-smartphone">{{project.project_description}}</p>
+                <div class="button-wrapper-smartphone">
+                    <a class="button" [href]="project.project_link" target="_blank" rel="noopener noreferrer">
+                        {{ 'button.live-project' | translate }}
+                        <i class="bi bi-arrow-right-short"></i>
+                    </a>
+                </div>
+            </div>
         </div>
     </section>
     <!-- Body components -->

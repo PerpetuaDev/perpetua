@@ -21,6 +21,8 @@ export interface IService {
     description: string,
     width?: number,
     height?: number,
+    mobileWidth?: number;
+    mobileHeight?: number;
 }
 
 export interface IFlag {

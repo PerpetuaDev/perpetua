@@ -98,3 +98,106 @@
     padding: 5px 5px;
     column-gap: 3px;
 }
+
+@media screen and (max-width: 768px) {
+    .share-button-wrapper {
+        width: auto;
+        position: relative;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+
+        .share-button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: auto;
+            margin: 0 -5px 0 0;
+            color: #0e0e01;
+            border: none;
+            background-color: transparent;
+            font-family: 'Larsseit' !important;
+            font-size: 1rem;
+
+            i {
+                font-size: 1.5rem;
+                margin-left: 0;
+                padding-top: 4px;
+                transition: transform 0.1s ease;
+            }
+
+            &:hover {
+                color: #a8a8a8;
+            }
+
+            &:hover .bi-arrow-right-short {
+                color: #a8a8a8;
+            }
+        }
+
+        .footer-share-button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #0e0e01;
+            padding: auto;
+            margin: 0 -5px 1.7px 120px;
+            border: none;
+            background-color: transparent;
+            font-family: 'Sohne-500' !important;
+            font-size: 1.25rem;
+
+            i {
+                font-size: 1.5rem;
+                margin-left: 5px;
+                padding-top: 5px;
+                transition: transform 0.1s ease;
+            }
+
+            &:hover {
+                color: #a8a8a8;
+            }
+
+            &:hover .bi-arrow-right-short {
+                color: #a8a8a8;
+            }
+        }
+    }
+
+    .sm-modal {
+        position: absolute;
+        top: -40px;
+        right: -80px;
+        display: flex;
+        flex-direction: column;
+        padding: 5px 5px;
+        row-gap: 3px;
+
+        button {
+            width: 50px;
+            height: 50px;
+            border: none;
+            padding: 2px;
+            color: #0e0e01;
+            background-color: #a8a8a8;
+        }
+
+        i {
+            font-size: 1.5rem;
+        }
+
+        span {
+            display: none;
+        }
+    }
+
+    .footer-sm-modal {
+        position: absolute;
+        top: -70px;
+        left: 65px;
+        display: flex;
+        flex-direction: row;
+        padding: 5px 5px;
+        column-gap: 3px;
+    }
+}

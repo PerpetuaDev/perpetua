@@ -105,7 +105,7 @@ export class TeamComponent implements OnInit, OnDestroy {
       }));
     } else if (filter === 'role') {
       const roleCategories = [
-        { name: this.sanitizer.bypassSecurityTrustHtml('Administration <span style="font-family:sohne; font-weight:600; font-size:2.25rem; color:#000000;">&#38;</span> Management'), keywords: ['CEO', 'executive', 'assistant'] },
+        { name: this.sanitizer.bypassSecurityTrustHtml('Administration <span class="ampersand" style="font-family:Sohne; font-weight: 600;">&#38;</span> Management'), keywords: ['CEO', 'executive', 'assistant'] },
         { name: this.sanitizer.bypassSecurityTrustHtml('Design'), keywords: ['designer'] },
         { name: this.sanitizer.bypassSecurityTrustHtml('Software Engineering'), keywords: ['software', 'developer'] },
         { name: this.sanitizer.bypassSecurityTrustHtml('Accountant'), keywords: ['accountant'] },

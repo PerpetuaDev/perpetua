@@ -27,8 +27,9 @@
     <!-- Contacts -->
     <section class="contact-section">
         <div class="contact-container">
-            <h1>{{ 'about.office.contact' | translate }}</h1>
-            <div>
+            <h1 class="contact-title">{{ 'about.office.contact' | translate }}</h1>
+            <div class="contact-info-left-wrapper">
+                <h1 class="contact-title-smartphone">{{ 'about.office.contact' | translate }}</h1>
                 <div class="address">
                     <p>{{office?.address_1}}</p>
                     <p>{{office?.address_2 || '&nbsp;'}}</p>
@@ -43,7 +44,7 @@
                     </div>
                 </div>
             </div>
-            <div>
+            <div class="contact-info-middle-wrapper">
                 <div class="direction-button-wrapper">
                     <button (click)="openGoogleMaps()">Get directions</button>
                     <i class="bi bi-arrow-right-short"></i>
@@ -59,7 +60,7 @@
                     </div>
                 </div>
             </div>
-            <div>
+            <div class="contact-info-right-wrapper">
                 <p class="email" (click)="sendEmail()" (keydown)="sendEmailKeyDown($event)">
                     {{ office?.email }}
                 </p>

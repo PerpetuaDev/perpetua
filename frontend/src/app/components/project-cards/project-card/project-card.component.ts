@@ -1,14 +1,14 @@
 // Libraries
 import { Component, Input, OnInit, ElementRef, ViewChildren, QueryList, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 // Services
 import { IProject } from '../../../../util/interfaces';
 
 @Component({
   selector: 'app-project-card',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule],
   templateUrl: './project-card.component.html',
   styleUrls: ['./project-card.component.scss']
 })

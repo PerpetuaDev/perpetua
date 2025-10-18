@@ -33,7 +33,7 @@
         <div class="staff-container">
             <div class="sorted-cards-wrapper" *ngFor="let group of membersByCategory">
                 <p class="sorting-title" [innerHTML]="group.category"></p>
-                <div class="row row-cols-1 row-cols-md-3 custom-gutter">
+                <div class="row row-cols-2 row-cols-md-3 custom-gutter">
                     <div class="col" *ngFor="let member of group.members">
                         <app-member-card [member]="member" filter="office"></app-member-card>
                     </div>
@@ -46,7 +46,7 @@
         <div class="staff-container">
             <div class="sorted-cards-wrapper" *ngFor="let group of membersByCategory">
                 <p class="sorting-title" [innerHTML]="group.category"></p>
-                <div class="row row-cols-1 row-cols-md-3 custom-gutter">
+                <div class="row row-cols-2 row-cols-md-3 custom-gutter">
                     <div class="col" *ngFor="let member of group.members">
                         <app-member-card [member]="member" filter="role"></app-member-card>
                     </div>
@@ -58,7 +58,7 @@
     <!-- All Members -->
     <ng-container *ngIf="membersByCategory && (selectedFilter$ | async) === 'all'">
         <div class="staff-container">
-            <div class="row row-cols-1 row-cols-md-3 custom-gutter">
+            <div class="row row-cols-2 row-cols-md-3 custom-gutter">
                 <div class="col" *ngFor="let member of visibleMembers">
                     <app-member-card [member]="member" filter="all"></app-member-card>
                 </div>

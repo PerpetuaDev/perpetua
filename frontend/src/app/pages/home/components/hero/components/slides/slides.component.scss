@@ -100,14 +100,11 @@
 // Mobile devices
 @media screen and (max-width: 768px) {
 
-    // .slide-container,
-    // .carousel-container,
-    // .carousel {
-    //     position: relative;
-    //     width: 100%;
-    //     height: 50%;
-    //     padding: 15px;
-    // }
+    .slide-container,
+    .carousel-container,
+    .carousel {
+        pointer-events: none;
+    }
 
     .images-container {
         width: 100%;

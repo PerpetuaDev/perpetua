@@ -78,3 +78,92 @@
         }
     }
 }
+
+@media screen and (max-width: 768px) {
+    .process-container {
+        display: flex;
+        flex-direction: column;
+        padding: 0 15px;
+        margin-top: 50px;
+
+        .process-step-cover {
+            display: flex;
+            padding: 0 0 10px 0;
+        }
+
+        .process-image-cover {
+            width: 55%;
+            height: 200px;
+            margin: 0 10px 0 0;
+            flex-shrink: 0;
+            background-color: #989898;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+
+        .process-description-cover {
+            display: flex;
+            flex-direction: column;
+            justify-content: start;
+
+            .icon-cover {
+                width: 30px;
+                height: 30px;
+                margin-bottom: 20px;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+            }
+
+            .description-cover {
+                .process-title {
+                    color: #0E0E01;
+                    font-family: Larsseit-500;
+                    font-size: 1rem;
+                    padding-bottom: 12px;
+                    margin-bottom: 10px;
+                    border-bottom: 2px solid #0E0E01;
+                }
+
+                .separator {
+                    width: 100%;
+                    height: 2px;
+                    background-color: #0E0E01;
+                }
+
+                .process-description {
+                    color: #0E0E01;
+                    font-family: Sohne;
+                    font-size: 0.8rem;
+                    margin-bottom: 10px;
+                }
+            }
+
+            .more-button-cover {
+                width: auto;
+                height: auto;
+
+                .bi-chevron-down {
+                    color: #0E0E01;
+                    font-size: 18px;
+                    width: 20px;
+                    height: auto;
+                    cursor: pointer;
+                    transition: transform 0.1s ease, color 0.1s ease;
+
+                    &:hover {
+                        color: #a8a8a8;
+                    }
+                }
+
+            }
+        }
+    }
+}
