@@ -9,6 +9,7 @@
   "options": {
     "draftAndPublish": true
   },
+  "pluginOptions": {},
   "attributes": {
     "company_name": {
       "type": "string"
@@ -29,20 +30,26 @@
       "type": "richtext"
     },
     "company_logo": {
+      "type": "media",
+      "multiple": false,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
     },
     "projects": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::project.project",
       "mappedBy": "project_client"
+    },
+    "logo_width": {
+      "type": "integer"
+    },
+    "logo_height": {
+      "type": "integer"
     }
   }
 }
