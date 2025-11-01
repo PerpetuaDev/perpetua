@@ -1,9 +1,9 @@
 .client-card-container {
     width: 100%;
-    height: auto;
     margin: 0;
     padding: 0;
     z-index: 0;
+    background-color: #ffffff;
 }
 
 .row {
@@ -18,32 +18,16 @@
     border-bottom: 2px solid #0e0e01;
 }
 
-.image-wrapper {
-    min-width: 325px;
-    min-height: 300px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-left: 2px solid #0e0e01;
-    background-color: #ffffff;
-    cursor: pointer;
-    transition: box-shadow 0.1s ease;
-
-    &:hover {
-        z-index: 100;
-        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-    }
-
-    img {
-        width: 202.74px;
-        height: auto;
-        object-fit: cover;
-    }
-}
-
+/* Make tiles square on ALL screens */
+.image-wrapper,
 .empty-space {
-    min-width: 325px;
-    min-height: 300px;
+    width: 100%;
+    /* fill the column */
+    aspect-ratio: 1 / 1;
+    /* perfect square */
+    min-width: 0;
+    /* allow shrinking with the grid */
+    min-height: 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -51,35 +35,62 @@
     background-color: #ffffff;
     cursor: pointer;
     transition: box-shadow 0.1s ease;
+    padding: 15px;
 }
+
+.image-wrapper:hover {
+    z-index: 100;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Logos fit nicely inside the square */
+.image-wrapper img {
+    max-width: 100%;
+    max-height: 100%;
+    height: auto;
+    object-fit: contain;
+    /* keep entire logo visible */
+}
+
+/* Remove left border on the first column of each 3-col row (desktop & anywhere using row-cols-3) */
+// .row.row-cols-3>.col:nth-child(3n + 1) .image-wrapper,
+// .row.row-cols-3>.col:nth-child(3n + 1) .empty-space {
+//     border-left: 0;
+// }
+
+// .empty-space {
+//     min-width: 325px;
+//     min-height: 300px;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     border-left: 2px solid #0e0e01;
+//     background-color: #ffffff;
+//     cursor: pointer;
+//     transition: box-shadow 0.1s ease;
+// }
 
 @media screen and (max-width: 768px) {
-    .image-wrapper {
-        min-width: 145px;
-        min-height: 145px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-left: 2px solid #0e0e01;
+    .row {
+        padding: 0;
+        margin: 0;
+        border-top: 2px solid #0e0e01;
         background-color: #ffffff;
-        cursor: pointer;
-        transition: box-shadow 0.1s ease;
-
-        &:hover {
-            z-index: 100;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        img {
-            width: 145px;
-            height: auto;
-            object-fit: cover;
-        }
     }
 
+    .col {
+        padding: 0;
+        margin: 0;
+        border-bottom: 2px solid #0e0e01;
+    }
+
+    .image-wrapper,
     .empty-space {
-        min-width: 145px;
-        min-height: 145px;
+        width: 100%;
+        /* perfect square */
+        aspect-ratio: 1 / 1;
+        min-width: 0;
+        min-height: 0;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -87,5 +98,49 @@
         background-color: #ffffff;
         cursor: pointer;
         transition: box-shadow 0.1s ease;
+        padding: 15px;
+    }
+
+    /* First column of each 3-col row */
+    .row.row-cols-3>.col:nth-child(3n + 1) .image-wrapper,
+    .row.row-cols-3>.col:nth-child(3n + 1) .empty-space {
+        border-left: 0;
+    }
+
+    .image-wrapper:hover {
+        z-index: 100;
+        box-shadow: 0 0 0;
+    }
+
+    .image-wrapper img {
+        max-width: 100%;
+        max-height: 100%;
+        height: auto;
+        object-fit: contain;
+    }
+
+    /* Fallback for browsers without aspect-ratio support */
+    @supports not (aspect-ratio: 1 / 1) {
+
+        .image-wrapper,
+        .empty-space {
+            position: relative;
+        }
+
+        .image-wrapper::before,
+        .empty-space::before {
+            content: "";
+            display: block;
+            padding-top: 100%;
+        }
+
+        .image-wrapper>*,
+        .empty-space>* {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
     }
 }

@@ -1,6 +1,6 @@
 export const ContactData = [
     {
-        location: 'Christchurch',
+        location: 'Auckland',
         new_business: [
             { name: 'Liam Finlayson', email: 'liam@perpetua.studio' }
         ],

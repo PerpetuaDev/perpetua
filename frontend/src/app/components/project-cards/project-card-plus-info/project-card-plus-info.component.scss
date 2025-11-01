@@ -78,6 +78,13 @@
             }
         }
     }
+
+    .no-projects-message {
+        font-family: 'Sohne-500' !important;
+        font-size: 1.5rem;
+        color: #0e0e01;
+        padding: 5px 15px;
+    }
 }
 
 @media screen and (max-width: 768px) {
@@ -161,5 +168,12 @@
                 }
             }
         }
+    }
+
+    .no-projects-message {
+        font-family: 'Sohne-500' !important;
+        font-size: 1rem;
+        color: #0e0e01;
+        padding: 5px 15px;
     }
 }

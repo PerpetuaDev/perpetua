@@ -12,8 +12,9 @@
                 <div class="title-wrapper" (click)="navigateToProject(project.documentId)"
                     (keydown)="handleKeydown($event, project.documentId)">
                     <p class="title" *ngIf="!isHovered(project.documentId)">{{ project.project_title }}</p>
-                    <p class="content" *ngIf="isHovered(project.documentId) && truncatedText"
-                        [innerHTML]="truncatedText"></p>
+                    <p class="content" *ngIf="isHovered(project.documentId) && truncatedTexts"
+                        [innerHTML]="truncatedTexts[project.documentId]">
+                    </p>
                 </div>
             </div>
         </div>
@@ -21,5 +22,5 @@
 </div>
 
 <ng-template #noProjects>
-    <p>No Projects available.</p>
+    <p class="no-projects-message">No Projects available.</p>
 </ng-template>

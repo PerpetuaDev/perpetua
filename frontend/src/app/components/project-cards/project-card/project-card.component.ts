@@ -21,6 +21,7 @@ export class ProjectCardComponent implements OnInit {
   @ViewChildren('titleWrapper') titleWrappers!: QueryList<ElementRef>;
   currentIndustry: string = '';
   truncatedText: string = '';
+  truncatedTexts: { [key: string]: string } = {};
   hoveredProjectId: string | null = null;
 
   constructor(private router: Router) { }
@@ -35,6 +36,7 @@ export class ProjectCardComponent implements OnInit {
         const words = project.project_description.split(' ');
         const truncatedWords = words.slice(0, 27).join(' ');
         this.truncatedText = truncatedWords; // + ' ...'
+        this.truncatedTexts[project.documentId] = this.truncatedText;
       }
     })
 

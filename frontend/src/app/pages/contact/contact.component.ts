@@ -41,7 +41,7 @@ export class ContactComponent implements OnInit, AfterViewInit, OnDestroy {
   isLoading$!: Observable<boolean | null>;
   officeImage: string | null = '';
   contactData = ContactData;
-  selectedLocation: string | null = 'christchurch';
+  selectedLocation: string | null = 'auckland';
   selectedContactInfo: any = null;
   flags: IFlag[] = [];
   selectedFlagUrl: string | null = '';
@@ -98,8 +98,8 @@ export class ContactComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.isLoading$ = this.officeService.isLoading$;
 
-    this.selectedLocation = 'Christchurch';
-    this.selectedContactInfo = this.contactData.find(data => data.location === 'Christchurch');
+    this.selectedLocation = 'Auckland';
+    this.selectedContactInfo = this.contactData.find(data => data.location === 'Auckland');
     this.offices$.subscribe((offices: IOffice[]) => {
       const matchingOffice = offices.find(office => office.office_location === this.selectedLocation);
       if (matchingOffice) {

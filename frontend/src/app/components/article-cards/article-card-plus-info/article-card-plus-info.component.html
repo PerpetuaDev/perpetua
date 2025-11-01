@@ -13,12 +13,13 @@
                     <p class="title">{{ article.title || 'No Title Available' }}</p>
                 </div>
                 <!-- First two sentences -->
-                <p class="content" *ngIf="truncatedText" [innerHTML]="truncatedText"></p>
+                <p class="content" *ngIf="truncatedTexts" [innerHTML]="truncatedTexts[article.documentId]">
+                </p>
             </div>
         </div>
     </div>
 </div>
 
 <ng-template #noArticles>
-    <p>No Articles available.</p>
+    <p class="no-articles-message">No Articles available.</p>
 </ng-template>

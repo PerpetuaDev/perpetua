@@ -17,6 +17,7 @@ import { TranslationHelper } from '../../../shared/translation-helper';
 export class ArticleCardPlusInfoComponent implements OnInit, OnDestroy {
   @Input() visibleArticles: IArticle[] = [];
   truncatedText: string = '';
+  truncatedTexts: { [key: string]: string } = {};
   currentLanguage: string = 'en';
 
   constructor(private router: Router, private translationHelper: TranslationHelper) {
@@ -29,6 +30,7 @@ export class ArticleCardPlusInfoComponent implements OnInit, OnDestroy {
         const words = article.content.split(' ');
         const truncatedWords = words.slice(0, 27).join(' ');
         this.truncatedText = truncatedWords; // + ' ...'
+        this.truncatedTexts[article.documentId] = this.truncatedText;
       }
     })
   }

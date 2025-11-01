@@ -29,7 +29,8 @@
             <!-- Title -->
             <div class="title-wrapper">
                 <p class="title" *ngIf="!isHovered(project.documentId)">{{ project.project_title }}</p>
-                <p class="content" *ngIf="isHovered(project.documentId) && truncatedText" [innerHTML]="truncatedText">
+                <p class="content" *ngIf="isHovered(project.documentId) && truncatedTexts"
+                    [innerHTML]="truncatedTexts[project.documentId]">
                 </p>
             </div>
         </div>

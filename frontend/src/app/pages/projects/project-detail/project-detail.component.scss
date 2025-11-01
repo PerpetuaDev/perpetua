@@ -17,6 +17,10 @@
         // margin-right: 150px;
     }
 
+    .description-smartphone {
+        display: none;
+    }
+
     .button-wrapper {
         width: auto;
         display: flex;
@@ -364,10 +368,10 @@
             border: none;
             background-color: transparent;
             font-family: 'Sohne-500' !important;
-            font-size: 1.5rem;
+            font-size: 1.25rem;
 
             i {
-                font-size: 2rem;
+                font-size: 1.75rem;
                 margin-left: 5px;
                 padding-top: 5px;
                 transition: transform 0.1s ease;
@@ -401,10 +405,10 @@
             border: none;
             background-color: transparent;
             font-family: 'Sohne-500' !important;
-            font-size: 1.5rem;
+            font-size: 1.25rem;
 
             i {
-                font-size: 2rem;
+                font-size: 1.75rem;
                 margin-left: 5px;
                 padding-top: 5px;
                 transition: transform 0.1s ease;

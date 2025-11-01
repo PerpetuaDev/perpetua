@@ -71,7 +71,7 @@ export class OfficeService {
     }
 
     getCurrentTime(location: string): string {
-        if (location === 'Christchurch') location = 'Pacific/Auckland';
+        if (location === 'Auckland') location = 'Pacific/Auckland';
         if (location === 'Sydney') location = 'Australia/Sydney';
         if (location === 'Yokohama') location = 'Asia/Tokyo';
 

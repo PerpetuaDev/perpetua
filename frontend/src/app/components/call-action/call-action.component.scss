@@ -3,8 +3,13 @@
     height: auto;
     padding: 0 15px 0 60px;
 
-    h1 {
+    .call-message {
+        display: block;
         margin: 82.2px 0 32px 0;
+    }
+
+    .call-message-mobile {
+        display: none;
     }
 
     .footer-button-wrapper {
@@ -54,7 +59,12 @@
         height: auto;
         padding: 0px 15px;
 
-        h1 {
+        .call-message {
+            display: none;
+        }
+
+        .call-message-mobile {
+            display: block;
             margin: 82.2px 0 32px 0;
             font-size: 1.5rem;
         }

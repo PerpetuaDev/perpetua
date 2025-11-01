@@ -94,32 +94,35 @@ export class TeamComponent implements OnInit, OnDestroy {
   }
 
   groupMembersByCategory(filter: string): void {
-    // Using the members list to filter categories
     const members = this.allMembers;
 
     if (filter === 'office') {
       const locations = ['Christchurch', 'Auckland', 'Sydney', 'Yokohama'];
-      this.membersByCategory = locations.map(location => ({
-        category: this.sanitizer.bypassSecurityTrustHtml(location),
-        members: members.filter((member: IMember) => member.location === location)
-      }));
+      this.membersByCategory = locations
+        .map(location => ({
+          category: this.sanitizer.bypassSecurityTrustHtml(location),
+          members: members.filter(m => m.location === location)
+        }))
+        .filter(g => g.members.length > 0); // <- remove empties
     } else if (filter === 'role') {
       const roleCategories = [
         { name: this.sanitizer.bypassSecurityTrustHtml('Administration <span class="ampersand" style="font-family:Sohne; font-weight: 600;">&#38;</span> Management'), keywords: ['CEO', 'executive', 'assistant'] },
         { name: this.sanitizer.bypassSecurityTrustHtml('Design'), keywords: ['designer'] },
         { name: this.sanitizer.bypassSecurityTrustHtml('Software Engineering'), keywords: ['software', 'developer'] },
         { name: this.sanitizer.bypassSecurityTrustHtml('Accountant'), keywords: ['accountant'] },
-        // { name: this.sanitizer.bypassSecurityTrustHtml('Data Analytics'), keywords: ['data'] },
       ];
 
-      this.membersByCategory = roleCategories.map(category => ({
-        category: category.name,
-        members: members.filter((member: IMember) =>
-          category.keywords.some(keyword => member.role?.toLowerCase().includes(keyword.toLowerCase()))
-        )
-      }));
+      this.membersByCategory = roleCategories
+        .map(cat => ({
+          category: cat.name,
+          members: members.filter(m =>
+            cat.keywords.some(k => m.role?.toLowerCase().includes(k.toLowerCase()))
+          )
+        }))
+        .filter(g => g.members.length > 0); // <- remove empties
     } else {
       this.membersByCategory = [];
     }
   }
+
 }

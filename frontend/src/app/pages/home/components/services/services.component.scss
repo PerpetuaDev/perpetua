@@ -1,6 +1,11 @@
-h1 {
+.section-title {
+    display: block;
     margin: 90px 0 100px 60px;
     height: 92px;
+}
+
+.section-title-mobile {
+    display: none;
 }
 
 .ampersand {
@@ -54,9 +59,14 @@ h1 {
 }
 
 @media screen and (max-width: 768px) {
-    h1 {
+    .section-title-mobile {
+        display: block;
         margin: 90px 0 50px 15px;
         height: 92px;
+    }
+
+    .section-title {
+        display: none;
     }
 
     .ampersand {
@@ -92,10 +102,10 @@ h1 {
             border: none;
             background-color: transparent;
             font-family: 'Sohne-500' !important;
-            font-size: 1.5rem;
+            font-size: 1.25rem;
 
             i {
-                font-size: 2rem;
+                font-size: 1.75rem;
                 margin-left: 0.5px;
                 padding-top: 5px;
                 transition: transform 0.1s ease;

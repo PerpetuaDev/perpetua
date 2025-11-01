@@ -1,7 +1,13 @@
 <section class='w-100 m-0'>
     <!-- Title -->
-    <h1>
+    <h1 class="section-title">
         {{ 'home.section-title.services-L1' | translate }}<br>
+        {{ 'home.section-title.services-L2-bf' | translate }}
+        <span *ngIf="currentLanguage === 'en'" class="ampersand" aria-label="Ampersand">&amp;</span>
+        {{ 'home.section-title.services-L2-af' | translate }}
+    </h1>
+    <h1 class="section-title-mobile">
+        {{ 'home.section-title.services-L1' | translate }}
         {{ 'home.section-title.services-L2-bf' | translate }}
         <span *ngIf="currentLanguage === 'en'" class="ampersand" aria-label="Ampersand">&amp;</span>
         {{ 'home.section-title.services-L2-af' | translate }}

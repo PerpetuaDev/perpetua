@@ -10,7 +10,8 @@
             <!-- Title -->
             <div class="title-wrapper">
                 <p class="title" *ngIf="!isHovered(article.documentId)">{{ article.title }}</p>
-                <p class="content" *ngIf="isHovered(article.documentId) && truncatedText" [innerHTML]="truncatedText">
+                <p class="content" *ngIf="isHovered(article.documentId) && truncatedTexts"
+                    [innerHTML]="truncatedTexts[article.documentId]">
                 </p>
             </div>
         </div>

@@ -18,7 +18,8 @@ section {
         }
     }
 
-    .image-wrapper {
+    .image-wrapper,
+    .btm-row {
         width: 100%;
         height: 858px;
 
@@ -79,10 +80,12 @@ section {
         padding: 15px;
 
         .section-large {
-            width: 100%;
+            grid-template-columns: 1fr;
+            /* stack */
+            gap: 16px;
 
             .right-comment-wrapper {
-                margin-left: 30%;
+                margin-left: 50%;
                 margin-top: 67px;
                 margin-bottom: 67px;
                 max-width: 523px;
@@ -90,70 +93,63 @@ section {
                 font-size: 1rem;
 
                 p {
-                    margin: 0;
+                    margin: 0 0 -30px;
                 }
-            }
-        }
-
-        .image-wrapper {
-            width: 100%;
-            height: 300px;
-
-            img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
             }
         }
 
         .comment-wrapper {
-            margin: 66px 0 46px 102px;
             max-width: 300px;
-            font-family: 'Sohne' !important;
             font-size: 1rem;
+            margin: 50px 0 12px;
+
+            p {
+                margin-bottom: 5px;
+            }
 
             i {
-                font-size: 1.5rem;
-                padding-top: 5px;
-                transition: transform 0.1s ease;
+                font-size: 1.25rem;
             }
         }
 
-        .grid {
-            display: grid;
+        /* Image wrappers: a shorter ratio on phones */
+        .image-wrapper {
+            aspect-ratio: 4 / 3;
             height: auto;
-            column-gap: 15px;
-            row-gap: 15px;
+            /* or remove aspect-ratio to let image define height */
+        }
 
-            .col {
-                max-height: 170px;
-                padding: 0;
+        /* The 3-up grid becomes a single column on phones */
+        .grid {
+            grid-template-columns: 1fr;
+            /* stack */
+            gap: 12px;
 
-                img {
-                    width: 100%;
-                    height: 100%;
-                    object-fit: cover;
-                }
+            .top-row>.col:nth-child(1),
+            .top-row>.col:nth-child(2),
+            .btm-row>.col {
+                grid-column: auto;
+                aspect-ratio: 4 / 3;
+                /* consistent tiles */
+            }
+
+            .top-row>.col:nth-child(1) {
+                padding-right: 7.5px;
+            }
+
+            .top-row>.col:nth-child(2) {
+                padding-left: 7.5px;
+            }
+
+            .top-row,
+            .btm-row {
+                height: auto;
             }
         }
 
         .section-small {
             padding: 0;
-
-            .sub-comment-wrapper {
-                margin-left: 0;
-            }
-
-            .top-row {
-                height: 170px;
-                padding: 0;
-            }
-
-            .btm-row {
-                width: auto;
-                height: 300px;
-                padding: 0;
-            }
+            /* drop the big side padding to avoid cramping */
         }
     }
 }

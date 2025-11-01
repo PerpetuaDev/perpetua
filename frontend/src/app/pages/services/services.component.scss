@@ -24,6 +24,10 @@ section {
         width: auto;
     }
 
+    .sub-header-mobile {
+        display: none;
+    }
+
     .image-cover {
         width: 100%;
         height: 653px;
@@ -106,6 +110,10 @@ section {
         }
 
         .sub-header {
+            display: none;
+        }
+
+        .sub-header-mobile {
             width: auto;
         }
 

@@ -72,14 +72,10 @@ h1 {
 .staff-container {
     padding: 20px 0 56.3px;
     margin: 0;
+    border-bottom: 2px solid #0e0e01;
 
     .sorted-cards-wrapper {
         padding-bottom: 30px;
-        border-bottom: 2px solid #0e0e01;
-
-        &:last-child {
-            border: none;
-        }
     }
 
     .sorting-title {
@@ -100,6 +96,10 @@ h1 {
         padding: 0;
         margin: 0;
     }
+}
+
+.staff-container:has(+ .footer-button-wrapper) {
+    border-bottom: 0;
 }
 
 .separator {
@@ -227,16 +227,12 @@ h1 {
     }
 
     .staff-container {
-        padding: 20px 0 56.3px;
+        padding: 20px 0 0;
         margin: 0;
+        border-bottom: 2px solid #0e0e01;
 
         .sorted-cards-wrapper {
             padding-bottom: 30px;
-            border-bottom: 2px solid #0e0e01;
-
-            &:last-child {
-                border: none;
-            }
         }
 
         .sorting-title {
@@ -256,6 +252,10 @@ h1 {
             padding: 0;
             margin: 0;
         }
+    }
+
+    .staff-container:has(+ .footer-button-wrapper) {
+        border-bottom: 0;
     }
 
     .separator {

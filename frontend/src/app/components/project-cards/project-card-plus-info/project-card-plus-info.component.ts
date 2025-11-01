@@ -17,6 +17,7 @@ import { TranslationHelper } from '../../../shared/translation-helper';
 export class ProjectCardPlusInfoComponent implements OnInit, OnDestroy {
   @Input() visibleProjects: IProject[] = [];
   truncatedText: string = '';
+  truncatedTexts: { [key: string]: string } = {};
   currentLanguage: string = 'en';
   hoveredProjectId: string | null = null;
 
@@ -30,6 +31,7 @@ export class ProjectCardPlusInfoComponent implements OnInit, OnDestroy {
         const words = project.project_description.split(' ');
         const truncatedWords = words.slice(0, 27).join(' ');
         this.truncatedText = truncatedWords; // + ' ...'
+        this.truncatedTexts[project.documentId] = this.truncatedText;
       }
     })
   }

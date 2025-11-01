@@ -30,8 +30,8 @@
 
     <!-- Member cards by office/role -->
     <ng-container *ngIf="membersByCategory && (selectedFilter$ | async) === 'office'">
-        <div class="staff-container">
-            <div class="sorted-cards-wrapper" *ngFor="let group of membersByCategory">
+        <div class="staff-container" *ngFor="let group of membersByCategory">
+            <div class="sorted-cards-wrapper" *ngIf="group.members.length > 0">
                 <p class="sorting-title" [innerHTML]="group.category"></p>
                 <div class="row row-cols-2 row-cols-md-3 custom-gutter">
                     <div class="col" *ngFor="let member of group.members">
@@ -43,8 +43,8 @@
     </ng-container>
 
     <ng-container *ngIf="membersByCategory && (selectedFilter$ | async) === 'role'">
-        <div class="staff-container">
-            <div class="sorted-cards-wrapper" *ngFor="let group of membersByCategory">
+        <div class="staff-container" *ngFor="let group of membersByCategory">
+            <div class="sorted-cards-wrapper" *ngIf="group.members.length > 0">
                 <p class="sorting-title" [innerHTML]="group.category"></p>
                 <div class="row row-cols-2 row-cols-md-3 custom-gutter">
                     <div class="col" *ngFor="let member of group.members">

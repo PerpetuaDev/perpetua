@@ -18,6 +18,7 @@ export class ArticleCardComponent implements OnInit {
   @Input() isLoading: boolean = false;
   @ViewChildren('titleWrapper') titleWrappers!: QueryList<ElementRef>;
   truncatedText: string = '';
+  truncatedTexts: { [key: string]: string } = {};
   currentLanguage: string = 'en';
   hoveredArticleId: string | null = null;
 
@@ -33,6 +34,7 @@ export class ArticleCardComponent implements OnInit {
         const words = article.sub_heading.split(' ');
         const truncatedWords = words.slice(0, 20).join(' ');
         this.truncatedText = truncatedWords; // + ' ...'
+        this.truncatedTexts[article.documentId] = this.truncatedText;
       }
     })
   }

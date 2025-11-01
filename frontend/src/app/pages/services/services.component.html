@@ -9,6 +9,12 @@
                 <span *ngIf="currentLanguage === 'en'" class="ampersand" aria-label="Ampersand">&amp;</span>
                 {{ 'service.sub-title-L2-af' | translate }}
             </p>
+            <p class="sub-header-mobile">
+                {{ 'service.sub-title-L1' | translate }}
+                {{ 'service.sub-title-L2-bf' | translate }}
+                <span *ngIf="currentLanguage === 'en'" class="ampersand" aria-label="Ampersand">&amp;</span>
+                {{ 'service.sub-title-L2-af' | translate }}
+            </p>
             <!-- Image -->
             <div class="image-cover">
                 <ng-container *ngIf="!(isLoading$ | async); else imageSkeleton">

@@ -2,17 +2,20 @@
     width: 100%;
     height: auto;
     margin: 0;
-    padding: 0;
     border-bottom: 2px solid #000000;
+    --cell-pad: clamp(35px, 4vw, 0px);
+    padding-inline: var(--cell-pad);
+    padding: 0;
 }
 
 .col {
-    height: 319px;
-    padding: 0 65px;
-    margin: 0;
-    background-color: #ffffff;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
     border-top: 2px solid #000000;
     border-right: 2px solid #000000;
+    padding-inline: var(--cell-pad);
+    padding-block: 0;
 
     &:nth-child(5n) {
         border-right: none;
@@ -21,31 +24,34 @@
 
 .client-logo-container {
     width: 100%;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 0;
-    background-color: #fff;
+    background: #fff;
 
     img {
         max-width: 100%;
-        max-height: 100%;
+        max-height: 80%;
         object-fit: contain;
+        display: block;
     }
 }
 
-
 .client-button-cell {
-    height: 319px;
+    aspect-ratio: 1 / 1;
     display: flex;
     justify-content: end;
     align-items: end;
-    padding: 287.4px 0 0 70px;
+    // padding: 267.4px 0 0 70px;
+    padding-inline: var(--cell-pad);
     margin: 0;
     border: none;
     background-color: #ffffff;
     border-top: 2px solid #000000;
     cursor: pointer;
+    position: relative;
 
     .contact-button {
         width: 100%;
@@ -56,6 +62,9 @@
         font-size: 1.75rem;
         color: #000000;
         margin: 0 -6px 7px 0;
+        position: absolute;
+        bottom: 0;
+        right: 45px;
     }
 
     .client-icon {
@@ -63,6 +72,9 @@
         font-size: 2.75rem;
         transform: rotate(45deg);
         display: inline-block;
+        position: absolute;
+        bottom: -6px;
+        right: 0;
     }
 
     &:hover {
@@ -73,6 +85,17 @@
         .client-icon {
             color: #a8a8a8;
         }
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .row.row-cols-md-3>.col {
+        border-right: 2px solid #000;
+    }
+
+    /* reset */
+    .row.row-cols-md-3>.col:nth-child(3n) {
+        border-right: none;
     }
 }
 
