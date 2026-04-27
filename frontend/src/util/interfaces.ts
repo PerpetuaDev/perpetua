@@ -14,15 +14,25 @@ export interface IMessage {
     message: string
 }
 
+export interface IServiceBenefit {
+    title: string;
+    description: string;
+}
+
 export interface IService {
-    id: number,
-    image: string,
-    title: string,
-    description: string,
-    width?: number,
-    height?: number,
-    mobileWidth?: number;
-    mobileHeight?: number;
+    id: number;
+    documentId: string;
+    title: string;
+    code: string;
+    sort_order: number;
+    card_icon: IImage;
+    icon_width?: number;
+    icon_height?: number;
+    icon_mobile_width?: number;
+    icon_mobile_height?: number;
+    card_description: string;
+    explanation: string;
+    benefits: IServiceBenefit[];
 }
 
 export interface IFlag {

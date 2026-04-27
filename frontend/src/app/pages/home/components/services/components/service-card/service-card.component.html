@@ -1,25 +1,23 @@
 <div class="project-card-container container-fluid">
     <div class="row row-cols-sm-2 row-cols-3 custom-gutter">
-        <div class="col" *ngFor="let service of services; let i = index">
+        <div class="col" *ngFor="let service of (services$ | async); let i = index">
             <div class="card-container">
                 <!-- Image -->
                 <div class="image-wrapper" (click)="showDescription(i)" (keydown)="onKeyDown($event, i)">
-                    <img [src]="service.image" alt="service.title + ' ' + (i + 1)">
+                    <img [src]="service.card_icon?.url" [alt]="service.title">
                 </div>
                 <!-- Title -->
                 <div class="title-wrapper" (click)="showDescription(i)" (keydown)="onKeyDown($event, i)">
                     <p class="title">
-                        {{ getTitle(service) || 'No Title' }}
+                        {{ service.title || 'No Title' }}
                     </p>
-
                     <i class="bi" [ngClass]="{'bi-x': isVisible[i], 'bi-chevron-down': !isVisible[i]}"></i>
                 </div>
                 <!-- Description -->
                 <div class="description-wrapper" [ngClass]="{'visible': isVisible[i]}">
-                    <p class="description" [innerHTML]="getDescription(service)">
-                    </p>
+                    <p class="description" [innerHTML]="service.card_description"></p>
                     <div class="more-container">
-                        <div class="more-wrapper" [routerLink]="['/services', getPath(service)]">
+                        <div class="more-wrapper" [routerLink]="['/services', service.code]">
                             <p>{{ 'service.learn-more' | translate }}</p>
                             <i class="bi bi-arrow-right-short"></i>
                         </div>

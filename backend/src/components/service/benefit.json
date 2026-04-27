@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_service_benefits",
+  "info": {
+    "displayName": "Benefit",
+    "icon": "star"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    }
+  }
+}

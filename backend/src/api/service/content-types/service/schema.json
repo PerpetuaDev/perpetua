@@ -1,0 +1,58 @@
+{
+  "kind": "collectionType",
+  "collectionName": "services",
+  "info": {
+    "singularName": "service",
+    "pluralName": "services",
+    "displayName": "Service"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "code": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true
+    },
+    "sort_order": {
+      "type": "integer"
+    },
+    "card_icon": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
+    },
+    "icon_width": {
+      "type": "decimal"
+    },
+    "icon_height": {
+      "type": "decimal"
+    },
+    "icon_mobile_width": {
+      "type": "decimal"
+    },
+    "icon_mobile_height": {
+      "type": "decimal"
+    },
+    "card_description": {
+      "type": "text"
+    },
+    "explanation": {
+      "type": "text"
+    },
+    "benefits": {
+      "type": "component",
+      "repeatable": true,
+      "component": "service.benefit"
+    }
+  }
+}

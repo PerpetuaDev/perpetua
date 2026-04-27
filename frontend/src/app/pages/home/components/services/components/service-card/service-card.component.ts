@@ -1,12 +1,13 @@
 // Libraries
 import { CommonModule } from '@angular/common';
-import { Component, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-// Services
-import { TranslationHelper } from '../../../../../../shared/translation-helper';
+import { TranslateModule } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+// Interfaces
 import { IService } from '../../../../../../../util/interfaces';
-import { ServiceData } from '../../service-data';
+// Services
+import { ServiceService } from '../../../../../../shared/service.service';
 
 @Component({
   selector: 'app-service-card',
@@ -16,25 +17,12 @@ import { ServiceData } from '../../service-data';
   styleUrl: './service-card.component.scss'
 })
 
-export class ServiceCardComponent implements OnDestroy {
-  services: IService[] = ServiceData;
-  isVisible: boolean[] = new Array(this.services.length).fill(false);
-  currentLanguage: string = 'en';
+export class ServiceCardComponent {
+  services$: Observable<IService[]>;
+  isVisible: Record<number, boolean> = {};
 
-  constructor(private translationHelper: TranslationHelper, private translate: TranslateService) {
-    this.currentLanguage = this.translationHelper.getCurrentLanguage();
-  }
-
-  ngOnDestroy(): void {
-    this.translationHelper.unsubscribe();
-  }
-
-  getTitle(service: IService): string {
-    return this.translate.instant(service.title);
-  }
-
-  getDescription(service: IService): string {
-    return this.translate.instant(service.description);
+  constructor(private serviceService: ServiceService) {
+    this.services$ = this.serviceService.services$;
   }
 
   showDescription(index: number): void {
@@ -46,18 +34,5 @@ export class ServiceCardComponent implements OnDestroy {
       event.preventDefault();
       this.showDescription(index);
     }
-  }
-
-  getPath(service: any): string {
-    const titleMap: any = {
-      1: 'custom-software',
-      2: 'websites&cms',
-      3: 'native&web-apps',
-      4: 'artificial-intelligence',
-      5: 'hosting&cloud-services',
-      6: 'data&analytics',
-    };
-
-    return titleMap[service.id] || 'no-title';
   }
 }
