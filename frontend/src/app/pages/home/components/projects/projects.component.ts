@@ -10,7 +10,8 @@ import { ArticleAndProjectCardSkeletonComponent } from '../../../../components/s
 // Services
 import { ProjectService } from '../../../../shared/project.service';
 import { LanguageService } from '../../../../shared/language.service';
-import { IProject } from '../../../../../util/interfaces';
+import { PageService } from '../../../../shared/page.service';
+import { IProject, IPage } from '../../../../../util/interfaces';
 
 @Component({
   selector: 'app-projects',
@@ -24,18 +25,21 @@ export class ProjectsComponent implements OnInit, OnDestroy {
   filteredProjects$: Observable<IProject[]>;
   selectedFilter$!: Observable<string | null>;
   isLoading$!: Observable<boolean | null>;
+  page$!: Observable<IPage | null>;
   currentLanguage: string = 'en';
   private langChangeSubscription!: Subscription;
 
   projectService: ProjectService = inject(ProjectService);
 
   constructor(
-    private languageService: LanguageService
+    private languageService: LanguageService,
+    public pageService: PageService,
   ) {
     this.projects$ = this.projectService.projects$;
     this.filteredProjects$ = this.projectService.filteredProjects$;
     this.selectedFilter$ = this.projectService.selectedFilter$;
     this.isLoading$ = this.projectService.isLoading$;
+    this.page$ = this.pageService.getPage('home');
   }
 
   ngOnInit(): void {
