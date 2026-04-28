@@ -44,45 +44,15 @@
     </section>
 
     <!-- Our technologies -->
-    <section class="technologies-container">
+    <section *ngIf="currentService?.technologies?.length" class="technologies-container">
         <div class="header-wrapper">
-            <h1>{{ 'service.technologies.title' | translate }}</h1>
-            <p class="sub-header">
-                {{ 'service.technologies.sub-title-L1' | translate }}<br />
-                {{ 'service.technologies.sub-title-L2' | translate }}
-            </p>
+            <h1>{{ currentService?.technologies_title || 'Our technologies' }}</h1>
+            <p class="sub-header">{{ currentService?.technologies_subtitle }}</p>
         </div>
         <div class="logo-container">
             <div class="row row-cols-5">
-                <div class="col">
-                    <img src="../../../assets/images/strapi-logo.svg" alt="strapi-logo">
-                </div>
-                <div class="col">
-                    <img src="../../../assets/images/firebase-logo.svg" alt="firebase-logo">
-                </div>
-                <div class="col">
-                    <img src="../../../assets/images/strapi-logo.svg" alt="strapi-logo">
-                </div>
-                <div class="col">
-                    <img src="../../../assets/images/firebase-logo.svg" alt="firebase-logo">
-                </div>
-                <div class="col">
-                    <img src="../../../assets/images/strapi-logo.svg" alt="strapi-logo">
-                </div>
-                <div class="col">
-                    <img src="../../../assets/images/strapi-logo.svg" alt="strapi-logo">
-                </div>
-                <div class="col">
-                    <img src="../../../assets/images/firebase-logo.svg" alt="firebase-logo">
-                </div>
-                <div class="col">
-                    <img src="../../../assets/images/strapi-logo.svg" alt="strapi-logo">
-                </div>
-                <div class="col">
-                    <img src="../../../assets/images/firebase-logo.svg" alt="firebase-logo">
-                </div>
-                <div class="col">
-                    <img src="../../../assets/images/strapi-logo.svg" alt="strapi-logo">
+                <div class="col" *ngFor="let tech of currentService?.technologies">
+                    <img [src]="tech.image?.url" [alt]="tech.title">
                 </div>
             </div>
         </div>

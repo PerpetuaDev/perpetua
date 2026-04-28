@@ -46,6 +46,17 @@
       "type": "component",
       "repeatable": true,
       "component": "service.benefit"
+    },
+    "technologies_title": {
+      "type": "string"
+    },
+    "technologies_subtitle": {
+      "type": "text"
+    },
+    "technologies": {
+      "type": "component",
+      "repeatable": true,
+      "component": "service.technology"
     }
   }
 }

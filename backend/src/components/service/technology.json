@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_service_technologies",
+  "info": {
+    "displayName": "Technology",
+    "icon": "layer"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images", "files"]
+    }
+  }
+}

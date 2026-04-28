@@ -20,6 +20,11 @@ export interface IServiceBenefit {
     icon?: IImage;
 }
 
+export interface IServiceTechnology {
+    title: string;
+    image?: IImage;
+}
+
 export interface IService {
     id: number;
     documentId: string;
@@ -31,6 +36,9 @@ export interface IService {
     card_description: string;
     explanation: string;
     benefits: IServiceBenefit[];
+    technologies_title?: string;
+    technologies_subtitle?: string;
+    technologies?: IServiceTechnology[];
 }
 
 export interface IFlag {
