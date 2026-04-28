@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, Subscription, combineLatest } from 'rxjs';
+import { catchError, of } from 'rxjs';
 // Components
 import { MoreProjectButtonComponent } from '../../../components/buttons/more-project-button/more-project-button.component';
 import { StartProjectButtonComponent } from '../../../components/buttons/start-project-button/start-project-button.component';
@@ -13,6 +14,7 @@ import { ProjectCardComponent } from '../../../components/project-cards/project-
 // Services
 import { TranslationHelper } from '../../../shared/translation-helper';
 import { ServiceService } from '../../../shared/service.service';
+import { StrapiService } from '../../../api/strapi.service';
 import { ProjectService } from '../../../shared/project.service';
 import { StaticImageService } from '../../../shared/static-image.service';
 import { IProject, IService } from '../../../../util/interfaces';
@@ -49,6 +51,7 @@ export class ServiceDetailComponent implements OnInit, OnDestroy {
     private staticImageService: StaticImageService,
     private projectService: ProjectService,
     private serviceService: ServiceService,
+    private strapiService: StrapiService,
   ) {
     this.currentLanguage = this.translationHelper.getCurrentLanguage();
     this.isLoading$ = this.staticImageService.isLoading$;
@@ -68,8 +71,18 @@ export class ServiceDetailComponent implements OnInit, OnDestroy {
           this.currentTitle = service.title;
           this.projectsByServiceType$ = this.projectService.getProjectsByServiceType(this.currentTitle);
           this.titleService.setTitle(`Our service (${service.title}) - Perpetua`);
-          this.metaService.updateTag({ name: 'description', content: service.explanation });
+          this.metaService.updateTag({ name: 'description', content: service.hero_subtitle ?? '' });
           this.showScreenTop();
+
+          this.sub.add(
+            this.strapiService.getServiceByDocumentId(service.documentId).pipe(
+              catchError(() => of(null))
+            ).subscribe(result => {
+              if (result?.data && this.currentService) {
+                this.currentService = { ...this.currentService, technologies: result.data.technologies };
+              }
+            })
+          );
         }
       })
     );

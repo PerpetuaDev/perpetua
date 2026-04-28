@@ -103,4 +103,11 @@ export class StrapiService {
       { headers: this.getHeaders() }
     );
   }
+
+  getServiceByDocumentId(documentId: string): Observable<APIResponseModel> {
+    return this.http.get<APIResponseModel>(
+      `${this.apiUrl}/services/${documentId}?populate[technologies][populate]=*`,
+      { headers: this.getHeaders() }
+    );
+  }
 }

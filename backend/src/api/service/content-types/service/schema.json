@@ -39,7 +39,10 @@
     "card_description": {
       "type": "text"
     },
-    "explanation": {
+    "hero_title": {
+      "type": "string"
+    },
+    "hero_subtitle": {
       "type": "text"
     },
     "benefits": {

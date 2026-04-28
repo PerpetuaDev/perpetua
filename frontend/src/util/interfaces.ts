@@ -34,7 +34,8 @@ export interface IService {
     card_icon: IImage;
     hero_image?: IImage;
     card_description: string;
-    explanation: string;
+    hero_title?: string;
+    hero_subtitle?: string;
     benefits: IServiceBenefit[];
     technologies_title?: string;
     technologies_subtitle?: string;
