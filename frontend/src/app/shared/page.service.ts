@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, catchError, of } from 'rxjs';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { StrapiService } from '../api/strapi.service';
 import { IPage, ITextBlock, APIResponseModel } from '../../util/interfaces';
 
@@ -10,7 +11,7 @@ import { IPage, ITextBlock, APIResponseModel } from '../../util/interfaces';
 export class PageService {
     private cache = new Map<string, BehaviorSubject<IPage | null>>();
 
-    constructor(private strapiService: StrapiService) {}
+    constructor(private strapiService: StrapiService, private sanitizer: DomSanitizer) {}
 
     getPage(slug: string): Observable<IPage | null> {
         if (!this.cache.has(slug)) {
@@ -31,5 +32,12 @@ export class PageService {
 
     getTextParts(page: IPage | null, key: string): string[] {
         return this.getText(page, key).split('[LineSplit]');
+    }
+
+    getSafeHtml(page: IPage | null, key: string): SafeHtml {
+        const html = this.getText(page, key)
+            .replace(/\[LineSplit\]/g, '<br>')
+            .replace(/&/g, '<span class="ampersand">&amp;</span>');
+        return this.sanitizer.bypassSecurityTrustHtml(html);
     }
 }
