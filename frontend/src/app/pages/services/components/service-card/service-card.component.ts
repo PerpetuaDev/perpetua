@@ -1,12 +1,10 @@
-// Libraries
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-// Services
-import { ServiceData } from '../../../home/components/services/service-data';
+import { TranslateModule } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
 import { IService } from '../../../../../util/interfaces';
-import { TranslationHelper } from '../../../../shared/translation-helper';
+import { ServiceService } from '../../../../shared/service.service';
 
 @Component({
   selector: 'app-service-card',
@@ -17,22 +15,9 @@ import { TranslationHelper } from '../../../../shared/translation-helper';
 })
 export class ServiceCardComponent {
   @Input() isServiceDetail: boolean = false;
-  services: IService[] = ServiceData;
+  services$: Observable<IService[]>;
 
-  constructor(
-    private translationHelper: TranslationHelper,
-    private translate: TranslateService,
-  ) {}
-
-  getTitle(service: IService): string {
-    return this.translate.instant(service.title);
-  }
-
-  getDescription(service: IService): string {
-    return this.translate.instant(service.card_description);
-  }
-
-  getPath(service: IService): string {
-    return service.slug || 'no-title';
+  constructor(private serviceService: ServiceService) {
+    this.services$ = this.serviceService.services$;
   }
 }

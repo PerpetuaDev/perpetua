@@ -1,17 +1,16 @@
 <div class="service-container" [ngClass]="{ 'detail-container': isServiceDetail }">
     <div class="row row-cols-sm-2 row-cols-md-3 row-cols-lg-3">
-        <div class="col" [ngClass]="{ 'service-box': isServiceDetail }" *ngFor="let service of services; let i = index">
+        <div class="col" [ngClass]="{ 'service-box': isServiceDetail }" *ngFor="let service of (services$ | async)">
             <div class="service-text-wrapper">
-                <p class="service-title">{{ getTitle(service) || 'No Title' }}</p>
-                <p [ngClass]="{ 'service-description': !isServiceDetail }">{{ getDescription(service) || 'No
-                    Description' }}</p>
+                <p class="service-title">{{ service.title }}</p>
+                <p [ngClass]="{ 'service-description': !isServiceDetail }">{{ service.card_description }}</p>
             </div>
             <div class="service-button-wapper">
-                <div class="more-wrapper" [routerLink]="['/services', getPath(service)]">
+                <div class="more-wrapper" [routerLink]="['/services', service.slug]">
                     <p>{{ 'service.learn-more' | translate }}</p>
                     <i class="bi bi-arrow-right-short"></i>
                 </div>
-                <img class="service-icon" [src]="service.card_icon.url" [alt]="service.title">
+                <img class="service-icon" [src]="service.card_icon?.url" [alt]="service.title">
             </div>
         </div>
     </div>
