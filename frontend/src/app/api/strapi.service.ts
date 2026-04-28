@@ -97,6 +97,13 @@ export class StrapiService {
     });
   }
 
+  getPageBySlug(slug: string): Observable<APIResponseModel> {
+    return this.http.get<APIResponseModel>(
+      `${this.apiUrl}/pages?filters[slug][$eq]=${slug}&populate=*`,
+      { headers: this.getHeaders() }
+    );
+  }
+
   getAllServices(): Observable<APIResponseModel> {
     return this.http.get<APIResponseModel>(
       `${this.apiUrl}/services?populate=*&sort=sort_order:asc`,

@@ -14,6 +14,19 @@ export interface IMessage {
     message: string
 }
 
+export interface ITextBlock {
+    key: string;
+    value: string;
+}
+
+export interface IPage {
+    id: number;
+    documentId: string;
+    slug: string;
+    name: string;
+    text_blocks: ITextBlock[];
+}
+
 export interface IServiceBenefit {
     title: string;
     description: string;

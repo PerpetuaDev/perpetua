@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_shared_text_blocks",
+  "info": {
+    "displayName": "Text Block",
+    "icon": "file-alt"
+  },
+  "options": {},
+  "attributes": {
+    "key": {
+      "type": "string",
+      "required": true
+    },
+    "value": {
+      "type": "text"
+    }
+  }
+}
