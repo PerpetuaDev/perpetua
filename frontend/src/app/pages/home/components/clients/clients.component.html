@@ -14,10 +14,9 @@
         </div>
         <div class="right-container">
             <!-- Title -->
-            <h1>
-                {{ 'home.section-title.clients-L1' | translate }}<br>
-                {{ 'home.section-title.clients-L2' | translate }}
-            </h1>
+            <ng-container *ngIf="page$ | async as page">
+                <h1 [innerHTML]="pageService.getSafeHtml(page, 'clientsText')"></h1>
+            </ng-container>
             <!-- Client logos -->
             <app-client-card [clients]="clients" (clientSelected)="onClientSelected($event)"></app-client-card>
         </div>

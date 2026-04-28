@@ -5,12 +5,14 @@ import { RouterLink } from '@angular/router';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { marked } from 'marked';
 import { TranslateModule } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
 // Components
 import { ClientCardComponent } from './components/client-card/client-card.component';
 // Services
-import { IClient, APIResponseModel, IImage } from '../../../../../util/interfaces';
+import { IClient, APIResponseModel, IImage, IPage } from '../../../../../util/interfaces';
 import { StrapiService } from '../../../../api/strapi.service';
 import { TranslationHelper } from '../../../../shared/translation-helper';
+import { PageService } from '../../../../shared/page.service';
 
 @Component({
   selector: 'app-clients',
@@ -25,9 +27,11 @@ export class ClientsComponent implements OnInit, OnDestroy {
   strapiService = inject(StrapiService);
   currentLanguage: string = 'en';
   parsedTestimonial: SafeHtml | undefined;
+  page$!: Observable<IPage | null>;
 
-  constructor(private sanitizer: DomSanitizer, private translationHelper: TranslationHelper) {
+  constructor(private sanitizer: DomSanitizer, private translationHelper: TranslationHelper, public pageService: PageService) {
     this.currentLanguage = this.translationHelper.getCurrentLanguage();
+    this.page$ = this.pageService.getPage('home');
   }
 
   ngOnInit(): void {
