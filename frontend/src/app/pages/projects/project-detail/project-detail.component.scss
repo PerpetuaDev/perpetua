@@ -3,18 +3,21 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 32px;
     padding: 80px 105px;
     margin: 0;
 
     h1 {
         max-width: 500px;
+        min-width: 0;
     }
 
     .description {
         max-width: 450px;
+        min-width: 0;
         font-family: 'Sohne' !important;
         font-size: 1.5rem;
-        // margin-right: 150px;
     }
 
     .description-smartphone {
@@ -23,6 +26,7 @@
 
     .button-wrapper {
         width: auto;
+        margin-left: auto;
         display: flex;
         justify-content: flex-end;
         align-items: center;

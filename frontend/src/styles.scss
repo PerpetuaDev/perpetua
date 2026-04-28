@@ -123,7 +123,6 @@ html {
   scroll-behavior: smooth;
   box-sizing: border-box;
   overflow-y: scroll;
-  scrollbar-gutter: stable;
 }
 
 * {
@@ -139,8 +138,7 @@ html {
 
 html,
 body {
-  overflow-y: scroll;
-  overflow-x: auto;
+  overflow-x: hidden;
   position: relative;
   max-width: 100%;
   min-height: 100vh;
@@ -169,15 +167,7 @@ body {
   font-family: 'Larsseit', 'Sohne', Arial, sans-serif !important;
   color: #0e0e01;
   margin: 0;
-  padding-right: 15px;
-}
-
-::-webkit-scrollbar {
-  width: 10px;
-}
-
-body::-webkit-scrollbar {
-  display: none;
+  padding-right: 0;
 }
 
 h1 {

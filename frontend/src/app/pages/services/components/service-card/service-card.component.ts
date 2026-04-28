@@ -48,7 +48,7 @@ export class ServiceCardComponent implements OnDestroy {
   }
 
   getDescription(service: IService): string {
-    return this.translate.instant(service.description);
+    return this.translate.instant(service.card_description);
   }
 
   getPath(service: any): string {

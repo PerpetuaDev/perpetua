@@ -23,7 +23,7 @@ export interface IService {
     id: number;
     documentId: string;
     title: string;
-    code: string;
+    slug: string;
     sort_order: number;
     card_icon: IImage;
     icon_width?: number;

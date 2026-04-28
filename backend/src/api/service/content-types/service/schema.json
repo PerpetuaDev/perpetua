@@ -15,7 +15,7 @@
       "type": "string",
       "required": true
     },
-    "code": {
+    "slug": {
       "type": "uid",
       "targetField": "title",
       "required": true

@@ -1,6 +1,6 @@
 export const ServiceDetailData = [
     {
-        code: 'custom-software',
+        slug: 'custom-software',
         title: 'Custom Software',
         image: '',
         explanation: 'Something about the benefit of our process and why it reduces the risk of using our services compared to other providers. No  longer than this but enough to adequately explain what custom software development is compared to using software as a  service/subscriptions/etc.',
@@ -25,7 +25,7 @@ export const ServiceDetailData = [
 
     },
     {
-        code: 'websites&cms',
+        slug: 'websites&cms',
         title: 'Websites & CMS',
         image: '',
         explanation: 'Something about the benefit of our process and why it reduces the risk of using our services compared to other providers. No  longer than this but enough to adequately explain what custom software development is compared to using software as a  service/subscriptions/etc.',
@@ -50,7 +50,7 @@ export const ServiceDetailData = [
 
     },
     {
-        code: 'native&web-apps',
+        slug: 'native&web-apps',
         title: 'Native & Web Apps',
         image: '',
         explanation: 'Something about the benefit of our process and why it reduces the risk of using our services compared to other providers. No  longer than this but enough to adequately explain what custom software development is compared to using software as a  service/subscriptions/etc.',
@@ -75,7 +75,7 @@ export const ServiceDetailData = [
 
     },
     {
-        code: 'artificial-intelligence',
+        slug: 'artificial-intelligence',
         title: 'Artificial Intelligence',
         image: '',
         explanation: 'Something about the benefit of our process and why it reduces the risk of using our services compared to other providers. No  longer than this but enough to adequately explain what custom software development is compared to using software as a  service/subscriptions/etc.',
@@ -100,7 +100,7 @@ export const ServiceDetailData = [
 
     },
     {
-        code: 'hosting&cloud-services',
+        slug: 'hosting&cloud-services',
         title: 'Hosting & Cloud Services',
         image: '',
         explanation: 'Something about the benefit of our process and why it reduces the risk of using our services compared to other providers. No  longer than this but enough to adequately explain what custom software development is compared to using software as a  service/subscriptions/etc.',
@@ -125,7 +125,7 @@ export const ServiceDetailData = [
 
     },
     {
-        code: 'data&analytics',
+        slug: 'data&analytics',
         title: 'Data & Analytics',
         image: '',
         explanation: 'Something about the benefit of our process and why it reduces the risk of using our services compared to other providers. No  longer than this but enough to adequately explain what custom software development is compared to using software as a  service/subscriptions/etc.',

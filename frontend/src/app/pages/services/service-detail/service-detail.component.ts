@@ -59,7 +59,7 @@ export class ServiceDetailComponent implements OnInit, OnDestroy {
       const serviceTitle = params.get('serviceTitle');
 
       if (serviceTitle) {
-        this.currentService = this.ServiceDetailData.find(service => service.code === serviceTitle);
+        this.currentService = this.ServiceDetailData.find(service => service.slug === serviceTitle);
 
         if (this.currentService) {
           this.currentTitle = this.currentService.title;
@@ -83,7 +83,7 @@ export class ServiceDetailComponent implements OnInit, OnDestroy {
           );
           if (matchedImage) {
             service.image = matchedImage.image.url;
-            if (this.currentService?.code === service.code) {
+            if (this.currentService?.code === service.slug) {
               this.currentService.image = matchedImage.image.url;
             }
           }

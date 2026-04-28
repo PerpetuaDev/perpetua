@@ -5,13 +5,18 @@
 }
 
 .custom-gutter {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     row-gap: 115px;
     column-gap: 128.75px;
+    margin: 0;
+    padding: 0;
 }
 
 .col {
-    width: 392px;
+    width: 100%;
     min-height: 217px;
+    padding: 0;
 }
 
 .card-container {

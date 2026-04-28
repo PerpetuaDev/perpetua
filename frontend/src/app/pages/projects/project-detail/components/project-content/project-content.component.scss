@@ -1,14 +1,16 @@
 section {
-    padding: 15px;
+    padding: 15px max(15px, 0.87vw);
 
     .section-large {
         width: 100%;
 
         .right-comment-wrapper {
             margin-left: 50%;
+            margin-right: 0;
             margin-top: 67px;
             margin-bottom: 67px;
             max-width: 523px;
+            width: 45%;
             font-family: 'Sohne' !important;
             font-size: 1.5rem;
 
@@ -64,6 +66,15 @@ section {
                 object-fit: cover;
             }
         }
+
+        .btm-row {
+            height: 530px;
+            overflow: hidden;
+
+            .col {
+                height: 100%;
+            }
+        }
     }
 
     .section-small {
@@ -71,6 +82,10 @@ section {
 
         .sub-comment-wrapper {
             margin-left: 0;
+        }
+
+        .image-wrapper:not(.grid) {
+            height: 750px;
         }
     }
 }
@@ -85,15 +100,16 @@ section {
             gap: 16px;
 
             .right-comment-wrapper {
-                margin-left: 50%;
-                margin-top: 67px;
-                margin-bottom: 67px;
-                max-width: 523px;
+                margin-left: 0;
+                margin-top: 40px;
+                margin-bottom: 20px;
+                max-width: 100%;
+                width: 100%;
                 font-family: 'Sohne' !important;
                 font-size: 1rem;
 
                 p {
-                    margin: 0 0 -30px;
+                    margin: 0;
                 }
             }
         }

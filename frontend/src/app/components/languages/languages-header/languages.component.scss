@@ -37,10 +37,13 @@
         transition: right 0.1s ease, opacity 0.1s ease;
         width: max-content;
         white-space: nowrap;
+        opacity: 0;
+        pointer-events: none;
 
         &.visible {
             right: 77.83px;
             opacity: 1 !important;
+            pointer-events: auto;
         }
 
         .language-container {
