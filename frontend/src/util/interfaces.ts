@@ -17,6 +17,7 @@ export interface IMessage {
 export interface IServiceBenefit {
     title: string;
     description: string;
+    icon?: IImage;
 }
 
 export interface IService {
@@ -26,10 +27,6 @@ export interface IService {
     slug: string;
     sort_order: number;
     card_icon: IImage;
-    icon_width?: number;
-    icon_height?: number;
-    icon_mobile_width?: number;
-    icon_mobile_height?: number;
     card_description: string;
     explanation: string;
     benefits: IServiceBenefit[];

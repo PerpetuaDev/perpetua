@@ -11,9 +11,7 @@
                     <p>{{ 'service.learn-more' | translate }}</p>
                     <i class="bi bi-arrow-right-short"></i>
                 </div>
-                <img [src]="service.card_icon.url" alt="service.title"
-                    [style.width.px]="(isMobile$ | async) ? (service.icon_mobile_width ?? service.icon_width) : service.icon_width"
-                    [style.height.px]="(isMobile$ | async) ? (service.icon_mobile_height ?? service.icon_height) : service.icon_height">
+                <img class="service-icon" [src]="service.card_icon.url" [alt]="service.title">
             </div>
         </div>
     </div>

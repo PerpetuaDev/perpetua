@@ -53,6 +53,11 @@
             display: flex;
             justify-content: space-between;
             align-items: end;
+
+            .service-icon {
+                max-height: 90px;
+                width: auto;
+            }
         }
 
         .more-wrapper {
@@ -165,6 +170,11 @@
                 display: flex;
                 justify-content: space-between;
                 align-items: end;
+
+                .service-icon {
+                    max-height: 50px;
+                    width: auto;
+                }
             }
 
             .more-wrapper {

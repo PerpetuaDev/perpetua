@@ -1,10 +1,10 @@
 // Libraries
 import { Title, Meta } from '@angular/platform-browser';
-import { Component, OnInit, OnDestroy, inject } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subscription, combineLatest } from 'rxjs';
 // Components
 import { MoreProjectButtonComponent } from '../../../components/buttons/more-project-button/more-project-button.component';
 import { StartProjectButtonComponent } from '../../../components/buttons/start-project-button/start-project-button.component';
@@ -12,10 +12,10 @@ import { ServiceHeaderSkeletonComponent } from '../../../components/skeletons/se
 import { ProjectCardComponent } from '../../../components/project-cards/project-card/project-card.component';
 // Services
 import { TranslationHelper } from '../../../shared/translation-helper';
-import { ServiceDetailData } from './service-detail-data';
+import { ServiceService } from '../../../shared/service.service';
 import { ProjectService } from '../../../shared/project.service';
 import { StaticImageService } from '../../../shared/static-image.service';
-import { IProject } from '../../../../util/interfaces';
+import { IProject, IService } from '../../../../util/interfaces';
 
 @Component({
   selector: 'app-service-detail',
@@ -33,12 +33,12 @@ import { IProject } from '../../../../util/interfaces';
 })
 
 export class ServiceDetailComponent implements OnInit, OnDestroy {
-  currentService: any;
+  currentService: (IService & { image?: string }) | undefined;
   currentTitle: string = '';
-  ServiceDetailData = [...ServiceDetailData];
   isLoading$!: Observable<boolean | null>;
   projectsByServiceType$: Observable<IProject[]>;
   currentLanguage: string = 'en';
+  private sub = new Subscription();
 
   constructor(
     private titleService: Title,
@@ -48,53 +48,48 @@ export class ServiceDetailComponent implements OnInit, OnDestroy {
     private translate: TranslateService,
     private staticImageService: StaticImageService,
     private projectService: ProjectService,
+    private serviceService: ServiceService,
   ) {
     this.currentLanguage = this.translationHelper.getCurrentLanguage();
     this.isLoading$ = this.staticImageService.isLoading$;
-    this.projectsByServiceType$ = this.projectService.getProjectsByServiceType(this.currentTitle);
+    this.projectsByServiceType$ = this.projectService.getProjectsByServiceType('');
   }
 
   ngOnInit() {
-    this.activatedRoute.paramMap.subscribe(params => {
-      const serviceTitle = params.get('serviceTitle');
-
-      if (serviceTitle) {
-        this.currentService = this.ServiceDetailData.find(service => service.slug === serviceTitle);
-
-        if (this.currentService) {
-          this.currentTitle = this.currentService.title;
-
+    this.sub.add(
+      combineLatest([
+        this.activatedRoute.paramMap,
+        this.serviceService.services$
+      ]).subscribe(([params, services]) => {
+        const slug = params.get('serviceTitle');
+        const service = services.find(s => s.slug === slug);
+        if (service) {
+          this.currentService = { ...service, image: this.currentService?.image };
+          this.currentTitle = service.title;
           this.projectsByServiceType$ = this.projectService.getProjectsByServiceType(this.currentTitle);
-          this.fetchProjects();
-
-          this.titleService.setTitle(`Our service (${this.currentService.title}) - Perpetua`);
-          this.metaService.updateTag({ name: 'description', content: this.currentService.explanation });
-
+          this.titleService.setTitle(`Our service (${service.title}) - Perpetua`);
+          this.metaService.updateTag({ name: 'description', content: service.explanation });
           this.showScreenTop();
         }
-      }
-    });
+      })
+    );
 
-    this.staticImageService.staticImages$.subscribe((staticImages) => {
-      if (staticImages.length > 0) {
-        this.ServiceDetailData = this.ServiceDetailData.map((service) => {
-          const matchedImage = staticImages.find(image =>
-            this.getServiceIndexFromLocation(image.image_location) === this.ServiceDetailData.indexOf(service)
-          );
-          if (matchedImage) {
-            service.image = matchedImage.image.url;
-            if (this.currentService?.code === service.slug) {
-              this.currentService.image = matchedImage.image.url;
-            }
+    this.sub.add(
+      this.staticImageService.staticImages$.subscribe((staticImages) => {
+        if (staticImages.length > 0 && this.currentService) {
+          const locationKey = `service-${this.currentService.slug}-header-image`;
+          const matched = staticImages.find(img => img.image_location === locationKey);
+          if (matched) {
+            this.currentService = { ...this.currentService, image: matched.image.url };
           }
-          return service;
-        });
-      }
-    });
+        }
+      })
+    );
   }
 
   ngOnDestroy(): void {
     this.translationHelper.unsubscribe();
+    this.sub.unsubscribe();
   }
 
   getFormattedTitle(title: string): string {
@@ -107,23 +102,6 @@ export class ServiceDetailComponent implements OnInit, OnDestroy {
       case 'Data & Analytics': return 'data & analytics';
       default: return title.toLowerCase();
     }
-  }
-
-  getServiceIndexFromLocation(imageLocation: any): number {
-    const mappings: { [key: string]: number } = {
-      'service-custom-software-header-image': 0,
-      'service-websites&cms-header-image': 1,
-      'service-native&web-apps-header-image': 2,
-      'service-artificial-intelligence-header-image': 3,
-      'service-hosting&cloud-services-header-image': 4,
-      'service-data&analytics-header-image': 5,
-    };
-    return mappings[imageLocation] ?? -1;
-  }
-
-  fetchProjects() {
-    console.log("🔍 Fetching projects for service type:", this.currentTitle);
-    this.projectsByServiceType$ = this.projectService.getProjectsByServiceType(this.currentTitle);
   }
 
   getArticleForTitle(title?: string): string {

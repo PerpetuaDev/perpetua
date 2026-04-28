@@ -31,18 +31,6 @@
         "files"
       ]
     },
-    "icon_width": {
-      "type": "decimal"
-    },
-    "icon_height": {
-      "type": "decimal"
-    },
-    "icon_mobile_width": {
-      "type": "decimal"
-    },
-    "icon_mobile_height": {
-      "type": "decimal"
-    },
     "card_description": {
       "type": "text"
     },
