@@ -99,7 +99,7 @@ export class StrapiService {
 
   getAllServices(): Observable<APIResponseModel> {
     return this.http.get<APIResponseModel>(
-      `${this.apiUrl}/services?populate[card_icon]=*&populate[hero_image]=*&populate[benefits]=*&sort=sort_order:asc`,
+      `${this.apiUrl}/services?populate=*&sort=sort_order:asc`,
       { headers: this.getHeaders() }
     );
   }
