@@ -28,4 +28,8 @@ export class PageService {
     getText(page: IPage | null, key: string): string {
         return page?.text_blocks?.find((b: ITextBlock) => b.key === key)?.value ?? '';
     }
+
+    getTextParts(page: IPage | null, key: string): string[] {
+        return this.getText(page, key).split('[LineSplit]');
+    }
 }
