@@ -27,6 +27,7 @@ export interface IService {
     slug: string;
     sort_order: number;
     card_icon: IImage;
+    hero_image?: IImage;
     card_description: string;
     explanation: string;
     benefits: IServiceBenefit[];

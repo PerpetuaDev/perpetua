@@ -64,7 +64,7 @@ export class ServiceDetailComponent implements OnInit, OnDestroy {
         const slug = params.get('serviceTitle');
         const service = services.find(s => s.slug === slug);
         if (service) {
-          this.currentService = { ...service, image: this.currentService?.image };
+          this.currentService = { ...service, image: service.hero_image?.url ?? this.currentService?.image };
           this.currentTitle = service.title;
           this.projectsByServiceType$ = this.projectService.getProjectsByServiceType(this.currentTitle);
           this.titleService.setTitle(`Our service (${service.title}) - Perpetua`);
@@ -92,7 +92,7 @@ export class ServiceDetailComponent implements OnInit, OnDestroy {
     this.sub.unsubscribe();
   }
 
-  getFormattedTitle(title: string): string {
+  getFormattedTitle(title: string | undefined): string {
     switch (title) {
       case 'Custom Software': return 'custom software';
       case 'Websites & CMS': return 'websites & CMS';
@@ -100,7 +100,7 @@ export class ServiceDetailComponent implements OnInit, OnDestroy {
       case 'Artificial Intelligence': return 'artificial intelligence';
       case 'Hosting & Cloud Services': return 'hosting & cloud services';
       case 'Data & Analytics': return 'data & analytics';
-      default: return title.toLowerCase();
+      default: return title?.toLowerCase() ?? '';
     }
   }
 
