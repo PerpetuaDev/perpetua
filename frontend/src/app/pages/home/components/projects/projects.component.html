@@ -1,10 +1,7 @@
 <section class='w-100 m-0'>
     <!-- Title -->
     <ng-container *ngIf="page$ | async as page">
-        <h1>
-            {{ pageService.getText(page, 'projects-heading-line1') || ('home.section-title.projects-L1' | translate) }}<br>
-            {{ pageService.getText(page, 'projects-heading-line2') || (('home.section-title.projects-L2-bf' | translate) + ' & ' + ('home.section-title.projects-L2-af' | translate)) }}
-        </h1>
+        <h1>{{ pageService.getText(page, 'heroQuote') }}</h1>
     </ng-container>
     <!-- Sorting buttons -->
     <div class="sort-button-container">
