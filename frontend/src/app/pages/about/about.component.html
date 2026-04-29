@@ -1,8 +1,10 @@
 <div id="aboutUs" class='w-100 m-0'>
     <!-- Header -->
     <section class="header-section">
-        <p class="header-text">{{ 'about.description.P1' | translate }}</p>
-        <p class="header-text">{{ 'about.description.P2' | translate }}</p>
+        <ng-container *ngIf="page$ | async as page">
+            <p class="header-text" [innerHTML]="pageService.getSafeHtml(page, 'aboutHeaderText1')"></p>
+            <p class="header-text" [innerHTML]="pageService.getSafeHtml(page, 'aboutHeaderText2')"></p>
+        </ng-container>
     </section>
     <!-- Location -->
     <section id="aboutLocations" class="location-section">
@@ -49,7 +51,9 @@
     <section id="aboutCareers" class="careers-section">
         <div class="sub-title-container">
             <h1 class="sub-title">{{ 'contact.nav.career' | translate }}</h1>
-            <p>{{ 'about.careers.header' | translate }}</p>
+            <ng-container *ngIf="page$ | async as page">
+                <p [innerHTML]="pageService.getSafeHtml(page, 'aboutCareers')"></p>
+            </ng-container>
         </div>
         <ng-container *ngIf="careers.length > 0">
             <app-career-card [careers]="careers"></app-career-card>

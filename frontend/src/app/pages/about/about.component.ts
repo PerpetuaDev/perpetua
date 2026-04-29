@@ -11,10 +11,11 @@ import { LocationCardComponent } from './components/location-card/location-card.
 import { CareerCardComponent } from './components/career-card/career-card.component';
 // Services
 import { StrapiService } from '../../api/strapi.service';
-import { IClient, IMember, IOffice, ICareer, APIResponseModel } from '../../../util/interfaces';
+import { IClient, IMember, IOffice, ICareer, APIResponseModel, IPage } from '../../../util/interfaces';
 import { TranslationHelper } from '../../shared/translation-helper';
 import { CareerService } from '../../shared/career.service';
 import { OfficeService } from '../../shared/office.service';
+import { PageService } from '../../shared/page.service';
 
 @Component({
   selector: 'app-about',
@@ -33,6 +34,7 @@ import { OfficeService } from '../../shared/office.service';
 
 export class AboutComponent implements OnInit, OnDestroy {
   offices$: Observable<IOffice[]>;
+  page$!: Observable<IPage | null>;
   careers: ICareer[] = [];
   clients: IClient[] = [];
   members: IMember[] = [];
@@ -50,9 +52,11 @@ export class AboutComponent implements OnInit, OnDestroy {
     private translationHelper: TranslationHelper,
     private careerService: CareerService,
     private officeService: OfficeService,
+    public pageService: PageService,
   ) {
     this.currentLanguage = this.translationHelper.getCurrentLanguage();
     this.offices$ = this.officeService.offices$;
+    this.page$ = this.pageService.getPage('about');
   }
 
   ngOnInit(): void {
