@@ -275,7 +275,7 @@ module.exports = async () => {
 };
 
 async function setDefaultLocales() {
-  const tables = ['pages', 'services'];
+  const tables = ['pages', 'services', 'articles', 'careers', 'members', 'projects'];
   for (const table of tables) {
     await strapi.db.connection(table).whereNull('locale').update({ locale: 'en' });
   }
