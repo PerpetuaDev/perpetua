@@ -281,10 +281,10 @@ async function ensureLocales() {
   const existingCodes = existing.map((l) => l.code);
 
   if (!existingCodes.includes('en')) {
-    await localeService.createLocale({ code: 'en', name: 'English', isDefault: true });
+    await localeService.create({ code: 'en', name: 'English', isDefault: true });
   }
   if (!existingCodes.includes('ja')) {
-    await localeService.createLocale({ code: 'ja', name: 'Japanese (日本語)' });
+    await localeService.create({ code: 'ja', name: 'Japanese (日本語)' });
   }
 }
 
