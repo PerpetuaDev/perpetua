@@ -272,7 +272,21 @@ async function main() {
 module.exports = async () => {
   await seedExampleApp();
   await setDefaultLocales();
+  await ensureLocales();
 };
+
+async function ensureLocales() {
+  const localeService = strapi.plugin('i18n').service('locales');
+  const existing = await localeService.find();
+  const existingCodes = existing.map((l) => l.code);
+
+  if (!existingCodes.includes('en')) {
+    await localeService.createLocale({ code: 'en', name: 'English', isDefault: true });
+  }
+  if (!existingCodes.includes('ja')) {
+    await localeService.createLocale({ code: 'ja', name: 'Japanese (日本語)' });
+  }
+}
 
 async function setDefaultLocales() {
   const tables = ['pages', 'services', 'articles', 'careers', 'members', 'projects'];
