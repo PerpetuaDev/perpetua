@@ -9,15 +9,30 @@
   "options": {
     "draftAndPublish": true
   },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
   "attributes": {
     "company_name": {
-      "type": "string"
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "project_image": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::project.project",
-      "inversedBy": "slide"
+      "inversedBy": "slide",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
     }
   }
 }

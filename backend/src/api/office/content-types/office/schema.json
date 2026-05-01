@@ -9,6 +9,11 @@
   "options": {
     "draftAndPublish": true
   },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
   "attributes": {
     "office_location": {
       "type": "enumeration",
@@ -17,25 +22,60 @@
         "Christchurch",
         "Sydney",
         "Yokohama"
-      ]
+      ],
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
     },
     "address_1": {
-      "type": "string"
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "address_2": {
-      "type": "string"
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "ward": {
-      "type": "string"
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "city": {
-      "type": "string"
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "prefecture": {
-      "type": "string"
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "city_or_state": {
-      "type": "string"
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "country": {
       "type": "enumeration",
@@ -44,16 +84,36 @@
         "Australia",
         "Japan",
         "Korea"
-      ]
+      ],
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
     },
     "post_code": {
-      "type": "string"
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
     },
     "email": {
-      "type": "email"
+      "type": "email",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
     },
     "phone": {
-      "type": "string"
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
     },
     "office_image": {
       "allowedTypes": [
@@ -63,19 +123,34 @@
         "audios"
       ],
       "type": "media",
-      "multiple": false
+      "multiple": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
     },
     "careers": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::career.career",
-      "mappedBy": "office"
+      "mappedBy": "office",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
     },
     "projects": {
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::project.project",
-      "mappedBy": "related_offices"
+      "mappedBy": "related_offices",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
     }
   }
 }
