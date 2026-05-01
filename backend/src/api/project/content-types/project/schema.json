@@ -10,12 +10,22 @@
   "options": {
     "draftAndPublish": true
   },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
   "attributes": {
     "project_client": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::client.client",
-      "inversedBy": "projects"
+      "inversedBy": "projects",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
     },
     "industry": {
       "type": "enumeration",
@@ -50,7 +60,12 @@
         "Technology",
         "Sport & Recreation",
         "Trades & Services"
-      ]
+      ],
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
     },
     "project_type": {
       "type": "enumeration",
@@ -60,19 +75,44 @@
         "app",
         "design",
         "other"
-      ]
+      ],
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
     },
     "project_title": {
-      "type": "string"
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "project_date": {
-      "type": "date"
+      "type": "date",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
     },
     "project_link": {
-      "type": "string"
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
     },
     "project_description": {
-      "type": "text"
+      "type": "text",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "thumbnail_image": {
       "type": "media",
@@ -83,7 +123,12 @@
         "files",
         "videos",
         "audios"
-      ]
+      ],
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
     },
     "project_images": {
       "type": "media",
@@ -94,25 +139,55 @@
         "files",
         "videos",
         "audios"
-      ]
+      ],
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
     },
     "project_comment1": {
-      "type": "richtext"
+      "type": "richtext",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "project_comment2": {
-      "type": "richtext"
+      "type": "richtext",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "project_comment3": {
-      "type": "richtext"
+      "type": "richtext",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "project_comment4": {
-      "type": "richtext"
+      "type": "richtext",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "slide": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::slide.slide",
-      "mappedBy": "project_image"
+      "mappedBy": "project_image",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
     },
     "service_type": {
       "type": "enumeration",
@@ -123,13 +198,23 @@
         "Artificial Intelligence",
         "Hosting & Cloud Services",
         "Data & Analytics"
-      ]
+      ],
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
     },
     "related_offices": {
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::office.office",
-      "inversedBy": "projects"
+      "inversedBy": "projects",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
     }
   }
 }

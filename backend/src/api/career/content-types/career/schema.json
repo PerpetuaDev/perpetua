@@ -9,9 +9,19 @@
   "options": {
     "draftAndPublish": true
   },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
   "attributes": {
     "job_title": {
-      "type": "string"
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "job_type": {
       "type": "enumeration",
@@ -20,10 +30,20 @@
         "Part-time",
         "Casual/Temp",
         "Internship"
-      ]
+      ],
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
     },
     "job_description": {
-      "type": "richtext"
+      "type": "richtext",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "job_location": {
       "type": "enumeration",
@@ -33,7 +53,12 @@
         "Sydney",
         "Yokohama",
         "Any location"
-      ]
+      ],
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
     },
     "location_type": {
       "type": "enumeration",
@@ -42,7 +67,12 @@
         "Remote",
         "Hybrid",
         "Hybrid/remote"
-      ]
+      ],
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
     },
     "branch_name": {
       "type": "enumeration",
@@ -51,13 +81,23 @@
         "Christchurch",
         "Sydney",
         "Yokohama"
-      ]
+      ],
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
     },
     "office": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::office.office",
-      "inversedBy": "careers"
+      "inversedBy": "careers",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
     }
   }
 }
