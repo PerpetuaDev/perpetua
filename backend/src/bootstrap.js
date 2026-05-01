@@ -271,4 +271,12 @@ async function main() {
 
 module.exports = async () => {
   await seedExampleApp();
+  await setDefaultLocales();
 };
+
+async function setDefaultLocales() {
+  const tables = ['pages', 'services'];
+  for (const table of tables) {
+    await strapi.db.connection(table).whereNull('locale').update({ locale: 'en' });
+  }
+}
